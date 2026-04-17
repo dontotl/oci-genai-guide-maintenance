@@ -15,6 +15,7 @@ OCI Generative AI / DAC / AQUA / IaaS GPU 리전 가이드를
 
 ```text
 oci-genai-guide-maintenance/
+├── MAINTENANCE.md
 ├── README.md
 ├── OCI_GenAI_Regional_Model_Guide_Prompt.md
 ├── docs/
@@ -37,6 +38,8 @@ oci-genai-guide-maintenance/
 ---
 
 ## 기본 흐름
+
+작업을 이어서 할 때는 먼저 [MAINTENANCE.md](/home/opc/oci-genai-guide-maintenance/MAINTENANCE.md) 를 보는 것을 권장합니다.
 
 ### 1. 새 날짜 파일과 실행용 프롬프트 생성
 
