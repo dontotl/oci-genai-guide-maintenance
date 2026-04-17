@@ -28,8 +28,8 @@ oci-genai-guide-maintenance/
 │   ├── new_guide.sh
 │   ├── publish_guide.sh
 │   └── refresh_index.sh
-└── .github/
-    └── workflows/
+└── templates/
+    └── github-workflows/
         ├── refresh-request.yml
         └── publish-latest.yml
 ```
@@ -115,7 +115,22 @@ cd /home/opc/oci-genai-guide-maintenance
 
 ## GitHub 운영 방식
 
-이 폴더는 GitHub에 올리면 아래 두 워크플로를 사용할 수 있습니다.
+현재 저장소에는 GitHub Actions 파일을 **템플릿**으로만 넣어 두었습니다.
+이유는 현재 PAT에 `workflow` scope가 없어서 `.github/workflows/*`를 포함한 push가 거부되기 때문입니다.
+
+나중에 GitHub Actions를 켜고 싶으면:
+
+```bash
+mkdir -p .github/workflows
+cp templates/github-workflows/*.yml .github/workflows/
+git add .github/workflows templates/github-workflows README.md
+git commit -m "Enable GitHub Actions workflows"
+git push
+```
+
+그 시점에는 `workflow` scope가 있는 PAT 또는 웹 UI 업로드가 필요할 수 있습니다.
+
+준비된 워크플로 템플릿은 아래 두 개입니다.
 
 ### 1. `refresh-request.yml`
 
