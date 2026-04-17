@@ -1,0 +1,31 @@
+name: Publish Latest Guide
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'docs/guides/*.md'
+      - 'scripts/refresh_index.sh'
+
+jobs:
+  publish-latest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Refresh index files
+        run: ./scripts/refresh_index.sh
+
+      - name: Commit updated latest/index/history
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/INDEX.md docs/LATEST.md docs/HISTORY.md
+          git diff --cached --quiet || git commit -m "Update latest regional guide index"
+          git push
+

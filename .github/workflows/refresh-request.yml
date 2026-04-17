@@ -1,0 +1,65 @@
+name: Refresh Request
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * 1'
+
+jobs:
+  refresh-request:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compute date
+        id: meta
+        run: echo "today=$(date -u +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Create refresh issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const date = '${{ steps.meta.outputs.today }}';
+            const title = `[refresh] OCI GenAI regional guide ${date}`;
+            const prompt = fs.readFileSync('OCI_GenAI_Regional_Model_Guide_Prompt.md', 'utf8')
+              .replace(/<DATE>/g, date)
+              .replace(/<OUTPUT_FILE>/g, `docs/guides/OCI_GenAI_Regional_Model_Guide_v2_${date}.md`);
+            const body = [
+              '주기 리프레시 요청입니다.',
+              '',
+              `대상 날짜: ${date}`,
+              '',
+              '체크리스트:',
+              '- Oracle 공식 문서 최신 여부 확인',
+              '- 새 모델 / deprecated / retired 반영',
+              '- DAC / on-demand 변화 반영',
+              '- 가능하면 OCI CLI shape 조회 시도',
+              '- 발행 후 publish_guide.sh 실행',
+              '',
+              '실행용 prompt:',
+              '```text',
+              prompt,
+              '```'
+            ].join('\n');
+            const {data: issues} = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open'
+            });
+            const exists = issues.find(issue => issue.title === title);
+            if (exists) {
+              core.info(`Issue already exists: #${exists.number}`);
+              return;
+            }
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body
+            });
+
