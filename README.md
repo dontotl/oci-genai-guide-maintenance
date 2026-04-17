@@ -95,8 +95,17 @@ cd /home/opc/oci-genai-guide-maintenance
 
 ### 2. cron 등록 예시
 
+이 VM은 `opc` 사용자가 `crontab` 명령에 직접 접근하지 못할 수 있으므로,
+권장 방식은 `/etc/cron.d/`에 root가 엔트리를 추가하는 것입니다.
+
+예:
+
 ```cron
-0 2 * * 1 cd /home/opc/oci-genai-guide-maintenance && ./scripts/cron_refresh.sh >> /home/opc/oci-genai-guide-maintenance/runs/cron.log 2>&1
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+HOME=/home/opc
+MAILTO=""
+0 2 * * 1 opc cd /home/opc/oci-genai-guide-maintenance && /home/opc/oci-genai-guide-maintenance/scripts/cron_refresh.sh >> /home/opc/oci-genai-guide-maintenance/runs/cron.log 2>&1
 ```
 
 의미:
