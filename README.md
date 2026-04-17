@@ -105,12 +105,13 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 HOME=/home/opc
 MAILTO=""
-0 2 * * 1 opc cd /home/opc/oci-genai-guide-maintenance && /home/opc/oci-genai-guide-maintenance/scripts/cron_refresh.sh >> /home/opc/oci-genai-guide-maintenance/runs/cron.log 2>&1
+0 17 * * 0 opc cd /home/opc/oci-genai-guide-maintenance && /home/opc/oci-genai-guide-maintenance/scripts/cron_refresh.sh >> /home/opc/oci-genai-guide-maintenance/runs/cron.log 2>&1
 ```
 
 의미:
 
-- 매주 월요일 UTC 02:00 실행
+- 매주 월요일 KST 02:00 실행
+- UTC 기준으로는 일요일 17:00 실행
 - 로그는 `runs/cron.log`에 누적
 
 ### 3. 주의
