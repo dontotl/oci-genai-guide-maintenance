@@ -1,30 +1,27 @@
 # OCI Generative AI / DAC / AQUA / IaaS GPU 리전·모델 가이드 v2
 
 최종 업데이트: 2026-05-10 (GMT)  
-정리 기준: Oracle 공식 문서 우선 + OCI CLI 실조회 시도 결과  
-산출물 경로: `/home/opc/oci-genai-guide-maintenance/runs/OCI_GenAI_Regional_Model_Guide_v2_2026-05-10.md`
+정리 기준: Oracle 공식 문서 우선 + OCI CLI 실조회 시도 결과
 
-이 문서는 `LATEST.md`로 복사될 수 있음을 전제로, 앞부분 1페이지 안에 핵심 변화와 판정 기준을 먼저 배치했다.
+이 문서는 `LATEST.md`로 복사될 수 있음을 고려해, 앞부분 1페이지 안에 핵심 변화와 현재 판정 기준을 먼저 배치했다.
 
 ---
 
 ## 이번 업데이트 변화 요약
 
-- `2026-05-05` 기준, Oracle이 `UAE Central (Abu Dhabi)`를 OCI Generative AI 지원 리전에 추가했다.
-- `2026-05-01` 기준, Oracle이 `xAI Grok 4.3`를 OCI Generative AI에 추가했다.
-  - 현재 Oracle `Models by Region` 표 기준으로 `US East (Ashburn)`, `US Midwest (Chicago)`, `US West (Phoenix)`에서 `on-demand only`로 확인된다.
-- `retired / deprecated` 정리는 지난 문서보다 더 강하게 바뀌었다.
-  - `Model Retirement Dates (Dedicated Mode)` 기준으로 `Cohere Embed English Image 3`, `Cohere Embed English Light Image 3`, `Cohere Embed Multilingual Image 3`, `Cohere Embed Multilingual Light Image 3`, `Cohere Embed English 3`, `Cohere Embed Multilingual 3`, `Cohere Embed English Light 3`, `Cohere Embed Multilingual Light 3`, `Meta Llama 3.2 90B`, `Meta Llama 3.2 11B`, `Meta Llama 3.1 405B`가 retired 표에 들어가며 retirement date가 `2026-09-30`로 명시된다.
-  - `Model Retirement Dates (On-Demand Mode)` 기준으로 `Cohere Command R (08-2024)`, `Cohere Command R+ (08-2024)`도 retired 표에 있고 on-demand retirement date는 `2026-09-30`이다.
-- OpenAI `gpt-oss` 전용 DAC 하드웨어 가시성은 기존 판단을 유지한다.
-  - `Dubai`: `A10`, `A100 40G`
-  - `Riyadh`: `H200`
-  - `Chicago`: `A10`, `A100 80G`, `H100`
-  - `Phoenix`: `A100 80G`
-- 이번 문서 생성 시 OCI CLI 실조회는 성공하지 못했다.
-  - `region-subscription list`와 `compute shape list` 모두 `RequestException`으로 끝났다.
-  - 디버그 기준 실제 원인은 `socket.gaierror: [Errno -2] Name or service not known`이며, DNS/이름 해석 단계에서 막혔다.
-  - 따라서 `IaaS/AQUA GPU 재고표`는 Oracle 문서 기준 해석표로 대체했다.
+- `2026-05-05` 기준 Oracle release notes에 `UAE Central (Abu Dhabi)` 리전의 OCI Generative AI 가용성이 추가되었다.
+- `2026-05-01` 기준 Oracle release notes와 개별 모델 페이지에 `xAI Grok 4.3`가 추가되었다.
+- `Models by Region` 기준으로 `UAE Central (Abu Dhabi)`에는 이미 일부 관리형 기본 모델의 dedicated 표기가 보이지만, `Dedicated Cluster Shapes by Region` 쪽에는 아직 Abu Dhabi 전용 A10/A100/H100/H200 하드웨어 표가 명시적으로 보이지 않는다. 따라서 이 문서의 `DAC A10/A100/H100/H200 가시성` 표에서는 Abu Dhabi를 `문서상 미확인`으로 유지했다.
+- retirement/deprecation 관련 문서는 이번 기준에서도 계속 중요하다.
+  - 신규 설계에서 우선 제외할 대상: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`, `Meta Llama 2 70B`
+  - 대체 방향이 명시된 주요 축: `Meta Llama 4 Maverick/Scout`, `Cohere Command A`, `Cohere Embed 4`, `xAI Grok 4.3`
+- `xAI Grok 3`, `xAI Grok 3 Mini`, `xAI Grok 3 Fast`, `xAI Grok 3 Mini Fast`는 Oracle의 on-demand retirement 표에서 `xAI Grok 4.3` 대체 대상으로 정리되어 있다.
+- CLI 실조회는 이번에도 성공하지 못했다.
+  - `region-subscription list`: 실패
+  - `compute shape list`: 실패
+  - `os ns get`: 실패
+  - 공통 관찰: 인증 오류 응답까지 가지 못하고 OCI endpoint GET 재시도만 반복되다가 로컬 `timeout`으로 종료되었다.
+  - 따라서 `IaaS/AQUA GPU 재고표`는 실테넌시 live inventory가 아니라 Oracle 문서 기준 해석표로 대체했다.
 
 ---
 
@@ -36,44 +33,47 @@
 - `DAC`: Dedicated AI Cluster
 - `AQUA`: OCI Data Science AI Quick Actions
 - `IaaS GPU`: OCI Compute 또는 OCI Data Science에서 직접 쓰는 GPU shape
-- `관리형 기본 모델`: Oracle이 직접 제공하는 pretrained foundation model
-- `imported model`: Hugging Face 또는 OCI Object Storage에서 가져와 DAC에 직접 배포하는 모델
+- `관리형 기본 모델`: Oracle이 제공하는 hosted pretrained foundational model
+- `imported model`: 사용자가 Hugging Face 또는 Object Storage에서 가져와 OCI Generative AI에서 OME 기반으로 배포하는 모델
+- `custom model`: OCI Generative AI fine-tuning workflow로 생성한 모델
 
 ### 0-2. 문서 해석 원칙
 
-- Oracle 공식 문서에 있는 사실만 확정적으로 적었다.
-- Oracle 공식 문서에 없으면 `없음`, `미공개`, `문서상 명시 없음`으로 적었다.
-- `관리형 기본 모델`과 `imported model`은 분리해서 적었다.
-- `LARGE_COHERE_*`, `LARGE_GENERIC*`, `SMALL_GENERIC*`, `EMBED_COHERE`, `RERANK_COHERE`는 Oracle이 underlying GPU를 공개하지 않으므로 GPU 메모리를 단정하지 않았다.
-- `AQUA 지원`과 `즉시 GPU 생성 가능`은 같은 의미가 아니다.
-- `리전별 실재고`와 `문서상 지원 shape 존재`는 같은 의미가 아니다.
-- `리전별 DAC A10/A100/H100/H200 가시성`은 Oracle이 하드웨어 unit을 공개한 `OpenAI gpt-oss` 계열 `OAI_*` unit 기준으로만 판정했다.
+- Oracle 공식 문서에 있는 사실만 확정적으로 썼다.
+- Oracle 공식 문서에 없는 리전별 실시간 재고는 `없음`, `문서상 고정표 없음`, `문서상 미확인`으로 적었다.
+- `관리형 기본 모델용 DAC unit`, `imported model용 DAC unit`, `custom model(fine-tuned)용 cluster`를 구분했다.
+- `LARGE_COHERE_*`, `LARGE_GENERIC_*`, `SMALL_GENERIC_*`, `EMBED_COHERE`, `RERANK_COHERE` 같은 일부 DAC unit은 Oracle이 underlying hardware를 공개하지 않으므로 GPU 종류와 GPU 메모리를 단정하지 않았다.
+- GPU 메모리 계산은 `A10/A100/H100/H200`처럼 이름 또는 공식 shape 표로 GPU 메모리가 공개된 unit만 계산했다.
+- Oracle retirement 문서에는 `Retired Models` 표와 날짜 필드가 함께 제공된다. 표 제목과 날짜가 직관적으로 어긋나 보이는 항목도 있어, 이 문서는 Oracle 표 구분과 날짜를 그대로 병기하고 임의 재해석은 하지 않았다.
+- `관리형 기본 모델을 DAC로 돌릴 수 있다`와 `imported model에 같은 GPU를 쓰면 동일 성능이 난다`는 같은 뜻이 아니다.
 
 ---
 
-## 1. CLI 조회 성공/실패 상태
+## 1. CLI 조회 상태
 
 ### 1-1. 실행 상태 표
 
-| 조회 항목 | 실행 명령 | 상태 | 결과 |
+| 조회 항목 | 실행 명령 | 상태 | 관찰 |
 |---|---|---|---|
-| CLI 버전 확인 | `oci --version` | 성공 | `3.78.0` |
-| 구독 리전 조회 | `oci iam region-subscription list --all` | 실패 | `RequestException: The connection to endpoint timed out.` |
-| GPU shape 조회 | `oci --region us-chicago-1 compute shape list --all -c <tenancy_ocid>` | 실패 | `RequestException: The connection to endpoint timed out.` |
-| DNS 확인 | `getent hosts identity.ap-seoul-1.oci.oraclecloud.com` | 실패 | 출력 없음 |
-| DNS 확인 | `getent hosts iaas.us-chicago-1.oraclecloud.com` | 실패 | 출력 없음 |
+| 구독 리전 조회 | `oci iam region-subscription list --all --tenancy-id <tenancy_ocid> --output table` | 실패 | `identity.ap-seoul-1.oci.oraclecloud.com`로 GET 재시도 반복 후 `timeout 15s` 종료 |
+| GPU shape 조회 | `oci --region us-ashburn-1 compute shape list --all -c <tenancy_ocid> ...` | 실패 | `iaas.us-ashburn-1.oraclecloud.com`로 GET 재시도 반복 후 `timeout 15s` 종료 |
+| 보조 연결 확인 | `oci --region ap-seoul-1 os ns get --output table` | 실패 | `objectstorage.ap-seoul-1.oraclecloud.com`로 GET 재시도 반복 후 `timeout 15s` 종료 |
 
-### 1-2. 실패 이유 요약
+### 1-2. 실패 이유와 문서 반영 방식
 
 | 항목 | 관찰 내용 | 문서 반영 방식 |
 |---|---|---|
-| `region-subscription list` | 디버그 로그에 `GET https://identity.ap-seoul-1.oci.oraclecloud.com/.../regionSubscriptions` 반복 후 `socket.gaierror: [Errno -2] Name or service not known` | Oracle `Generative AI Regions` 문서 기준 표로 대체 |
-| `compute shape list` | 디버그 로그에 `GET https://iaas.us-chicago-1.oraclecloud.com/20160918/shapes` 반복 후 `socket.gaierror: [Errno -2] Name or service not known` | Oracle `Compute Shapes` / `Data Science Supported Compute Shapes` 문서 기준 해석표로 대체 |
+| OCI CLI 설치 | `oci --version` 확인됨 | CLI 자체는 설치됨 |
+| OCI 설정 | `~/.oci/config`에 `user`, `tenancy`, `region` 값 존재 | 명령 형식 자체는 유효한 환경으로 판단 |
+| `region-subscription list` | Identity endpoint 요청 반복, 응답 본문 미수신 | Oracle 리전 문서 기준 표로 대체 |
+| `compute shape list` | IaaS endpoint 요청 반복, 응답 본문 미수신 | Compute/Data Science shape 문서 기준 해석표로 대체 |
+| `os ns get` | Object Storage endpoint 요청 반복, 응답 본문 미수신 | 인증 성공/실패 판정보다 앞단의 응답 지연 또는 reachability 문제로 취급 |
 
-정리:
+실무 메모:
 
-- 이번 환경의 실패 원인은 `권한 부족`보다 앞 단계인 `DNS/이름 해석 실패`다.
-- 따라서 아래 `IaaS / AQUA GPU 재고표`는 실시간 테넌시 결과가 아니라 Oracle 공식 문서 기준 해석이다.
+- 이번 실행에서는 `NotAuthorizedOrNotFound` 같은 권한 오류를 확인하지 못했다.
+- 반대로 `timeout 15s` 안에서 endpoint 요청이 반복되다가 종료되는 패턴은 확인했다.
+- 따라서 아래 `IaaS/AQUA GPU 재고표`는 live inventory가 아니라 `문서 기준 해석표`다.
 
 ---
 
@@ -81,32 +81,33 @@
 
 ### 2-1. 상용 리전
 
-| 권역 | 리전 | 리전 식별자 | Generative AI | DAC | AQUA |
+| 권역 | 리전 | Generative AI | DAC | AQUA | 비고 |
 |---|---|---|---|---|---|
-| SA | Brazil East (Sao Paulo) | `sa-saopaulo-1` | 지원 | 지원(모델별) | 지원 |
-| EU | Germany Central (Frankfurt) | `eu-frankfurt-1` | 지원 | 지원(모델별) | 지원 |
-| AP | India South (Hyderabad) | `ap-hyderabad-1` | 지원 | 지원(모델별) | 지원 |
-| AP | Japan Central (Osaka) | `ap-osaka-1` | 지원 | 지원(모델별) | 지원 |
-| ME | Saudi Arabia Central (Riyadh) | `me-riyadh-1` | 지원 | 지원(모델별) | 지원 |
-| ME | UAE Central (Abu Dhabi) | `me-abudhabi-1` | 지원 | 지원(모델별) | 지원 |
-| ME | UAE East (Dubai) | `me-dubai-1` | 지원 | 지원(모델별) | 지원 |
-| EU | UK South (London) | `uk-london-1` | 지원 | 지원(모델별) | 지원 |
-| NA | US East (Ashburn) | `us-ashburn-1` | 지원 | 지원(모델별) | 지원 |
-| NA | US Midwest (Chicago) | `us-chicago-1` | 지원 | 지원(모델별) | 지원 |
-| NA | US West (Phoenix) | `us-phoenix-1` | 지원 | 지원(모델별) | 지원 |
+| SA | Brazil East (Sao Paulo) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| EU | Germany Central (Frankfurt) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| AP | India South (Hyderabad) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| AP | Japan Central (Osaka) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| ME | Saudi Arabia Central (Riyadh) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| ME | UAE Central (Abu Dhabi) | 지원 | 지원(모델별) | 지원 | `2026-05-05` 추가 |
+| ME | UAE East (Dubai) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| EU | UK South (London) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| NA | US East (Ashburn) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| NA | US Midwest (Chicago) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
+| NA | US West (Phoenix) | 지원 | 지원(모델별) | 지원 | 상용 리전 |
 
 ### 2-2. 정부 / 소버린 리전
 
-| 권역 | 리전 | 리전 식별자 | Generative AI | DAC | AQUA |
+| 권역 | 리전 | Generative AI | DAC | AQUA | 비고 |
 |---|---|---|---|---|---|
-| GOV | UK Gov South (London) | `uk-gov-london-1` | 지원 | 지원(모델별) | 지원 |
-| SOV | EU Sovereign Central (Frankfurt) | `eu-frankfurt-2` | 지원 | 지원(모델별) | 문서상 명시 없음 |
+| GOV | UK Gov South (London) | 지원 | 지원(모델별) | 지원 | 정부 리전 |
+| SOV | EU Sovereign Central (Frankfurt) | 지원 | 지원(모델별) | Oracle 문서상 명시 확인 못함 | sovereign AQUA 지원 여부는 이번 기준 미확인 |
 
-메모:
+정리:
 
-- Generative AI 리전 목록은 Oracle `Generative AI Regions` 문서 기준이다.
-- AQUA는 Oracle 문서상 `all commercial and government regions` 지원이다.
-- EU Sovereign에 대한 AQUA 지원은 이번 확인 문서에서 명시를 찾지 못했다.
+- Generative AI 서비스 자체는 `Models by Region`과 release notes 기준으로 위 리전들이 확인된다.
+- DAC는 `모델별`이다. 서비스가 있는 리전과 특정 모델의 dedicated hosting 가능 리전은 다를 수 있다.
+- AQUA는 Oracle Data Science 문서상 `all commercial and government regions` 지원이다.
+- AQUA의 sovereign 리전 지원은 이번 확인 범위에서 Oracle 공식 문서 근거를 찾지 못했다.
 
 ---
 
@@ -114,105 +115,114 @@
 
 판정 기준:
 
-- 이 표는 Oracle `Dedicated Cluster Shapes by Region` 문서의 `OpenAI gpt-oss` 행과 개별 `gpt-oss` 모델 카드만 사용했다.
-- 즉, `OAI_A10_*`, `OAI_A100_*`, `OAI_H100_*`, `OAI_H200_*`가 문서에 공개된 경우만 `예`로 적었다.
-- `LARGE_COHERE_*`, `LARGE_GENERIC*`는 underlying GPU가 미공개이므로 A10/A100/H100/H200 가시성 판정에 쓰지 않았다.
+- 이 표는 Oracle의 `OpenAI gpt-oss-20b / 120b` 개별 모델 페이지와 `Dedicated Cluster Shapes by Region` 공개 unit만 사용했다.
+- 즉, `Oracle이 GPU 종류를 고객에게 공개한 DAC`만 반영했다.
+- `LARGE_COHERE_*`, `LARGE_GENERIC_*`는 Oracle이 GPU 종류를 공개하지 않으므로 이 표의 A/H 계열 판정에 쓰지 않았다.
 
-### 3-1. 북미 / 남미
-
-| 리전 | A10 | A100 40G | A100 80G | H100 | H200 | 메모 |
-|---|---|---|---|---|---|---|
-| Brazil East (Sao Paulo) | - | - | - | 예 | - | `gpt-oss`는 `OAI_H100_X1/X2` |
-| US East (Ashburn) | 예 | - | - | 예 | - | `20b`는 `A10` 또는 `H100`, `120b`는 `H100` |
-| US Midwest (Chicago) | 예 | - | 예 | 예 | - | `A10 / A100 80G / H100` 공존 |
-| US West (Phoenix) | - | - | 예 | - | - | `A100 80G`만 공개 |
-
-### 3-2. 유럽 / 중동 / 아시아태평양
+### 3-1. 상용 리전
 
 | 리전 | A10 | A100 40G | A100 80G | H100 | H200 | 메모 |
 |---|---|---|---|---|---|---|
-| Germany Central (Frankfurt) | 예 | - | - | 예 | - | `20b`는 `A10` 또는 `H100`, `120b`는 `H100` |
-| EU Sovereign Central (Frankfurt) | 예 | - | - | 예 | - | `20b`는 `A10` 또는 `H100`, `120b`는 `H100` |
-| UK South (London) | - | - | - | 예 | - | `H100`만 공개 |
-| UK Gov South (London) | - | - | - | 예 | - | `H100`만 공개 |
-| Saudi Arabia Central (Riyadh) | - | - | - | - | 예 | `20b/120b` 모두 `H200` 공개 |
-| UAE Central (Abu Dhabi) | - | - | - | - | - | DAC 자체는 지원되지만 공개 `OAI_*` row는 없음 |
-| UAE East (Dubai) | 예 | 예 | - | - | - | `20b`는 `A10` 또는 `A100 40G`, `120b`는 `A100 40G` |
-| India South (Hyderabad) | - | - | - | 예 | - | `H100` 공개 |
-| Japan Central (Osaka) | - | - | - | 예 | - | `H100` 공개 |
+| Brazil East (Sao Paulo) | - | - | - | 예 | - | `gpt-oss`는 H100 계열 |
+| Germany Central (Frankfurt) | 예 | - | - | 예 | - | `20b`는 A10 또는 H100 |
+| India South (Hyderabad) | - | - | - | 예 | - | H100 계열 |
+| Japan Central (Osaka) | - | - | - | 예 | - | H100 계열 |
+| Saudi Arabia Central (Riyadh) | - | - | - | - | 예 | `20b/120b` 모두 H200 계열 확인 |
+| UAE Central (Abu Dhabi) | 문서상 미확인 | 문서상 미확인 | 문서상 미확인 | 문서상 미확인 | 문서상 미확인 | service/mode는 보이나 GPU family 표는 미확인 |
+| UAE East (Dubai) | 예 | 예 | - | - | - | A10 / A100 40G 계열 |
+| UK South (London) | - | - | - | 예 | - | H100 계열 |
+| US East (Ashburn) | 예 | - | - | 예 | - | `20b`는 A10 또는 H100 |
+| US Midwest (Chicago) | 예 | - | 예 | 예 | - | A10 / A100 80G / H100 공존 |
+| US West (Phoenix) | - | - | 예 | - | - | A100 80G 계열 |
 
-짧은 해석:
+### 3-2. 정부 / 소버린 리전
+
+| 리전 | A10 | A100 40G | A100 80G | H100 | H200 | 메모 |
+|---|---|---|---|---|---|---|
+| UK Gov South (London) | - | - | - | 예 | - | `gpt-oss`는 H100 계열만 문서 확인 |
+| EU Sovereign Central (Frankfurt) | 예 | - | - | 예 | - | `20b`는 A10 또는 H100, `120b`는 H100 |
+
+요약:
 
 - 관리형 `gpt-oss` 기준으로 가장 넓게 보이는 계열은 `H100`이다.
-- `H200`은 이번 확인 기준에서 `Riyadh`만 Oracle 문서상 공개된다.
-- `A100 80G`는 `Chicago`, `Phoenix`에서 공개된다.
-- `A100 40G`는 `Dubai`에서 공개된다.
-- `Abu Dhabi`는 서비스 리전에는 들어왔지만, 공개 `OAI_*` unit 기준의 DAC 하드웨어 가시성은 아직 확인되지 않는다.
+- `H200`은 이번 기준에서 `Saudi Arabia Central (Riyadh)`의 `gpt-oss` 전용 DAC에서만 공식 확인된다.
+- `A100 80G`는 `US Midwest (Chicago)`, `US West (Phoenix)`에서 공식 확인된다.
+- `A100 40G`는 `UAE East (Dubai)`에서 공식 확인된다.
 
 ---
 
 ## 4. IaaS GPU shape 조회 명령과 결과 해석법
 
-### 4-1. 조회 명령
+### 4-1. 리전 구독 조회 명령
 
 ```bash
 oci iam region-subscription list --all \
+  --tenancy-id <tenancy_ocid> \
   --query 'data[]."region-name"' \
   --raw-output
 ```
 
+### 4-2. GPU shape 조회 명령
+
 ```bash
 oci --region <region> compute shape list --all \
-  -c <tenancy_ocid> \
-  --query 'data[?contains(shape, `GPU`)].{shape:shape,gpus:gpus,"gpu-desc":"gpu-description",memory:"memory-in-gbs",ocpus:ocpus}' \
+  -c <compartment_or_tenancy_ocid> \
+  --query 'data[?contains(shape, `GPU`)].{shape:shape,gpus:gpus,"gpu-desc":"gpu-description",memory_gb:"memory-in-gbs",ocpus:ocpus}' \
   --output table
 ```
 
-### 4-2. 이번 실행의 해석
+### 4-3. 이번 실행 결과 해석
 
-- 명령 문법 자체는 유효하다.
-- 이번 환경에서는 두 명령 모두 인증/권한 판정 전, 엔드포인트 DNS 해석 실패로 `RequestException`이 발생했다.
-- 따라서 이 문서의 `IaaS / AQUA` 관련 표는 Oracle 공식 문서의 지원 shape와 해석 규칙을 사용한다.
+- 명령 형식 자체는 유효하다.
+- 이번 환경에서는 `region-subscription list`, `compute shape list`, `os ns get` 모두 OCI endpoint 응답을 받기 전에 로컬 `timeout`으로 종료되었다.
+- 따라서 이 문서의 IaaS/AQUA 관련 표는 아래 `shape-to-GPU 매핑`과 Oracle `Compute Shapes` / `Data Science Supported Compute Shapes` 문서로 읽어야 한다.
 
-### 4-3. 결과 해석법
+### 4-4. 결과 해석법
 
 | CLI에 보이는 shape | 해석 |
 |---|---|
 | `VM.GPU3.*`, `BM.GPU3.8` | V100 계열 |
-| `VM.GPU.A10.*`, `BM.GPUA10.4` | A10 계열 |
+| `VM.GPU.A10.*`, `BM.GPU.A10.4` 또는 `BM.GPUA10.4` | A10 계열 |
 | `BM.GPU4.8` | A100 40GB 계열 |
 | `BM.GPU.A100-v2.8` | A100 80GB 계열 |
 | `BM.GPU.H100.8` | H100 계열 |
 | `BM.GPU.H200.8` | H200 계열 |
-| `BM.GPU.L40S-NC.4` | L40S 계열 |
+| `BM.GPU.L40S.4` 또는 `BM.GPU.L40S-NC.4` | L40S 계열 |
+
+중요:
+
+- Oracle 공식 문서 안에서도 shape 표기 차이가 있다.
+- Compute 문서는 `BM.GPU.A10.4`, `BM.GPU.L40S.4`로 보이고, Data Science 문서는 `BM.GPUA10.4`, `BM.GPU.L40S-NC.4`로 보인다.
+- 따라서 실제 CLI 결과는 `문자열 자체`를 먼저 믿고, 해석은 GPU family 기준으로 하는 편이 안전하다.
 
 ---
 
 ## 5. shape-to-GPU 매핑
 
-### 5-1. VM GPU shapes
+### 5-1. Compute / Data Science 공통 해석 표
 
 | Shape | GPU | GPU 수 | 총 GPU 메모리 | OCPU | CPU 메모리 |
 |---|---|---:|---:|---:|---:|
 | `VM.GPU3.1` | V100 | 1 | 16 GB | 6 | 90 GB |
 | `VM.GPU3.2` | V100 | 2 | 32 GB | 12 | 180 GB |
 | `VM.GPU3.4` | V100 | 4 | 64 GB | 24 | 360 GB |
+| `BM.GPU3.8` | V100 | 8 | 128 GB | 52 | 768 GB |
 | `VM.GPU.A10.1` | A10 | 1 | 24 GB | 15 | 240 GB |
 | `VM.GPU.A10.2` | A10 | 2 | 48 GB | 30 | 480 GB |
-
-### 5-2. Bare metal GPU shapes
-
-| Shape | GPU | GPU 수 | 총 GPU 메모리 | OCPU | CPU 메모리 |
-|---|---|---:|---:|---:|---:|
-| `BM.GPU3.8` | V100 | 8 | 128 GB | 52 | 768 GB |
-| `BM.GPUA10.4` | A10 | 4 | 96 GB | 64 | 1024 GB |
-| `BM.GPU4.8` | A100 40G | 8 | 320 GB | 64 | 2048 GB |
-| `BM.GPU.A100-v2.8` | A100 80G | 8 | 640 GB | 64 | 2048 GB |
+| `BM.GPU.A10.4` / `BM.GPUA10.4` | A10 | 4 | 96 GB | 64 | 1024 GB |
+| `BM.GPU4.8` | A100 | 8 | 320 GB | 64 | 2048 GB |
+| `BM.GPU.A100-v2.8` | A100 | 8 | 640 GB | 64 또는 128 | 2048 GB |
 | `BM.GPU.H100.8` | H100 | 8 | 640 GB | 112 | 2048 GB |
 | `BM.GPU.H200.8` | H200 | 8 | 1128 GB | 112 | 3072 GB |
-| `BM.GPU.L40S-NC.4` | L40S | 4 | 192 GB | 112 | 1024 GB |
+| `BM.GPU.L40S.4` / `BM.GPU.L40S-NC.4` | L40S | 4 | 192 GB | 112 | 1024 GB |
 
-### 5-3. GPU 메모리 환산 규칙
+주의:
+
+- `BM.GPU.A100-v2.8`의 OCPU 표기는 Compute 문서와 Data Science 문서가 다르게 보인다.
+- 이 문서는 `GPU/GPU 메모리` 축을 우선 사용하고, OCPU는 문서 차이가 있음을 인정한다.
+- 사용자 요청 범위를 맞추기 위해 `A10/A100/H100/H200` 중심으로 읽고, `MI300X`, `MI355X`, `B200`, `GB200`, `GB300`은 본문 핵심 표에서 제외했다.
+
+### 5-2. 메모리 환산 규칙
 
 | 계열 | GPU당 메모리 | 예시 |
 |---|---:|---|
@@ -228,105 +238,116 @@ oci --region <region> compute shape list --all \
 
 중요:
 
-- Oracle 공식 문서는 `리전별 실시간 GPU 재고 수량`을 제공하지 않는다.
-- 따라서 이 절은 `실재고 수량표`가 아니라 `문서상 지원 shape와 운영 해석표`다.
+- Oracle 공식 문서는 `리전별 실시간 GPU 재고표`를 제공하지 않는다.
+- CLI 실조회가 실패했으므로, 아래 표는 `문서상 지원 shape 계열`을 정리한 해석표다.
+- 실제 생성 가능 여부는 `service limit`, `host capacity`, `reservation`, `region-specific availability`를 별도 확인해야 한다.
 
-### 6-1. Oracle 문서상 지원 shape 재고표
+### 6-1. 문서 기준 IaaS / AQUA 지원 GPU 계열
 
-| GPU 계열 | OCI Compute shape 예 | Data Science / AQUA 해석 | Oracle의 리전별 실시간 재고표 |
+| 계열 | IaaS Compute shape 예 | Data Science / AQUA shape 예 | Oracle의 리전별 고정 재고표 |
 |---|---|---|---|
-| V100 | `VM.GPU3.*`, `BM.GPU3.8` | 지원 shape 문서 존재 | 없음 |
-| A10 | `VM.GPU.A10.*`, `BM.GPUA10.4` | 지원 shape 문서 존재 | 없음 |
-| A100 40G | `BM.GPU4.8` | 지원 shape 문서 존재 | 없음 |
-| A100 80G | `BM.GPU.A100-v2.8` | 지원 shape 문서 존재 | 없음 |
-| H100 | `BM.GPU.H100.8` | 지원 shape 문서 존재 | 없음 |
-| H200 | `BM.GPU.H200.8` | 지원 shape 문서 존재 | 없음 |
-| L40S | `BM.GPU.L40S-NC.4` | 지원 shape 문서 존재 | 없음 |
+| V100 | `VM.GPU3.*`, `BM.GPU3.8` | 지원 | 없음 |
+| A10 | `VM.GPU.A10.*`, `BM.GPU.A10.4` / `BM.GPUA10.4` | 지원 | 없음 |
+| A100 40G | `BM.GPU4.8` | 지원 | 없음 |
+| A100 80G | `BM.GPU.A100-v2.8` | 지원 | 없음 |
+| H100 | `BM.GPU.H100.8` | 지원 | 없음 |
+| H200 | `BM.GPU.H200.8` | 지원 | 없음 |
+| L40S | `BM.GPU.L40S.4` / `BM.GPU.L40S-NC.4` | 지원 | 없음 |
 
-### 6-2. 문서 기준 해석표
+### 6-2. AQUA / Data Science 해석 규칙
 
-| 항목 | Oracle 문서 상태 | 이 문서의 처리 |
+| 항목 | Oracle 문서 상태 | 이 문서의 처리 방식 |
 |---|---|---|
-| IaaS GPU per-region 재고 수량 | 없음 | CLI 성공 시 실제 결과 우선, 실패 시 `없음` 유지 |
-| AQUA per-region GPU 재고 수량 | 없음 | Data Science 지원 shape 기준으로만 해석 |
-| 실제 생성 가능 여부 | 문서만으로 확정 불가 | `service limit`, `shape capacity`, `reservation` 여부를 추가 확인 |
-| Data Science GPU 사용 조건 | 문서 명시 있음 | 리전 내 shape 가용성과 Data Science limit가 둘 다 필요 |
-| Reserved GPU 이전 | 문서 명시 있음 | Compute 예약 GPU를 Data Science로 이전 가능하나 제약 존재 |
+| AQUA 리전 지원 | 상용 + 정부 리전 지원 명시 | sovereign은 미확인으로 유지 |
+| AQUA per-region GPU 고정표 | 없음 | Data Science 지원 shape + service limit 주의로 해석 |
+| Data Science GPU 생성 가능 여부 | 문서만으로 확정 불가 | limit + shape capacity + reservation 필요 여부를 함께 확인 |
+| GPU 이전 방식 | Compute 예약 GPU를 Data Science로 이전 가능 문구 존재 | live availability가 아니라 운영 절차 참고용으로만 사용 |
 
 ### 6-3. 실무 메모
 
-| 계열 | 실무 해석 |
+| 항목 | 해석 |
 |---|---|
-| A10 | 작은 시작점이지만 리전별 실재고는 CLI/Console 실조회 필요 |
-| A100 | imported/custom 시작점으로 범용적이지만 리전 편차와 capacity 이슈 확인 필요 |
-| H100 | 관리형 DAC 가시성은 가장 넓지만 IaaS 실재고는 문서만으로 확정 불가 |
-| H200 | shape 문서는 있으나 per-region 고정 재고표는 없음 |
-| AQUA | `지원`은 `즉시 GPU 생성 가능`이 아니라 `Data Science GPU shape를 활용할 수 있는 기능 경로`로 해석해야 함 |
+| A10 | Data Science 문서상 GPU reservation을 이전해서 쓰는 절차가 보인다. |
+| A100 | Oracle 문서상 imported model 권장 shape에서 가장 자주 보이는 범용 출발점이다. |
+| H100 | 관리형 `gpt-oss`와 imported 대형 모델에서 가장 넓게 보이는 상위 계열이다. |
+| H200 | 지원 shape는 문서에 보이지만 per-region 고정표는 없다. |
+| AQUA | `all commercial and government regions` 지원이지만 리전별 GPU 재고를 따로 공개하지 않는다. |
 
 ---
 
 ## 7. 온디맨드 핵심 모델 표
 
-### 7-1. 관리형 기본 모델
+중요:
 
-| 모델 ID | 유형 | 컨텍스트 | 온디맨드 | 파인튜닝 | 핵심 강점 |
+- 이 표는 `Oracle 개별 모델 페이지에서 핵심 특징이 확인되는 모델` 위주로 정리했다.
+- 표 폭을 줄이기 위해 범용/멀티모달/임베딩·재정렬로 분리했다.
+
+### 7-1. 범용 / 추론
+
+| 모델 | 유형 | 컨텍스트 | 온디맨드 | 파인튜닝 | 핵심 강점 |
 |---|---|---|---|---|---|
-| `cohere.command-a-03-2025` | 범용 chat/agent | 256k | 예 | 불가 | tool use, RAG, multilingual |
-| `cohere.command-a-vision` | 멀티모달 | 128k | 예(리전별 상이) | 불가 | 문서, 차트, 이미지 해석 |
-| `cohere.embed-v4.0` | 임베딩 | 총 128k 입력 | 예 | 불가 | 텍스트/이미지 임베딩, 1536-d |
-| `meta.llama-4-scout-17b-16e-instruct` | 멀티모달 | 192k | 예(리전별 상이) | 불가 | 작은 GPU footprint, agentic 활용 |
-| `meta.llama-4-maverick-17b-128e-instruct-fp8` | 멀티모달 | 512k | 예(리전별 상이) | 불가 | 긴 문맥, 코딩/추론 |
-| `meta.llama-3.3-70b-instruct` | 텍스트 | 128k | 예(리전별 상이) | 가능 | 현행 관리형 fine-tuning 대표 모델 |
-| `openai.gpt-oss-20b` | 텍스트 reasoning | 128k | 예 | 불가 | 빠른 reasoning/coding 반복 |
-| `openai.gpt-oss-120b` | 텍스트 reasoning | 128k | 예 | 불가 | 고난도 reasoning, production 지향 |
+| `cohere.command-a-03-2025` | 범용 chat/agent | 256k | 예 | 불가 | 기업형 RAG, tool use, multilingual |
+| `meta.llama-3.3-70b-instruct` | 범용 instruct | 128k | 예 | 가능 | 범용 오픈모델 + OCI fine-tuning 가능 |
+| `openai.gpt-oss-20b` | text reasoning | 128k | 예 | 불가 | 빠른 reasoning, 코딩, STEM |
+| `openai.gpt-oss-120b` | text reasoning | 128k | 예 | 불가 | production급 reasoning |
+| `xai.grok-4.3` | multimodal reasoning | 1M | 예 | 불가 | 고난도 reasoning, structured output, function calling |
 
-### 7-2. 외부 플랫폼 / 외부 호출 계열
+### 7-2. 멀티모달 / 장문
 
-| 모델 ID | 유형 | 컨텍스트 | 온디맨드 | 파인튜닝 | 핵심 강점 |
+| 모델 | 유형 | 컨텍스트 | 온디맨드 | 파인튜닝 | 핵심 강점 |
 |---|---|---|---|---|---|
-| `google.gemini-2.5-pro` | 멀티모달 reasoning | 1M | 예 | 불가 | 고난도 분석, 코드, 복합 멀티모달 |
-| `google.gemini-2.5-flash` | 빠른 멀티모달 reasoning | 1M | 예 | 불가 | 속도/지능 균형 |
-| `google.gemini-2.5-flash-lite` | 경량 멀티모달 | 1M | 예 | 불가 | 저비용 대량 처리 |
-| `xai.grok-4.3` | 최신 reasoning | 1M | 예 | 불가 | 정확도 중시 reasoning, 함수 호출 |
-| `xai.grok-4.20-0309-*` | reasoning / non-reasoning | 2M | 예 | 불가 | 장문, tool-calling, 멀티모달 |
-| `xai.grok-code-fast-1` | 코딩 agent | 256k | 예 | 불가 | agentic coding, terminal/tool use |
+| `cohere.command-a-vision` | 멀티모달 | 128k | 예 | 불가 | 문서·차트·이미지 해석 |
+| `cohere.command-a-reasoning` | reasoning | 256k | 예 | 불가 | 대형 문서 분석, agentic workflow |
+| `meta.llama-4-scout-17b-16e-instruct` | 멀티모달 | 192k | Chicago | 불가 | 작은 GPU footprint, 긴 문맥 |
+| `meta.llama-4-maverick-17b-128e-instruct-fp8` | 멀티모달 | 512k | Chicago | 불가 | 코딩/추론, 초장문 문맥 |
+| `google.gemini-2.5-pro` | 멀티모달 reasoning | 1M | 예 | 불가 | 가장 어려운 문제 해결, 대형 입력 |
+| `google.gemini-2.5-flash` | 멀티모달 fast reasoning | 1M | 예 | 불가 | 속도/지능 균형 |
+| `google.gemini-2.5-flash-lite` | 멀티모달 경량 | 1M | 예 | 불가 | 저비용, 대량 처리 |
+
+### 7-3. 임베딩 / 재정렬 / 코딩 특화
+
+| 모델 | 유형 | 온디맨드 | 파인튜닝 | 핵심 강점 |
+|---|---|---|---|---|
+| `cohere.embed-v4.0` | 임베딩 | 예 | 불가 | 텍스트 + 이미지 임베딩 |
+| `cohere.rerank.v3-5` | 재정렬 | 아니오 | 불가 | 검색 후 재정렬 품질 향상 |
+| `xAI Grok Code Fast 1` | 코딩 / external calls | 예 | 불가 | agentic coding, tool-use 중심 |
 
 메모:
 
-- Google Gemini 계열은 Oracle 문서상 `on-demand only`이며 `External Calls` 설명이 있다.
-- xAI Grok 계열도 Oracle 문서상 `on-demand only`다.
-- `Cohere Command A Reasoning`은 현재 Oracle region matrix 기준으로 DAC 중심 모델로 보는 편이 안전하다.
-- `예(리전별 상이)`는 모델별 region matrix를 따로 확인해야 한다는 뜻이다.
+- Gemini 계열과 xAI 계열은 Oracle 문서상 on-demand 중심이다.
+- Gemini는 on-demand only다.
+- xAI Grok 계열도 Oracle 모델 페이지 기준으로 on-demand only다.
+- `cohere.rerank.v3-5`는 dedicated only라서 `온디맨드 핵심 모델 표`에서는 재정렬 기준 참고 항목으로만 넣었다.
 
 ---
 
 ## 8. DAC 중심 모델 표
 
-### 8-1. 현재 운영 관점에서 먼저 볼 관리형 DAC 모델
+### 8-1. 현재 설계에서 자주 보는 관리형 DAC 모델
 
 | 모델 ID | 호스팅 DAC unit | 파인튜닝 | 메모 |
 |---|---|---|---|
-| `cohere.command-a-03-2025` | `LARGE_COHERE_V3 x1` | 불가 | `Dubai`는 `SMALL_COHERE_4 x1` 공개 |
-| `cohere.command-a-vision` | `LARGE_COHERE_V3 x1` | 불가 | `Dubai`는 `SMALL_COHERE_4 x1` 공개 |
-| `cohere.command-a-reasoning` | `LARGE_COHERE_V2_2 x1` | 불가 | `Dubai`는 `SMALL_COHERE_4 x1` 공개 |
-| `cohere.embed-v4.0` | `EMBED_COHERE x1` | 불가 | 임베딩 전용 |
-| `Cohere Rerank 3.5` | `RERANK_COHERE x1` | 불가 | rerank 전용 |
-| `meta.llama-4-scout-17b-16e-instruct` | `LARGE_GENERIC_V2 x1` | 불가 | 멀티모달, 작은 footprint |
-| `meta.llama-4-maverick-17b-128e-instruct-fp8` | `LARGE_GENERIC_2 x1` | 불가 | 512k 컨텍스트 |
-| `meta.llama-3.3-70b-instruct` | `LARGE_GENERIC x1` hosting / `LARGE_GENERIC x2` fine-tuning | 가능 | OC1 fine-tuning 가능, OC4/OC19 불가 |
-| `openai.gpt-oss-20b` | 리전별 `OAI_A10_X2 / OAI_A100_40G_X1 / OAI_A100_80G_X1 / OAI_H100_X1 / OAI_H200_X1` | 불가 | 하드웨어 종류가 가장 명확 |
-| `openai.gpt-oss-120b` | 리전별 `OAI_A100_40G_X4 / OAI_A100_80G_X2 / OAI_H100_X2 / OAI_H200_X1` | 불가 | 고난도 reasoning |
+| `cohere.command-a-03-2025` | `LARGE_COHERE_V3 x1` | 불가 | Dubai는 `SMALL_COHERE_4 x1` |
+| `cohere.command-a-vision` | `LARGE_COHERE_V3 x1` | 불가 | Dubai는 `SMALL_COHERE_4 x1` |
+| `cohere.command-a-reasoning` | `LARGE_COHERE_V2_2 x1` | 불가 | Dubai는 `SMALL_COHERE_4 x1` |
+| `cohere.embed-v4.0` | `EMBED_COHERE x1` | 불가 | 리전별 온디맨드/전용 다름 |
+| `cohere.rerank.v3-5` | `RERANK_COHERE x1` | 불가 | dedicated only |
+| `meta.llama-3.3-70b-instruct` | `Large Generic x1` hosting, `x2` fine-tuning | 가능 | OC1 상용 리전에서 fine-tuning 가능 |
+| `meta.llama-3.3-70b-instruct-fp8-dynamic` | `Large Generic x1` | 불가 | Dubai는 `LARGE_GENERIC_V1`, Abu Dhabi는 `LARGE_GENERIC_V4` |
+| `meta.llama-4-scout-17b-16e-instruct` | `Large Generic V2 x1` | 불가 | Abu Dhabi는 `LARGE_GENERIC_V4 x1` |
+| `meta.llama-4-maverick-17b-128e-instruct-fp8` | `Large Generic 2 x1` | 불가 | Abu Dhabi는 `LARGE_GENERIC_V5 x1` |
+| `openai.gpt-oss-20b` | `OAI_A10_X2 / OAI_A100_40G_X1 / OAI_A100_80G_X1 / OAI_H100_X1 / OAI_H200_X1` | 불가 | 공개된 GPU 계열이 가장 명확 |
+| `openai.gpt-oss-120b` | `OAI_A100_40G_X4 / OAI_A100_80G_X2 / OAI_H100_X2 / OAI_H200_X1` | 불가 | 대형 reasoning |
 
-### 8-2. retired 상태를 먼저 인지해야 할 구형 DAC 모델
+### 8-2. DAC 중심에서 특히 눈여겨볼 모델
 
-| 모델/계열 | 현재 판단 | 메모 |
+| 모델 | 왜 DAC 중심인가 | 문서상 주의점 |
 |---|---|---|
-| `cohere.command-r-08-2024` | on-demand retired 표 / dedicated retired 표 | 신규 설계 시작점으로는 비권장 |
-| `cohere.command-r-plus-08-2024` | on-demand retired 표 / dedicated retired 표 | 신규 설계 비권장 |
-| `cohere.embed-english-v3.0` 등 Embed 3 계열 | dedicated retired 표 | replacement는 `cohere.embed-v4.0` 우선 |
-| `meta.llama-3.2-90b-vision` | dedicated retired 표 | replacement는 `Llama 4` 계열 우선 |
-| `meta.llama-3.2-11b-vision` | dedicated retired 표 | replacement는 `Llama 4` 계열 우선 |
-| `meta.llama-3.1-405b-instruct` | dedicated retired 표 | replacement는 `Llama 4` 계열 우선 |
+| `cohere.command-a-reasoning` | 긴 문맥 + reasoning + dedicated 구성이 명확 | 하드웨어 GPU 종류는 비공개 |
+| `meta.llama-4-scout` | 작은 GPU footprint 강조 | Chicago만 on-demand, 나머지는 dedicated 비중 큼 |
+| `meta.llama-4-maverick` | 512k 컨텍스트, 고급 coding/reasoning | Abu Dhabi 전용 generic variant가 따로 보임 |
+| `openai.gpt-oss-20b` | A10/A100/H100/H200 공개형 DAC | 리전별 GPU 편차 큼 |
+| `openai.gpt-oss-120b` | 공개형 DAC + 고급 reasoning | 160 GB 또는 141 GB 단일 H200 축이 핵심 |
 
 ---
 
@@ -334,8 +355,8 @@ oci --region <region> compute shape list --all \
 
 중요:
 
-- 아래 9-1은 이름만으로 GPU 메모리를 계산할 수 있는 unit만 넣었다.
-- 아래 9-2는 Oracle이 underlying GPU를 공개하지 않는 unit이다.
+- 아래 9-1 표는 `A10/A100/H100/H200`처럼 이름만으로 GPU 메모리를 계산할 수 있는 unit만 넣었다.
+- 아래 9-2 표는 Oracle이 하드웨어를 숨기는 unit이다. GPU 메모리를 Oracle 공식 문서만으로는 단정할 수 없다.
 
 ### 9-1. GPU 메모리를 계산할 수 있는 DAC unit
 
@@ -371,9 +392,9 @@ oci --region <region> compute shape list --all \
 
 ### 9-2. Oracle이 하드웨어를 숨기는 DAC unit
 
-| DAC unit | GPU 타입 | GPU 메모리 | 메모 |
+| DAC unit | GPU 타입 | GPU 메모리 | 비고 |
 |---|---|---|---|
-| `SMALL_COHERE_4` | 미공개 | 미공개 | Oracle 문서상 underlying GPU 비공개 |
+| `SMALL_COHERE_4` | 미공개 | 미공개 | Oracle이 underlying hardware를 숨김 |
 | `LARGE_COHERE_V2_2` | 미공개 | 미공개 | same |
 | `LARGE_COHERE_V3` | 미공개 | 미공개 | same |
 | `EMBED_COHERE` | 미공개 | 미공개 | same |
@@ -381,8 +402,10 @@ oci --region <region> compute shape list --all \
 | `SMALL_GENERIC_V2` | 미공개 | 미공개 | same |
 | `LARGE_GENERIC` | 미공개 | 미공개 | same |
 | `LARGE_GENERIC_2` | 미공개 | 미공개 | same |
-| `LARGE_GENERIC_V2` | 미공개 | 미공개 | same |
 | `LARGE_GENERIC_V1` | 미공개 | 미공개 | same |
+| `LARGE_GENERIC_V4` | 미공개 | 미공개 | same |
+| `LARGE_GENERIC_V5` | 미공개 | 미공개 | same |
+| `LARGE_GENERIC_V2` | 미공개 | 미공개 | same |
 
 ---
 
@@ -390,41 +413,47 @@ oci --region <region> compute shape list --all \
 
 중요:
 
-- 이 절은 `imported model` 또는 `custom deployment` 관점이다.
-- 관리형 기본 모델용 `LARGE_COHERE_*`, `LARGE_GENERIC*`, `OAI_*`와 혼동하지 않는다.
-- 아래 표는 Oracle `Compatible Models for Import` 계열 문서에 직접 나온 `Recommended Dedicated AI Cluster Unit Shape`를 우선 반영했다.
-- Oracle 문서 공통 메모: 추천 unit이 해당 리전에 없으면 더 높은 tier를 선택하라고 안내한다. 예: `A100`이 없으면 `H100`.
+- 이 절은 `관리형 기본 모델`이 아니라 `imported model`과 `custom model hosting` 관점이다.
+- Oracle은 `모든 imported model에 대한 단일 정답표`를 주지 않는다.
+- 대신 `호환/검증된 모델 family별 권장 Dedicated AI Cluster Unit Shape`를 제공한다.
 
-### 10-1. Oracle 문서에 직접 나온 권장 예시
+### 10-1. Oracle validated imported model 기준 권장 DAC
 
-| 용도 | 모델 예시 | Oracle 권장 DAC |
+| family / 예시 모델 | Oracle 권장 DAC | 해석 |
 |---|---|---|
-| 경량 텍스트 | `microsoft/phi-4` | `A100_80G_X1` |
-| 경량 멀티모달 | `google/gemma-3-4b-it` | `A100_80G_X1` |
-| 임베딩 | `intfloat/e5-mistral-7b-instruct` | `A10_X1` |
-| 중형 텍스트 | `deepseek-ai/DeepSeek-R1-Distill-Qwen-32B` | `A100_80G_X2` |
-| 중형 멀티모달 | `google/gemma-3-27b-it` | `A100_80G_X2` |
-| Mixtral 계열 | `mistralai/Mixtral-8x7B-Instruct-v0.1` | `A100_80G_X2` |
-| 70B 전후 텍스트 | `meta-llama/Llama-3.3-70B-Instruct` | `A100_80G_X4` |
-| OpenAI imported | `openai/gpt-oss-20b` | `H100_X1` |
-| OpenAI imported | `openai/gpt-oss-120b` | `H100_X2` |
-| Meta 멀티모달 | `meta-llama/Llama-4-Scout-17B-16E-Instruct` | `H100_X4` |
-| Meta 대형 멀티모달 | `meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8` | `H100_X8` |
-| Phi 비전 | `microsoft/Phi-3-vision-128k-instruct` | `H100_X1` |
-| Nemotron 대형 | `nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16` | `H100_X8` |
+| `openai/gpt-oss-20b` | `H100_X1` | imported `gpt-oss`의 공식 시작점 |
+| `openai/gpt-oss-120b` | `H100_X2` | imported `gpt-oss` 대형 reasoning |
+| `deepseek-ai/DeepSeek-R1-Distill-Qwen-32B` | `A100_80G_X2` | 32B reasoning 계열 |
+| `meta-llama/Llama-4-Scout-17B-16E-Instruct` | `H100_X4` | 멀티모달 + 장문 |
+| `meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8` | `H100_X8` | 더 큰 MoE / 더 긴 문맥 |
+| `meta-llama/Llama-3.3-70B-Instruct` | `A100_80G_X4` | 범용 오픈모델 70B |
+| `Qwen/QwQ-32B` | `A100_80G_X2` | reasoning 계열 |
+| `Qwen/Qwen3-Embedding-0.6B` | `A10_X1` | 경량 embedding |
+| `Qwen/Qwen3-Embedding-4B` | `A10_X2` | 중간 embedding |
+| `Qwen/Qwen3-Embedding-8B` | `A100_80G_X1` | 더 큰 embedding |
+| `Qwen/Qwen3-235B-A22B-Instruct-2507` | `H100_X8` | 초대형 MoE |
+| `Qwen/Qwen3-VL-30B-A3B-Instruct` | `H100_X2` | vision-language |
+| `Qwen/Qwen-Image` | `A100_80G_X1` | text-to-image 시작점 |
 
-### 10-2. 시작점 선택 가이드
+### 10-2. exact model 문서가 없을 때의 보수적 시작점
 
-| 상황 | 권장 시작점 |
-|---|---|
-| 경량 텍스트/임베딩 테스트 | `A10_X1` 또는 `A100_80G_X1` |
-| 30B 전후 텍스트 모델 | `A100_80G_X2` |
-| 70B 전후 텍스트 모델 | `A100_80G_X4` |
-| OpenAI imported `gpt-oss-20b` | `H100_X1` |
-| OpenAI imported `gpt-oss-120b` | `H100_X2` |
-| 긴 문맥 멀티모달 Meta Llama 4 Scout | `H100_X4` |
-| 더 큰 멀티모달 Meta Llama 4 Maverick | `H100_X8` |
-| 리전에 A100이 없고 상위 호환이 필요 | `H100` 우선 검토 |
+| 필요 VRAM 기준 | 권장 시작 DAC | 해석 |
+|---|---|---|
+| 24 GB 전후 | `A10_X1` | 가장 작은 시작점 |
+| 48 GB 전후 | `A10_X2` | 경량 배포 / 테스트 용이 |
+| 80 GB 전후 | `A100_80G_X1` 또는 `H100_X1` | 중간급 여유 메모리 |
+| 141 GB 전후 | `H200_X1` | 단일 unit 최대 메모리 여유 |
+| 160 GB 전후 | `A100_40G_X4`, `A100_80G_X2`, `H100_X2` | 대형 단일 배포의 보편 구간 |
+| 320 GB 전후 | `A100_80G_X4` 또는 `H100_X4` | 큰 모델 / 더 긴 컨텍스트 / 여유 버퍼 |
+| 564 GB 이상 | `H200_X4` 이상 | 메모리 병목 우선 해소용 |
+
+실무 메모:
+
+- Oracle imported family 페이지에는 `If the compatible unit shape isn't available in the region, select a higher-tier option` 안내가 반복된다.
+- 따라서 추천 shape가 그 리전에 없으면 같은 family의 상위 GPU로 올리는 해석은 Oracle 문서와 맞다.
+- imported model에서 메모리 병목이 먼저 걱정되면 `H200`이 가장 단순하다.
+- 처리량과 생태계 균형을 보려면 `H100`이 무난하다.
+- 비용과 범용성의 균형을 먼저 보면 `A100 80G`가 시작점으로 자주 나온다.
 
 ---
 
@@ -434,35 +463,38 @@ oci --region <region> compute shape list --all \
 
 | 모델/계열 | 파인튜닝 가능 여부 | 메모 |
 |---|---|---|
-| `meta.llama-3.3-70b-instruct` | 가능 | LoRA, OC1에서 지원. OC4/OC19는 불가 |
-| `cohere.command-r-08-2024` | 가능 | 문서상 fine-tuning 가능하지만 retired 표도 함께 확인 필요 |
-| `cohere.command-a-03-2025` | 불가 | 모델 카드 기준 |
-| `cohere.command-a-vision` | 불가 | 모델 카드 기준 |
-| `cohere.command-a-reasoning` | 불가 | 모델 카드 기준 |
-| `cohere.embed-v4.0` | 불가 | 모델 카드 기준 |
-| `Cohere Rerank 3.5` | 불가 | 모델 카드 기준 |
-| `meta.llama-4-scout-17b-16e-instruct` | 불가 | 모델 카드 기준 |
-| `meta.llama-4-maverick-17b-128e-instruct-fp8` | 불가 | 모델 카드 기준 |
-| `openai.gpt-oss-20b` | 불가 | 모델 카드 기준 |
-| `openai.gpt-oss-120b` | 불가 | 모델 카드 기준 |
-| `google.gemini-2.5-*` | 불가 | 기능 표 기준 `Tuning: No` |
-| `xai.grok-*` | 불가 | Oracle 문서상 tuning 경로 없음, on-demand only |
+| `meta.llama-3.3-70b-instruct` | 가능 | LoRA, OC1 상용 리전 중심 |
+| `meta.llama-3.3-70b-instruct-fp8-dynamic` | 불가 | 효율형 variant |
+| `cohere.command-r-08-2024` | 문서상 가능 표기 존재 | `choose-method`에 있음. retirement 표도 함께 확인 필요 |
+| `cohere.command-r-16k` | retired 항목 포함 | `choose-method`에는 남아 있으나 retired 표기 포함 |
+| `meta.llama-3.1-70b-instruct` | retired 항목 포함 | `choose-method`에는 남아 있으나 dedicated retirement 표도 확인 필요 |
+| `cohere.command-a-03-2025` | 불가 | 모델 문서상 fine-tuning 불가 |
+| `cohere.command-a-vision` | 불가 | same |
+| `cohere.command-a-reasoning` | 불가 | same |
+| `cohere.embed-v4.0` | 불가 | same |
+| `cohere.rerank.v3-5` | 불가 | dedicated only |
+| `meta.llama-4-scout` | 불가 | hosted model only |
+| `meta.llama-4-maverick` | 불가 | hosted model only |
+| `openai.gpt-oss-20b` | 불가 | hosted model only |
+| `openai.gpt-oss-120b` | 불가 | hosted model only |
+| `google.gemini-2.5-*` | 불가 | on-demand only |
+| `xAI Grok 계열` | 불가 | on-demand only |
 
-### 11-2. imported model 기준
+### 11-2. imported model과 혼동하면 안 되는 점
 
-| 항목 | Oracle 문서 기준 |
+| 항목 | 가능 여부 | 메모 |
+|---|---|---|
+| imported model 배포 | 가능 | Hugging Face 또는 Object Storage에서 import |
+| imported fine-tuned model 배포 | 가능 | compatible base와 transformer version, 파라미터 범위 조건 존재 |
+| OCI가 imported model을 대신 fine-tune | 문서상 일반화 불가 | imported hosting과 custom model fine-tuning은 별도 워크플로 |
+
+### 11-3. 신규 설계 관점의 보수적 판단
+
+| 구분 | 권장 판단 |
 |---|---|
-| fine-tuned imported model 지원 | 가능 |
-| 조건 | 지원 base model과 transformer version 일치 |
-| 조건 | 파라미터 수가 원본 대비 `±10%` 이내 |
-| 주의 | 지원 목록에 없는 모델은 production 전 별도 검증 권장 |
-
-### 11-3. retired 관점의 주의
-
-| 모델 | 현재 판단 |
-|---|---|
-| `meta.llama-3.1-70b-instruct` | retired, 신규 파인튜닝 설계 비권장 |
-| `cohere.command-r-16k` | retired, 신규 파인튜닝 설계 비권장 |
+| 새 custom model 시작 | `meta.llama-3.3-70b-instruct` 우선 |
+| Cohere 계열 fine-tuning | `cohere.command-r-08-2024` 문서 표기는 남아 있지만 retirement 표를 함께 확인 |
+| retired 표에 이미 올라간 베이스 | 신규 설계에서는 제외 |
 
 ---
 
@@ -470,17 +502,18 @@ oci --region <region> compute shape list --all \
 
 | 선택 기준 | A100 80G | H100 | H200 |
 |---|---|---|---|
-| GPU당 메모리 | 80 GB | 80 GB | 141 GB |
-| 관리형 `gpt-oss` 가시성 | `Chicago`, `Phoenix` 중심 | 가장 넓음 | `Riyadh` 확인 |
-| imported 모델 권장 빈도 | 높음 | 높음 | 상대적으로 적음 |
-| 추천 상황 | 비용/범용성 균형 | 성능/처리량 우선 | 메모리 병목 우선 |
-| 주의 | A100 리전 편차 큼 | IaaS 실재고는 별도 확인 필요 | 공식 문서상 공개 리전이 좁음 |
+| GPU 메모리 | 80 GB/GPU | 80 GB/GPU | 141 GB/GPU |
+| 관리형 `gpt-oss` 가시성 | Chicago, Phoenix 중심 | 가장 넓음 | Riyadh 확인 |
+| imported model 시작점 | 가장 흔한 범용 기준 | 성능/처리량 우선 | 메모리 병목 우선 |
+| 대형 Qwen / Llama 4 계열 | 중간급까지 자주 등장 | 대형/멀티모달/MoE 권장 | 메모리 우선 대체지 |
+| 상위 대체 규칙 | H100로 상향 가능 | H200로 상향 가능 | 메모리 최우선 |
+| IaaS/AQUA 주의 | 실재고 표 없음 | 실재고 표 없음 | 실재고 표 없음 |
 
-짧게 정리:
+짧게 정리하면:
 
-- `A100 80G`: imported/custom 시작점으로 가장 범용적이다.
-- `H100`: 관리형 `gpt-oss`와 imported 대형 모델에서 선택지가 가장 넓다.
-- `H200`: GPU당 메모리 여유가 가장 크지만, 공개 리전 가시성은 가장 좁다.
+- `A100 80G`: 비용과 범용성의 균형이 필요한 imported/custom 시작점
+- `H100`: 관리형 DAC 선택지가 넓고 imported 대형 모델 권장 shape로 가장 자주 보임
+- `H200`: 한 unit에서 더 큰 메모리 여유가 필요할 때 우선 검토
 
 ---
 
@@ -490,19 +523,19 @@ oci --region <region> compute shape list --all \
 |---|---|
 | `cohere.command-a-03-2025` | 기업형 RAG / tool use / multilingual 범용 챗 |
 | `cohere.command-a-vision` | 문서, 차트, 이미지가 섞인 멀티모달 업무 |
-| `cohere.command-a-reasoning` | 복합 논리와 긴 문서 reasoning |
-| `cohere.embed-v4.0` | 텍스트와 이미지를 아우르는 임베딩 |
-| `meta.llama-4-scout` | 작은 GPU footprint와 agentic 활용의 균형 |
-| `meta.llama-4-maverick` | 긴 문맥과 강한 코딩/추론 |
-| `meta.llama-3.3-70b-instruct` | 관리형 fine-tuning 가능한 대표 텍스트 모델 |
-| `openai.gpt-oss-20b` | 빠른 reasoning/coding 반복 |
-| `openai.gpt-oss-120b` | 고난도 reasoning 및 production 수준 추론 |
-| `google.gemini-2.5-pro` | 복잡한 멀티모달 문제 해결 |
+| `cohere.command-a-reasoning` | 긴 문서와 복합 reasoning 전용 워크로드 |
+| `cohere.embed-v4.0` | 텍스트 + 이미지 임베딩을 하나로 정리 |
+| `cohere.rerank.v3-5` | 검색 결과 재정렬 품질 향상 |
+| `meta.llama-3.3-70b-instruct` | 범용 오픈모델 + fine-tuning 확장성 |
+| `meta.llama-4-scout` | 작은 GPU footprint와 긴 문맥의 균형 |
+| `meta.llama-4-maverick` | 더 긴 문맥과 강한 코딩/추론 |
+| `openai.gpt-oss-20b` | 빠른 reasoning / coding 반복 |
+| `openai.gpt-oss-120b` | 더 높은 reasoning 품질 |
+| `google.gemini-2.5-pro` | 가장 어려운 멀티모달 문제 해결 |
 | `google.gemini-2.5-flash` | 속도와 지능의 균형 |
 | `google.gemini-2.5-flash-lite` | 대량 처리, 저비용 |
-| `xai.grok-4.3` | 최신 고정밀 reasoning 중심 |
-| `xai.grok-4.20-*` | 2M 컨텍스트, reasoning/non-reasoning 분리 |
-| `xai.grok-code-fast-1` | agentic coding, tool-use 중심 |
+| `xai.grok-4.3` | 고난도 reasoning + 1M 컨텍스트 + multimodal |
+| `xAI Grok Code Fast 1` | agentic coding, tool-use 중심 |
 
 ---
 
@@ -510,43 +543,43 @@ oci --region <region> compute shape list --all \
 
 - 기업형 범용 챗 / RAG / tool-use: `cohere.command-a-03-2025`
 - 문서·차트·이미지 이해: `cohere.command-a-vision`
-- 복합 reasoning DAC: `cohere.command-a-reasoning` 또는 `openai.gpt-oss-120b`
-- 최신 온디맨드 reasoning 우선: `xai.grok-4.3`
-- 관리형 fine-tuning 출발점: `meta.llama-3.3-70b-instruct`
-- 작은 GPU footprint와 긴 문맥: `meta.llama-4-scout`
+- 복합 reasoning 전용 DAC: `cohere.command-a-reasoning` 또는 `openai.gpt-oss-120b`
+- 작은 GPU footprint로 긴 문맥: `meta.llama-4-scout`
 - 온디맨드 멀티모달 최고 난도: `google.gemini-2.5-pro`
 - 속도/가격 균형: `google.gemini-2.5-flash`
 - 대량 배치/저비용: `google.gemini-2.5-flash-lite`
-- 코딩 에이전트: `xai.grok-code-fast-1`
-- imported model을 Oracle 권장 DAC로 시작: 70B급은 `A100_80G_X4`, OpenAI imported는 `H100_X1` 또는 `H100_X2`
-- 메모리 병목이 가장 우선이면: `H200` 계열을 검토하되, 공개 리전은 별도 확인
+- 임베딩 표준화: `cohere.embed-v4.0`
+- 재정렬 품질 개선: `cohere.rerank.v3-5`
+- 코딩 에이전트: `xAI Grok Code Fast 1` 또는 `openai.gpt-oss-20b`
+- imported model을 메모리 우선으로 시작: `H200_X1`
+- imported model을 범용적으로 시작: `H100_X1` 또는 `A100_80G_X1`
 
 ---
 
 ## 15. retired / deprecated 메모
 
-### 15-1. 신규 설계에서 우선 제외할 retired 모델
+### 15-1. Oracle retirement 표 기준으로 신규 설계에서 우선 제외할 모델
 
-| 모델 | 상태 |
+| 모델 | 문서 메모 |
 |---|---|
-| `Cohere Command R+` | retired |
-| `Cohere Command R 16K` | retired |
-| `Cohere Command (52B)` | retired |
-| `Cohere Command Light` | retired |
-| `Meta Llama 3.1 70B` | retired |
-| `Meta Llama 3 70B` | retired |
-| `Meta Llama 2 70B` | retired |
+| `Cohere Command R+` | on-demand / dedicated retirement 표에 있음 |
+| `Cohere Command R 16K` | on-demand / dedicated retirement 표에 있음 |
+| `Cohere Command (52B)` | on-demand / dedicated retirement 표에 있음 |
+| `Cohere Command Light` | on-demand / dedicated retirement 표에 있음 |
+| `Meta Llama 3.1 70B` | on-demand / dedicated retirement 표에 있음 |
+| `Meta Llama 3 70B` | on-demand / dedicated retirement 표에 있음 |
+| `Meta Llama 2 70B` | dedicated retirement 표에 있음 |
 
-### 15-2. 2026-05-10 기준 retired 표에서 다시 확인된 항목
+### 15-2. replacement 방향이 문서에 명시된 주요 항목
 
-| 모델/계열 | 현재 표 상태 | replacement 방향 |
-|---|---|---|
-| `Cohere Command R (08-2024)` | on-demand retired / dedicated retired | `Cohere Command A` |
-| `Cohere Command R+ (08-2024)` | on-demand retired / dedicated retired | `Cohere Command A` |
-| Embed 3 계열 | dedicated retired | `Cohere Embed 4` |
-| `Meta Llama 3.2 90B` | dedicated retired | `Meta Llama 4` 계열 |
-| `Meta Llama 3.2 11B` | dedicated retired | `Meta Llama 4` 계열 |
-| `Meta Llama 3.1 405B` | dedicated retired | `Meta Llama 4` 계열 |
+| 기존 모델 | Oracle 문서의 replacement 방향 |
+|---|---|
+| `Cohere Command R(+)` 계열 | `Cohere Command A` |
+| `Cohere Embed 3 / Image 3 / Light 3` 계열 | `Cohere Embed 4` |
+| `Meta Llama 3.2 / 3.1 / 3` 일부 계열 | `Meta Llama 4 Maverick`, `Meta Llama 4 Scout` |
+| `xAI Grok 3*` 계열 | `xAI Grok 4.3` |
+| `xAI Grok 4.20` | `xAI Grok 4.3` |
+| `xAI Grok 4.1 Fast` | `xAI Grok 4.3` |
 
 ---
 
@@ -554,25 +587,43 @@ oci --region <region> compute shape list --all \
 
 ### 16-1. 사용한 주요 공식 문서 범주
 
-- OCI Generative AI 리전 문서
+- OCI Generative AI release notes
 - OCI Generative AI `Models by Region`
 - OCI Generative AI `Dedicated Cluster Shapes by Region`
 - OCI Generative AI 개별 모델 카드
-- OCI Generative AI imported model 호환성 문서
-- OCI Generative AI model retirement 문서
-- OCI Data Science `Supported Compute Shapes`
-- OCI Data Science `Using GPUs`
-- OCI Data Science `AI Quick Actions`
-- OCI Generative AI release notes
+- OCI Generative AI retirement / fine-tuning 문서
+- OCI Generative AI imported model family 문서
+- OCI Compute `Compute Shapes`
+- OCI Data Science `Supported Compute Shapes` / `AI Quick Actions`
+- OCI CLI 실조회 시도 로그
 
-### 16-2. 이 문서에서 명시적으로 없는 것
+### 16-2. CLI 조회 성공/실패 상태 표
 
-- Oracle 공식 문서만으로 확정 가능한 `IaaS GPU 리전별 실시간 재고 수량`
-- Oracle 공식 문서만으로 확정 가능한 `AQUA GPU 리전별 실시간 재고 수량`
-- Oracle 공식 문서만으로 확정 가능한 `LARGE_COHERE_* / LARGE_GENERIC*` 계열의 실제 GPU 메모리
+| 조회 항목 | 성공/실패 | 최종 처리 |
+|---|---|---|
+| `oci iam region-subscription list` | 실패 | Oracle 공식 리전 문서 기준으로 대체 |
+| `oci compute shape list` | 실패 | Compute/Data Science shape 문서 기준으로 대체 |
+| `oci os ns get` | 실패 | endpoint 응답 지연 확인용 보조 근거로만 사용 |
+
+### 16-3. 이 문서에서 명시적으로 없는 것
+
+- Oracle 공식 문서만으로 확정 가능한 `IaaS GPU 리전별 실시간 재고표`
+- Oracle 공식 문서만으로 확정 가능한 `AQUA GPU 리전별 실시간 재고표`
+- Oracle 공식 문서만으로 확정 가능한 `LARGE_COHERE_* / LARGE_GENERIC_*`의 실제 GPU 메모리
+- Abu Dhabi 전용 `A10/A100/H100/H200` DAC hardware family 공개표
 
 즉:
 
-- `관리형 기본 모델의 리전/모드/DAC unit`은 Oracle 문서로 비교적 명확하게 정리 가능
+- `관리형 기본 모델의 리전/모드/DAC unit`은 Oracle 문서로 상당히 명확하게 정리 가능
 - `IaaS/AQUA의 리전별 실재고`는 CLI 또는 Console 실조회가 없으면 확정할 수 없음
 - `generic/cohere DAC unit의 실제 GPU 메모리`는 Oracle이 숨기므로 단정하면 안 됨
+
+### 16-4. 참고한 주요 Oracle 공식 문서
+
+- OCI Generative AI release notes: `Generative AI` 서비스 릴리스 노트
+- Generative AI 모델 리전 표: `Regional availability for Generative AI models`
+- DAC 하드웨어 공개표: `Dedicated AI Cluster Shapes by Region`
+- imported 모델 안내: `Managing Imported Models`, `Compatible Models for Import`, `Compatible OpenAI/Meta/Alibaba/DeepSeek Models`
+- fine-tuning 안내: `Selecting a Fine-Tuning Method in Generative AI`
+- retirement 안내: `Model Retirement Dates (On-Demand Mode)`, `Model Retirement Dates (Dedicated Mode)`
+- IaaS/AQUA GPU shape 안내: `Compute Shapes`, `Supported Compute Shapes`, `About AI Quick Actions`
