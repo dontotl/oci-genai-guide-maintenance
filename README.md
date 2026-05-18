@@ -26,6 +26,7 @@ oci-genai-guide-maintenance/
 ├── runs/
 ├── scripts/
 │   ├── cron_refresh.sh
+│   ├── collect_oci_probe.sh
 │   ├── new_guide.sh
 │   ├── publish_guide.sh
 │   └── refresh_index.sh
@@ -92,9 +93,10 @@ cd /home/opc/oci-genai-guide-maintenance
 이 스크립트는 아래 순서로 동작합니다.
 
 1. 새 날짜 초안과 prompt 생성
-2. `codex exec` 또는 `codex`로 prompt 실행 시도
-3. 결과 파일이 채워졌다고 판단되면 `publish_guide.sh` 실행
-4. Git 저장소라면 자동 commit/push 시도
+2. VM의 일반 실행 환경에서 OCI CLI 사전 조회 결과를 `runs/<date>-oci-probe/`에 저장
+3. `codex exec` 또는 `codex`로 prompt 실행 시도
+4. 결과 파일이 채워졌다고 판단되면 `publish_guide.sh` 실행
+5. Git 저장소라면 자동 commit/push 시도
 
 ### 2. cron 등록 예시
 
@@ -122,6 +124,7 @@ MAILTO=""
 - `codex` CLI가 로그인되어 있어야 함
 - 비대화형 실행이 가능한 버전이어야 함
 - OCI CLI 또는 웹 조회가 필요한 경우 네트워크/권한 상태가 맞아야 함
+- OCI CLI 조회는 Codex 샌드박스 안이 아니라 `collect_oci_probe.sh`가 먼저 수집한 결과를 우선 사용
 - 실패 시 `runs/` 아래 프롬프트와 초안이 남으므로 수동 후속 작업 가능
 
 ---

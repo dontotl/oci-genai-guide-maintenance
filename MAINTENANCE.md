@@ -41,6 +41,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 핵심 실행 파일:
 
 - `scripts/new_guide.sh`
+- `scripts/collect_oci_probe.sh`
 - `scripts/publish_guide.sh`
 - `scripts/refresh_index.sh`
 - `scripts/cron_refresh.sh`
@@ -63,6 +64,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `publish_guide.sh`: 초안 발행 + latest/index/history 갱신
 - `refresh_index.sh`: 인덱스와 changelog 파일 재생성
 - `cron_refresh.sh`: 주기 실행용 래퍼
+- `collect_oci_probe.sh`: Codex 실행 전에 VM 일반 환경에서 OCI CLI 조회 결과 수집
 
 ### 2-3. cron
 
@@ -136,6 +138,7 @@ MAILTO=""
 - 고정 `HOME`
 - `flock` 잠금
 - 같은 날짜 최종 가이드가 이미 있으면 종료
+- Codex 실행 전 `runs/<date>-oci-probe/summary.md`에 OCI CLI 사전 조회 결과 저장
 - Codex 실행 타임아웃
 - 마지막 Codex 메시지 파일 저장
 - 가이드가 실제로 채워졌을 때만 publish
@@ -148,6 +151,14 @@ MAILTO=""
 ```text
 /home/opc/oci-genai-guide-maintenance/runs/cron.log
 ```
+
+OCI 사전 조회 결과:
+
+```text
+/home/opc/oci-genai-guide-maintenance/runs/<date>-oci-probe/summary.md
+```
+
+이 결과는 Codex 샌드박스 네트워크 제한과 실제 OCI CLI 조회 실패를 구분하기 위한 기준입니다.
 
 ### 4-2. 초안과 발행 분리
 

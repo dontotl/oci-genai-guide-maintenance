@@ -7,6 +7,7 @@ RUN_DIR="$ROOT_DIR/runs"
 PROMPT_TEMPLATE="$ROOT_DIR/OCI_GenAI_Regional_Model_Guide_Prompt.md"
 OUT_FILE="$RUN_DIR/OCI_GenAI_Regional_Model_Guide_v2_${DATE_ARG}.md"
 RUN_PROMPT="$RUN_DIR/${DATE_ARG}-refresh-prompt.md"
+OCI_PROBE_SUMMARY="$RUN_DIR/${DATE_ARG}-oci-probe/summary.md"
 
 mkdir -p "$RUN_DIR"
 
@@ -24,6 +25,7 @@ fi
 sed \
   -e "s|<DATE>|${DATE_ARG}|g" \
   -e "s|<OUTPUT_FILE>|${OUT_FILE}|g" \
+  -e "s|<OCI_PROBE_SUMMARY>|${OCI_PROBE_SUMMARY}|g" \
   "$PROMPT_TEMPLATE" > "$RUN_PROMPT"
 
 printf 'Created guide stub: %s\n' "$OUT_FILE"

@@ -38,6 +38,17 @@ fi
 ./scripts/new_guide.sh "$DATE_ARG"
 log "Prepared draft and prompt for ${DATE_ARG}"
 
+if [[ -x ./scripts/collect_oci_probe.sh ]]; then
+  log "Collecting OCI probe before Codex refresh"
+  if ./scripts/collect_oci_probe.sh "$DATE_ARG" >> "$LOG_FILE" 2>&1; then
+    log "OCI probe collected: $ROOT_DIR/runs/${DATE_ARG}-oci-probe/summary.md"
+  else
+    log "OCI probe failed unexpectedly. Continuing so the report can record the failure."
+  fi
+else
+  log "OCI probe script not found or not executable. Continuing without pre-collected OCI data."
+fi
+
 if [[ -x "$CODEX_BIN" ]]; then
   if "$CODEX_BIN" exec --help >/dev/null 2>&1; then
     log "Starting Codex non-interactive refresh"

@@ -3,8 +3,11 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 조건:
 
 - Oracle 공식 문서를 1순위로 사용
-- 가능하면 OCI CLI로 `region-subscription list`와 `compute shape list`도 조회
-- CLI 조회 실패 시 실패 이유를 적고 문서 기준 해석표로 대체
+- OCI CLI 실조회는 Codex 안에서 직접 재실행하지 말고, 먼저 아래 사전 수집 결과를 확인
+- OCI probe summary 경로: `<OCI_PROBE_SUMMARY>`
+- probe summary와 원본 파일에 성공 결과가 있으면 그 내용을 CLI 실조회 결과로 사용
+- probe summary가 없거나 특정 항목이 실패한 경우에만 실패 이유를 적고 문서 기준 해석표로 대체
+- Codex 샌드박스의 네트워크 timeout을 실제 OCI CLI 조회 실패로 단정하지 말 것
 - 결과 파일명은 `OCI_GenAI_Regional_Model_Guide_v2_<DATE>.md`
 - 결과 파일 경로는 `<OUTPUT_FILE>`입니다
 - 가로 폭이 너무 길지 않게 표를 여러 개로 나눌 것
@@ -33,6 +36,8 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 
 - 추정으로 단정하지 말 것
 - Oracle 문서에 없으면 없다고 적을 것
+- OCI 조회 상태는 `<OCI_PROBE_SUMMARY>`의 성공/실패와 원본 stdout/stderr를 기준으로 적을 것
+- probe summary에 성공 결과가 있으면 `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 말 것
 - 문장 종결은 정중한 보고서체로 통일할 것. 예: `작성했다` 대신 `작성했습니다`, `썼다` 대신 `썼습니다`
 - deprecated / retired / newly added 모델이 있으면 문서 앞부분의 `이번 업데이트 변화 요약`에 먼저 적을 것
 - `LATEST.md`로 복사될 수 있으므로 앞부분 1페이지 안에 핵심 변화가 보이게 쓸 것
