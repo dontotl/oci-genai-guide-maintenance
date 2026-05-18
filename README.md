@@ -98,6 +98,15 @@ cd /home/opc/oci-genai-guide-maintenance
 4. 결과 파일이 채워졌다고 판단되면 `publish_guide.sh` 실행
 5. Git 저장소라면 자동 commit/push 시도
 
+OCI 사전 조회 산출물:
+
+- `runs/<date>-oci-probe/*.out`, `*.err`, `*.meta`: 운영자 검증용 raw 조회 결과
+- `runs/<date>-oci-probe/probe.json`: 리포트 생성용 정규화 데이터
+- `runs/<date>-oci-probe/customer-summary.md`: 고객용 리포트에 반영 가능한 요약
+- `runs/<date>-oci-probe/summary.md`: 운영자용 상세 요약
+
+고객용 리포트는 `probe.json`과 `customer-summary.md`를 우선 사용하고, raw 출력 경로, namespace, tenancy OCID, 로컬 경로 같은 내부 값은 본문에 노출하지 않습니다.
+
 ### 2. cron 등록 예시
 
 이 VM은 `opc` 사용자가 `crontab` 명령에 직접 접근하지 못할 수 있으므로,
@@ -124,7 +133,7 @@ MAILTO=""
 - `codex` CLI가 로그인되어 있어야 함
 - 비대화형 실행이 가능한 버전이어야 함
 - OCI CLI 또는 웹 조회가 필요한 경우 네트워크/권한 상태가 맞아야 함
-- OCI CLI 조회는 Codex 샌드박스 안이 아니라 `collect_oci_probe.sh`가 먼저 수집한 결과를 우선 사용
+- OCI CLI 조회는 Codex 샌드박스 안이 아니라 `collect_oci_probe.sh`가 먼저 수집한 정규화 결과를 우선 사용
 - 실패 시 `runs/` 아래 프롬프트와 초안이 남으므로 수동 후속 작업 가능
 
 ---

@@ -5,8 +5,11 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - Oracle 공식 문서를 1순위로 사용
 - OCI CLI 실조회는 Codex 안에서 직접 재실행하지 말고, 먼저 아래 사전 수집 결과를 확인
 - OCI probe summary 경로: `<OCI_PROBE_SUMMARY>`
-- probe summary와 원본 파일에 성공 결과가 있으면 그 내용을 CLI 실조회 결과로 사용
-- probe summary가 없거나 특정 항목이 실패한 경우에만 실패 이유를 적고 문서 기준 해석표로 대체
+- OCI probe JSON 경로: `<OCI_PROBE_JSON>`
+- 고객용 probe summary 경로: `<OCI_PROBE_CUSTOMER_SUMMARY>`
+- probe JSON과 고객용 summary가 있으면 이를 우선 근거로 사용
+- probe JSON이 없으면 probe summary와 원본 파일의 성공 결과를 사용
+- probe JSON, 고객용 summary, probe summary가 없거나 특정 항목이 실패한 경우에만 실패 이유를 적고 문서 기준 해석표로 대체
 - Codex 샌드박스의 네트워크 timeout을 실제 OCI CLI 조회 실패로 단정하지 말 것
 - 결과 파일명은 `OCI_GenAI_Regional_Model_Guide_v2_<DATE>.md`
 - 결과 파일 경로는 `<OUTPUT_FILE>`입니다
@@ -40,6 +43,7 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - 추정으로 단정하지 말 것
 - Oracle 문서에 없으면 없다고 적을 것
 - OCI 조회 상태는 `<OCI_PROBE_SUMMARY>`의 성공/실패 요약을 기준으로 적을 것
+- 가능하면 OCI 조회 상태는 `<OCI_PROBE_JSON>`과 `<OCI_PROBE_CUSTOMER_SUMMARY>`의 정규화 결과를 기준으로 적을 것
 - 공개 리포트의 CLI 조회 상태 표에는 원본 출력/오류 파일 경로와 보조 연결 확인에서 얻은 내부 식별자 값을 쓰지 말 것
 - probe summary에 성공 결과가 있으면 `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 말 것
 - 문장 종결은 정중한 보고서체로 통일할 것. 예: `작성했다` 대신 `작성했습니다`, `썼다` 대신 `썼습니다`

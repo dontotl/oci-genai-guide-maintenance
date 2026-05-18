@@ -36,7 +36,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `docs/INDEX.md`
 - `docs/HISTORY.md`
 - `docs/CHANGELOG.md`
-- `docs/guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md`
+- `docs/guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md`
 
 핵심 실행 파일:
 
@@ -65,6 +65,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `refresh_index.sh`: 인덱스와 changelog 파일 재생성
 - `cron_refresh.sh`: 주기 실행용 래퍼
 - `collect_oci_probe.sh`: Codex 실행 전에 VM 일반 환경에서 OCI CLI 조회 결과 수집
+- `collect_oci_probe.sh`는 raw 조회 결과와 별도로 `probe.json`, `customer-summary.md`를 생성해 고객용 리포트에 안전하게 반영할 수 있는 정규화 입력을 제공합니다.
 
 ### 2-3. cron
 
@@ -139,6 +140,7 @@ MAILTO=""
 - `flock` 잠금
 - 같은 날짜 최종 가이드가 이미 있으면 종료
 - Codex 실행 전 `runs/<date>-oci-probe/summary.md`에 OCI CLI 사전 조회 결과 저장
+- Codex 실행 전 `runs/<date>-oci-probe/probe.json`과 `customer-summary.md`에 리포트 생성용 정규화 결과 저장
 - Codex 실행 타임아웃
 - 마지막 Codex 메시지 파일 저장
 - 가이드가 실제로 채워졌을 때만 publish
@@ -156,9 +158,11 @@ OCI 사전 조회 결과:
 
 ```text
 /home/opc/oci-genai-guide-maintenance/runs/<date>-oci-probe/summary.md
+/home/opc/oci-genai-guide-maintenance/runs/<date>-oci-probe/probe.json
+/home/opc/oci-genai-guide-maintenance/runs/<date>-oci-probe/customer-summary.md
 ```
 
-이 결과는 Codex 샌드박스 네트워크 제한과 실제 OCI CLI 조회 실패를 구분하기 위한 기준입니다.
+`summary.md`와 raw `*.out`, `*.err`, `*.meta` 파일은 운영자 검증용입니다. 고객용 리포트 작성에는 `probe.json`과 `customer-summary.md`를 우선 사용합니다. 이 결과는 Codex 샌드박스 네트워크 제한과 실제 OCI CLI 조회 실패를 구분하기 위한 기준입니다.
 
 ### 4-2. 초안과 발행 분리
 
@@ -180,6 +184,7 @@ OCI 사전 조회 결과:
 1. `cron_refresh.sh`의 commit/push 실패 처리 변경이 다음 실운영 날짜에도 정상 동작하는지 검증
 2. `compute shape list` 권한이 있는 OCI 프로파일을 확보하면 리전별 IaaS GPU 실측표 추가
 3. GitHub Actions를 실제 활성화할지 재검토
+4. v3 문서 구조로 전환할 때도 `probe.json` 입력 계약은 유지
 
 제외한 항목:
 
@@ -239,5 +244,6 @@ sed -n '1,20p' /etc/cron.d/oci-genai-guide-refresh
 - `DAC 가능`과 `온디맨드 가능`은 다름
 - Oracle 문서에 없는 내용은 추정으로 확정하지 않기
 - `compute shape list` 결과가 없으면 문서 기반 해석이라고 명시하기
+- 고객용 리포트에는 raw stdout/stderr 경로, namespace, tenancy OCID, 로컬 경로를 노출하지 않기
 - workflow scope 없는 PAT로는 Actions 활성 push가 실패할 수 있음
 - 생성되는 리포트 본문은 `~다`, `~했다`, `~썼다` 체가 아니라 `~습니다`, `~했습니다`, `~썼습니다` 체로 통일하기
