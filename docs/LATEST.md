@@ -18,7 +18,7 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 | 기능 확장 | Cohere Embed 4가 configurable output dimensions와 text+image `EmbedText` payload를 지원합니다. | 2026-05-09 | 임베딩 모델 강점과 DAC 표에 반영했습니다. |
 | 리전 추가 | OCI Generative AI가 UAE Central (Abu Dhabi) 리전에서 사용 가능해졌습니다. | 2026-05-05 | 서비스 가용성 표에 넣었습니다. 다만 A10/A100/H100/H200 전용 DAC 공개표에는 확인되지 않아 `문서상 미확인`으로 표시했습니다. |
 | retired / replacement | Oracle retirement 문서 기준으로 Grok 3 계열과 일부 구형 Cohere / Meta 모델은 신규 설계에서 우선 제외하는 편이 안전합니다. | 2026-05-18 확인 | retired / deprecated 메모와 빠른 추천에서 제외했습니다. |
-| CLI probe | 사전 수집된 `region-subscription list`, `compute shape list`, `os ns get`은 모두 성공으로 기록되었습니다. | 2026-05-18 | Codex 안에서 OCI CLI를 재실행하지 않았고, 사전 probe stdout/stderr를 실조회 결과로 사용했습니다. |
+| CLI probe | 사전 수집된 `region-subscription list`, `compute shape list`, `os ns get`은 모두 성공으로 기록되었습니다. | 2026-05-18 | 사전 probe 요약을 실조회 결과로 사용했습니다. |
 
 핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `CLI probe 성공 결과 반영`입니다.
 
@@ -29,8 +29,7 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 | 원칙 | 적용 방식 |
 |---|---|
 | Oracle 공식 문서 우선 | 모델 리전, DAC unit, shape 사양, AQUA 지원 범위는 Oracle 공식 문서를 1순위로 사용했습니다. |
-| CLI 사전 probe 우선 | `/runs/2026-05-18-oci-probe/summary.md`와 원본 stdout/stderr에 성공 결과가 있으므로 해당 내용을 OCI CLI 실조회 결과로 사용했습니다. |
-| Codex 내부 재조회 금지 | 요청 조건에 따라 Codex 샌드박스 안에서 OCI CLI 실조회를 다시 실행하지 않았습니다. |
+| CLI 사전 probe 우선 | `/runs/2026-05-18-oci-probe/summary.md`의 성공/실패 요약을 OCI CLI 실조회 결과로 사용했습니다. |
 | 추정 금지 | Oracle 문서에 없는 리전별 실시간 재고, generic/cohere DAC의 실제 GPU 종류, GPU 메모리는 단정하지 않았습니다. |
 | 관리형 기본 모델과 imported model 분리 | Oracle 관리형 기본 모델의 dedicated cluster unit과 사용자가 import한 모델의 권장 DAC를 별도로 다루었습니다. |
 | 표 폭 제한 | 리전, 모델, GPU, CLI 상태를 여러 표로 나눴습니다. |
@@ -41,20 +40,18 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 
 ### 1-1. CLI 조회 성공/실패 상태 표
 
-| 조회 항목 | 상태 | 원본 stdout | 원본 stderr | 최종 처리 |
-|---|---|---|---|---|
-| `oci iam region-subscription list` | 성공 | `runs/2026-05-18-oci-probe/region-subscription-list.out` | `runs/2026-05-18-oci-probe/region-subscription-list.err` | 구독 리전 실조회 결과로 사용했습니다. |
-| `oci --region <region> compute shape list` | 성공 | `runs/2026-05-18-oci-probe/compute-shapes-*.out` | `runs/2026-05-18-oci-probe/compute-shapes-*.err` | 지정 리전별 IaaS GPU shape 가시성으로 사용했습니다. |
-| `oci --region ap-seoul-1 os ns get` | 성공 | `runs/2026-05-18-oci-probe/os-ns-get.out` | `runs/2026-05-18-oci-probe/os-ns-get.err` | Object Storage namespace 확인 성공으로 사용했습니다. |
-| `oci --version` | 성공 | `runs/2026-05-18-oci-probe/oci-version.out` | `runs/2026-05-18-oci-probe/oci-version.err` | OCI CLI `3.81.1`로 기록했습니다. |
+| 조회 항목 | 상태 | 최종 처리 |
+|---|---|---|
+| `oci iam region-subscription list` | 성공 | 구독 리전 실조회 결과로 사용했습니다. |
+| `oci --region <region> compute shape list` | 성공 | 대표 리전별 IaaS GPU shape 가시성으로 사용했습니다. |
+| `oci --region ap-seoul-1 os ns get` | 성공 | 보조 연결 확인 성공으로 사용했습니다. |
+| `oci --version` | 성공 | OCI CLI `3.81.1`로 기록했습니다. |
 
 ### 1-2. probe 원본 기준 관찰
 
 | 항목 | 결과 |
 |---|---|
 | 구독 리전 | `region-subscription-list.out`에 43개 READY 리전이 확인되었습니다. home region은 `us-ashburn-1`입니다. |
-| Object Storage namespace | `apackrsct01`로 확인되었습니다. |
-| stderr | 모든 probe stderr 파일은 비어 있습니다. |
 | 실패 항목 | summary 기준 실패 항목은 없습니다. |
 | 문서 반영 | `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 않았습니다. |
 
@@ -97,6 +94,8 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 
 판정 기준은 Oracle `Generative AI Dedicated Cluster Shapes by Region`의 공개 DAC unit입니다. `LARGE_COHERE_*`, `SMALL_COHERE_*`, `LARGE_GENERIC_*`, `RERANK_COHERE`, `EMBED_COHERE`는 실제 GPU 종류가 공개되지 않으므로 A10/A100/H100/H200 판정에 쓰지 않았습니다.
 
+이 표는 모든 DAC 모델 목록이 아니라, DAC unit 이름에서 A10/A100/H100/H200 family가 직접 확인되는 공개 GPU family 표입니다.
+
 ### 3-1. 북미 / 남미
 
 | 리전 | A10 | A100 40G | A100 80G | H100 | H200 | 근거 모델 |
@@ -137,7 +136,7 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 oci iam region-subscription list --all --output table
 ```
 
-probe에서 사용한 명령은 위 형식이며, stdout은 `runs/2026-05-18-oci-probe/region-subscription-list.out`에 저장되어 있습니다.
+probe에서 사용한 명령은 위 형식입니다. 이 리포트에서는 전체 구독 리전이 43개 READY 상태임을 확인하고, 아래 대표 리전 규칙에 따라 IaaS/AQUA 비교용 shape 조회를 수행했습니다.
 
 ### 4-2. GPU shape 조회 명령
 
@@ -148,7 +147,14 @@ oci --region <region> compute shape list --all \
   --output table
 ```
 
-probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `me-dubai-1`, `me-riyadh-1`, `us-ashburn-1`, `us-phoenix-1`을 조회했습니다.
+probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비교에 동일하게 적용할 대표 리전 샘플을 조회했습니다.
+
+| 권역 | 대표 리전 |
+|---|---|
+| 미국 | `us-ashburn-1`, `us-phoenix-1` |
+| 유럽 | `eu-frankfurt-1`, `uk-london-1` |
+| 한국/일본 | `ap-seoul-1`, `ap-osaka-1` |
+| 중동 | `me-dubai-1`, `me-riyadh-1`, `me-abudhabi-1` |
 
 ### 4-3. 결과 해석법
 
@@ -157,7 +163,7 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 | 표에 shape가 표시됨 | 해당 tenancy/compartment/region의 `compute shape list` API에서 그 GPU shape가 보였다는 뜻입니다. 실제 생성 성공은 service limit, quota, capacity, AD별 가용성에 따라 달라질 수 있습니다. |
 | `Command returned empty list` | 명령은 성공했지만 GPU shape 목록이 비어 있다는 뜻입니다. OCI CLI 실패로 해석하지 않습니다. |
 | 같은 shape가 중복 표시됨 | 원본 API 결과 또는 AD/variant 표시 방식 때문에 중복될 수 있습니다. 재고 수량으로 해석하지 않습니다. |
-| stderr가 비어 있음 | 이번 probe에서는 조회 실패 오류가 없었다고 기록합니다. |
+| 오류 메시지가 없음 | 이번 probe에서는 조회 실패 오류가 없었다고 기록합니다. |
 
 ---
 
@@ -202,19 +208,35 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 
 ## 6. IaaS / AQUA GPU 재고표
 
-### 6-1. 사전 CLI probe 기준 IaaS GPU shape 가시성
+### 6-1. 대표 리전 probe 기준 IaaS GPU shape 가시성
 
 | 리전 | probe 상태 | 보인 GPU 계열 | 보인 shape |
 |---|---|---|---|
 | `us-ashburn-1` | 성공 | P100, V100, A10, A100 | `BM.GPU2.2`, `VM.GPU2.1`, `BM.GPU3.8`, `VM.GPU3.1`, `VM.GPU3.2`, `VM.GPU3.4`, `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4`, `BM.GPU4.8` |
 | `us-phoenix-1` | 성공 | A10, A100 | `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4`, `BM.GPU.B4.8` |
+| `eu-frankfurt-1` | 성공 | P100, A10, A100 | `BM.GPU2.2`, `VM.GPU2.1`, `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4`, `BM.GPU4.8`, `BM.GPU.B4.8` |
+| `uk-london-1` | 성공 | V100, A10 | `BM.GPU3.8`, `VM.GPU3.1`, `VM.GPU3.2`, `VM.GPU3.4`, `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4` |
 | `ap-seoul-1` | 성공 | V100, A10, A100 | `BM.GPU3.8`, `VM.GPU3.1`, `VM.GPU3.2`, `VM.GPU3.4`, `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4`, `BM.GPU4.8` |
 | `ap-osaka-1` | 성공 | V100, A10, A100 | `BM.GPU.B4.8`, `BM.GPU4.8`, `BM.GPU3.8`, `VM.GPU3.1`, `VM.GPU3.2`, `VM.GPU3.4`, `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4` |
 | `me-dubai-1` | 성공 | A10 | `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4` |
 | `me-riyadh-1` | 성공 | 없음 | `Command returned empty list, no table to display.` |
 | `me-abudhabi-1` | 성공 | 없음 | `Command returned empty list, no table to display.` |
 
-### 6-2. IaaS / AQUA 해석표
+### 6-2. 대표 리전 기준 AQUA 해석
+
+| 리전 | IaaS probe에서 보인 GPU 계열 | AQUA 해석 |
+|---|---|---|
+| `us-ashburn-1` | P100, V100, A10, A100 | Data Science/AQUA에서 GPU shape 선택 가능성을 검토할 대표 리전입니다. |
+| `us-phoenix-1` | A10, A100 | Data Science/AQUA에서 GPU shape 선택 가능성을 검토할 대표 리전입니다. |
+| `eu-frankfurt-1` | P100, A10, A100 | 유럽 대표 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
+| `uk-london-1` | V100, A10 | 유럽/영국권 대표 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
+| `ap-seoul-1` | V100, A10, A100 | 한국 운영 관심 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
+| `ap-osaka-1` | V100, A10, A100 | 일본 운영 관심 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
+| `me-dubai-1` | A10 | 중동 대표 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
+| `me-riyadh-1` | 없음 | IaaS probe 결과가 비어 있지만, AQUA 실재고 없음으로 단정하지 않습니다. Console/limit/capacity 확인이 필요합니다. |
+| `me-abudhabi-1` | 없음 | IaaS probe 결과가 비어 있지만, AQUA 실재고 없음으로 단정하지 않습니다. Console/limit/capacity 확인이 필요합니다. |
+
+### 6-3. 문서 기준 IaaS / AQUA 일반 해석
 
 | 항목 | 해석 |
 |---|---|
@@ -224,7 +246,7 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 | GPU 예약 이전 | Data Science 문서는 Compute GPU reservation을 Data Science로 이전하는 support request 절차를 설명합니다. |
 | 리야드/아부다비 | 이번 probe 명령은 성공했지만 GPU shape 목록이 비어 있었습니다. 실패가 아니라 빈 결과입니다. |
 
-### 6-3. 운영 확인 체크리스트
+### 6-4. 운영 확인 체크리스트
 
 | 확인 항목 | 이유 |
 |---|---|
@@ -265,6 +287,7 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 
 메모:
 
+- 파인튜닝 가능 표시는 신규 설계에서 우선 검토할 현행 모델 기준입니다. Oracle 문서상 `cohere.command-r-08-2024`도 fine-tuning 가능하지만 deprecated 모델이므로 7번 핵심 온디맨드 표에서는 제외했습니다.
 - `cohere.rerank-v4.0-pro`와 `cohere.rerank-v4.0-fast`는 Oracle release notes에서 on-demand와 dedicated를 함께 언급하지만, 개별 모델 페이지는 dedicated mode only라고 설명합니다. 이 문서는 둘을 조정해 `문서 간 상충`으로 표시했습니다.
 - Google Gemini 모델은 Oracle 문서상 external call 주의가 있습니다.
 - xAI Grok 모델은 OCI data center 안의 xAI 전용 tenancy에서 xAI가 관리하는 모델로 설명되어 있습니다.
@@ -288,6 +311,10 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 | `meta.llama-4-maverick-17b-128e-instruct-fp8` | `Large Generic 2 x1` | 불가 | 초장문과 coding/reasoning에 적합합니다. |
 | `openai.gpt-oss-20b` | `OAI_A10_X2`, `OAI_A100_40G_X1`, `OAI_A100_80G_X1`, `OAI_H100_X1`, `OAI_H200_X1` | 불가 | 공개 GPU 계열이 가장 명확합니다. |
 | `openai.gpt-oss-120b` | `OAI_A100_40G_X4`, `OAI_A100_80G_X2`, `OAI_H100_X2`, `OAI_H200_X1` | 불가 | 더 큰 reasoning 모델입니다. |
+
+파인튜닝 가능 표시는 신규 설계에서 우선 검토할 현행 DAC 중심 모델 기준입니다. Oracle 문서상 `cohere.command-r-08-2024` 등도 fine-tuning 가능 표기가 있지만 deprecated 또는 retired 축에 가까우므로 8-1 핵심 DAC 표에서는 제외했습니다.
+
+`openai.gpt-oss-20b`와 `openai.gpt-oss-120b`는 dedicated AI cluster hosting은 가능하지만, Oracle 개별 모델 문서 기준 fine-tuning 대상은 아닙니다.
 
 ### 8-2. DAC 중심으로 보는 이유
 
@@ -393,6 +420,7 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 운영 메모:
 
 - Oracle imported model 문서는 compatible unit shape이 리전에 없으면 상위 tier를 선택하라고 안내합니다.
+- 10-1의 권장 DAC는 imported model 또는 외부에서 fine-tuned된 compatible model을 hosting하기 위한 권장 unit입니다. OCI 관리형 fine-tuning 가능 여부를 뜻하지 않습니다.
 - imported model 배포와 OCI 관리형 기본 모델 배포는 같은 것이 아닙니다.
 - imported model은 Hugging Face 또는 Object Storage에서 가져온 모델을 OCI Generative AI endpoint로 배포하는 흐름입니다.
 
@@ -400,7 +428,18 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 
 ## 11. 파인튜닝 가능 여부
 
-### 11-1. 관리형 기본 모델 기준
+### 11-1. 서비스별 파인튜닝 가능 범위
+
+| 서비스 / 경로 | Hugging Face / 오픈 모델 fine-tuning | 가능한 작업 | 주의점 |
+|---|---|---|---|
+| OCI Generative AI 관리형 fine-tuning | 제한적 | Oracle 지원 base model로 custom model 생성 | 임의 Hugging Face 모델 전체 대상이 아닙니다. |
+| OCI Generative AI Imported Models | 직접 fine-tuning 아님 | Hugging Face/Object Storage 모델 import 및 hosting | 외부에서 fine-tuned된 compatible model import/hosting은 가능합니다. |
+| OCI Data Science AQUA | 가능 | Model Explorer의 `Ready to Fine Tune` 모델 fine-tuning | Data Science Job, Object Storage, GPU shape, service limit 확인이 필요합니다. |
+| OCI Data Science Jobs / Notebook | 가능 | Transformers/TRL/PEFT 등으로 self-managed fine-tuning | 사용자가 학습 코드, conda/container, Object Storage, GPU shape를 직접 관리합니다. |
+| IaaS GPU | 가능 | VM/BM GPU 위에서 self-managed fine-tuning | 드라이버, 프레임워크, 분산 학습, 보안 패치를 직접 운영합니다. |
+| GenAI DAC | 모델/용도별 다름 | hosting DAC 또는 fine-tuning DAC | hosting 가능이 fine-tuning 가능을 뜻하지 않습니다. |
+
+### 11-2. OCI Generative AI 관리형 기본 모델 기준
 
 | 모델 / 계열 | 파인튜닝 | 메모 |
 |---|---|---|
@@ -423,13 +462,13 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 | `xAI Grok 계열` | 불가 | on-demand 중심입니다. |
 | `xai.grok-tts` | 불가 | TTS 모델입니다. |
 
-### 11-2. imported / custom model 기준
+### 11-3. imported / custom model 기준
 
 | 항목 | 가능 여부 | 메모 |
 |---|---|---|
 | imported model 배포 | 가능 | Hugging Face 또는 Object Storage에서 가져와 배포할 수 있습니다. |
-| imported fine-tuned model 배포 | 가능 | compatible base, transformer version, 파라미터 조건을 만족해야 합니다. |
-| OCI가 arbitrary imported model을 대신 fine-tune | 일반화 불가 | imported hosting과 OCI 관리형 fine-tuning은 별도 workflow입니다. |
+| 외부에서 fine-tuned된 compatible model import/hosting | 가능 | compatible base, transformer version, 파라미터 조건을 만족해야 합니다. |
+| OCI 관리형 fine-tuning으로 임의 imported model 재학습 | 일반화 불가 | imported hosting과 OCI 관리형 fine-tuning은 별도 workflow입니다. |
 | 새 custom model 시작점 | `meta.llama-3.3-70b-instruct` 우선 | retired base model은 신규 설계에서 제외하는 편이 안전합니다. |
 
 ---
@@ -576,6 +615,5 @@ probe는 위 질의를 사용해 `ap-osaka-1`, `ap-seoul-1`, `me-abudhabi-1`, `m
 
 - `compute shape list`에 표시된 shape는 생성 가능한 실시간 재고 수량이 아닙니다.
 - `Command returned empty list`는 이번 probe에서 명령 성공 후 GPU shape 결과가 비어 있음을 뜻합니다.
-- Codex 샌드박스 네트워크 timeout을 OCI CLI 실패로 단정하지 않았습니다.
 - 관리형 기본 모델용 DAC와 imported model 권장 DAC를 혼동하지 않았습니다.
 - Oracle 문서에 없는 내용은 `미공개`, `문서상 미확인`, `고정표 없음`으로 표시했습니다.

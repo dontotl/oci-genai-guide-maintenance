@@ -36,7 +36,8 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 
 - 추정으로 단정하지 말 것
 - Oracle 문서에 없으면 없다고 적을 것
-- OCI 조회 상태는 `<OCI_PROBE_SUMMARY>`의 성공/실패와 원본 stdout/stderr를 기준으로 적을 것
+- OCI 조회 상태는 `<OCI_PROBE_SUMMARY>`의 성공/실패 요약을 기준으로 적을 것
+- 공개 리포트의 CLI 조회 상태 표에는 원본 출력/오류 파일 경로와 보조 연결 확인에서 얻은 내부 식별자 값을 쓰지 말 것
 - probe summary에 성공 결과가 있으면 `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 말 것
 - 문장 종결은 정중한 보고서체로 통일할 것. 예: `작성했다` 대신 `작성했습니다`, `썼다` 대신 `썼습니다`
 - deprecated / retired / newly added 모델이 있으면 문서 앞부분의 `이번 업데이트 변화 요약`에 먼저 적을 것

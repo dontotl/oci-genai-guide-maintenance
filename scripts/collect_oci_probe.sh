@@ -10,7 +10,7 @@ OUT_DIR="$ROOT_DIR/runs/${DATE_ARG}-oci-probe"
 SUMMARY_FILE="$OUT_DIR/summary.md"
 TIMEOUT_SECONDS="${OCI_PROBE_TIMEOUT_SECONDS:-45}"
 PROFILE="${OCI_CLI_PROFILE:-DEFAULT}"
-REGION_LIST="${OCI_PROBE_REGIONS:-us-ashburn-1 ap-seoul-1 ap-osaka-1 us-phoenix-1 me-dubai-1 me-riyadh-1 me-abudhabi-1}"
+REGION_LIST="${OCI_PROBE_REGIONS:-us-ashburn-1 us-phoenix-1 eu-frankfurt-1 uk-london-1 ap-seoul-1 ap-osaka-1 me-dubai-1 me-riyadh-1 me-abudhabi-1}"
 CONFIG_FILE="${OCI_CLI_CONFIG_FILE:-$HOME/.oci/config}"
 
 mkdir -p "$OUT_DIR"

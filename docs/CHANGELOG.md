@@ -14,7 +14,7 @@
 | 기능 확장 | Cohere Embed 4가 configurable output dimensions와 text+image `EmbedText` payload를 지원합니다. | 2026-05-09 | 임베딩 모델 강점과 DAC 표에 반영했습니다. |
 | 리전 추가 | OCI Generative AI가 UAE Central (Abu Dhabi) 리전에서 사용 가능해졌습니다. | 2026-05-05 | 서비스 가용성 표에 넣었습니다. 다만 A10/A100/H100/H200 전용 DAC 공개표에는 확인되지 않아 `문서상 미확인`으로 표시했습니다. |
 | retired / replacement | Oracle retirement 문서 기준으로 Grok 3 계열과 일부 구형 Cohere / Meta 모델은 신규 설계에서 우선 제외하는 편이 안전합니다. | 2026-05-18 확인 | retired / deprecated 메모와 빠른 추천에서 제외했습니다. |
-| CLI probe | 사전 수집된 `region-subscription list`, `compute shape list`, `os ns get`은 모두 성공으로 기록되었습니다. | 2026-05-18 | Codex 안에서 OCI CLI를 재실행하지 않았고, 사전 probe stdout/stderr를 실조회 결과로 사용했습니다. |
+| CLI probe | 사전 수집된 `region-subscription list`, `compute shape list`, `os ns get`은 모두 성공으로 기록되었습니다. | 2026-05-18 | 사전 probe 요약을 실조회 결과로 사용했습니다. |
 핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `CLI probe 성공 결과 반영`입니다.
 
 ## 2026-05-17
