@@ -9,6 +9,42 @@
 
 ## 처음 읽는 분을 위한 요약
 
+### 서비스 선택 흐름
+
+```mermaid
+flowchart TD
+  A["시작: 어떤 방식으로 모델을 사용할 것인가?"] --> B{"관리형 모델을 API로 바로 쓰면 충분한가?"}
+  B -->|예| C["On-demand 모델 우선 검토"]
+  B -->|아니오| D{"전용 처리량 또는 전용 endpoint가 필요한가?"}
+  D -->|예| E["DAC 검토"]
+  D -->|아니오| F{"Hugging Face 또는 open model fine-tuning이 필요한가?"}
+  F -->|예| G["AQUA 또는 Data Science Jobs/Notebook 검토"]
+  F -->|아니오| H{"외부에서 fine-tuned된 compatible model을 운영할 것인가?"}
+  H -->|예| I["Imported model + DAC hosting 검토"]
+  H -->|아니오| J{"GPU 인프라를 직접 운영할 수 있는가?"}
+  J -->|예| K["IaaS GPU 검토"]
+  J -->|아니오| L["On-demand 또는 Oracle 관리형 경로로 범위 재조정"]
+```
+
+### 워크로드별 추천 아키텍처
+
+```mermaid
+flowchart LR
+  W1["업무 챗봇 / 문서 요약"] --> A1["On-demand chat model"]
+  W2["RAG / 검색 품질 개선"] --> A2["Embed + Rerank + Chat"]
+  W3["전용 처리량 / 전용 endpoint"] --> A3["DAC"]
+  W4["Hugging Face / open model fine-tuning"] --> A4["AQUA 또는 Data Science Jobs"]
+  W5["외부 fine-tuned 모델 운영"] --> A5["Imported model + DAC hosting"]
+  W6["완전 커스텀 학습 / 프레임워크 직접 운영"] --> A6["IaaS GPU"]
+
+  A1 --> C1["리전별 모델 지원 확인"]
+  A2 --> C2["임베딩, 재정렬, 생성 모델 조합 확인"]
+  A3 --> C3["모델별 DAC unit, service limit, capacity 확인"]
+  A4 --> C4["Data Science 지원 shape, Object Storage, Job 설정 확인"]
+  A5 --> C5["compatible model 조건과 권장 DAC 확인"]
+  A6 --> C6["드라이버, 컨테이너, 보안, 분산 학습 운영 책임 확인"]
+```
+
 | 질문 | 짧은 답 |
 |---|---|
 | 관리형 모델을 바로 쓰고 싶습니다. | 먼저 `온디맨드` 모델을 검토합니다. 별도 GPU 운영 없이 API로 사용하는 방식입니다. |
