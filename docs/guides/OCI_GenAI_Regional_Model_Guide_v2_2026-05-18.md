@@ -1,10 +1,21 @@
 # OCI Generative AI / DAC / AQUA / IaaS GPU 리전 및 모델 가이드 v2
 
 최신 작성일: 2026-05-18 (GMT)  
-작성 기준: Oracle 공식 문서 우선, OCI CLI 사전 probe 결과 보조  
-OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-probe/summary.md`
+작성 기준: Oracle 공식 문서 우선, 대표 리전 GPU 조회 결과 보조
 
-이 문서는 `LATEST.md`로 복사될 수 있음을 고려해, 앞부분에 이번 업데이트 변화와 CLI 조회 상태를 먼저 배치했습니다.
+이 문서는 OCI Generative AI 모델을 어느 리전에서 어떤 방식으로 사용할지, 전용 클러스터가 필요한지, GPU를 직접 써야 하는지 판단하기 위한 가이드입니다.
+
+---
+
+## 처음 읽는 분을 위한 요약
+
+| 질문 | 짧은 답 |
+|---|---|
+| 관리형 모델을 바로 쓰고 싶습니다. | 먼저 `온디맨드` 모델을 검토합니다. 별도 GPU 운영 없이 API로 사용하는 방식입니다. |
+| 안정적인 처리량이나 전용 endpoint가 필요합니다. | `DAC`를 검토합니다. 다만 DAC에 올릴 수 있다고 해서 항상 fine-tuning이 가능한 것은 아닙니다. |
+| Hugging Face/open model을 실험하거나 fine-tuning하고 싶습니다. | `AQUA` 또는 `OCI Data Science Jobs/Notebook` 경로가 자연스럽습니다. |
+| GPU 서버를 직접 운영하고 싶습니다. | `IaaS GPU`를 사용합니다. 자유도는 높지만 드라이버, 프레임워크, 보안, 분산 학습 운영을 직접 책임져야 합니다. |
+| 표에 `지원`이라고 되어 있으면 바로 생성 가능한가요? | 아닙니다. 서비스 지원과 실제 capacity, service limit, quota는 별도 확인이 필요합니다. |
 
 ---
 
@@ -18,9 +29,9 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 | 기능 확장 | Cohere Embed 4가 configurable output dimensions와 text+image `EmbedText` payload를 지원합니다. | 2026-05-09 | 임베딩 모델 강점과 DAC 표에 반영했습니다. |
 | 리전 추가 | OCI Generative AI가 UAE Central (Abu Dhabi) 리전에서 사용 가능해졌습니다. | 2026-05-05 | 서비스 가용성 표에 넣었습니다. 다만 A10/A100/H100/H200 전용 DAC 공개표에는 확인되지 않아 `문서상 미확인`으로 표시했습니다. |
 | retired / replacement | Oracle retirement 문서 기준으로 Grok 3 계열과 일부 구형 Cohere / Meta 모델은 신규 설계에서 우선 제외하는 편이 안전합니다. | 2026-05-18 확인 | retired / deprecated 메모와 빠른 추천에서 제외했습니다. |
-| CLI probe | 사전 수집된 `region-subscription list`, `compute shape list`, `os ns get`은 모두 성공으로 기록되었습니다. | 2026-05-18 | 사전 probe 요약을 실조회 결과로 사용했습니다. |
+| 대표 리전 GPU 조회 | 대표 리전의 IaaS GPU shape 조회가 성공했습니다. | 2026-05-18 | IaaS/AQUA 해석 표에 반영했습니다. |
 
-핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `CLI probe 성공 결과 반영`입니다.
+핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `대표 리전 GPU 조회 성공 결과 반영`입니다.
 
 ---
 
@@ -29,31 +40,41 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 | 원칙 | 적용 방식 |
 |---|---|
 | Oracle 공식 문서 우선 | 모델 리전, DAC unit, shape 사양, AQUA 지원 범위는 Oracle 공식 문서를 1순위로 사용했습니다. |
-| CLI 사전 probe 우선 | `/runs/2026-05-18-oci-probe/summary.md`의 성공/실패 요약을 OCI CLI 실조회 결과로 사용했습니다. |
+| 대표 리전 실조회 보조 | 대표 리전의 IaaS GPU shape 조회 결과를 보조 근거로 사용했습니다. |
 | 추정 금지 | Oracle 문서에 없는 리전별 실시간 재고, generic/cohere DAC의 실제 GPU 종류, GPU 메모리는 단정하지 않았습니다. |
 | 관리형 기본 모델과 imported model 분리 | Oracle 관리형 기본 모델의 dedicated cluster unit과 사용자가 import한 모델의 권장 DAC를 별도로 다루었습니다. |
-| 표 폭 제한 | 리전, 모델, GPU, CLI 상태를 여러 표로 나눴습니다. |
+| 표 폭 제한 | 리전, 모델, GPU, 조회 상태를 여러 표로 나눴습니다. |
 
 ---
 
-## 1. CLI 조회 상태
+## 용어 빠른 설명
 
-### 1-1. CLI 조회 성공/실패 상태 표
-
-| 조회 항목 | 상태 | 최종 처리 |
-|---|---|---|
-| `oci iam region-subscription list` | 성공 | 구독 리전 실조회 결과로 사용했습니다. |
-| `oci --region <region> compute shape list` | 성공 | 대표 리전별 IaaS GPU shape 가시성으로 사용했습니다. |
-| `oci --region ap-seoul-1 os ns get` | 성공 | 보조 연결 확인 성공으로 사용했습니다. |
-| `oci --version` | 성공 | OCI CLI `3.81.1`로 기록했습니다. |
-
-### 1-2. probe 원본 기준 관찰
-
-| 항목 | 결과 |
+| 용어 | 쉬운 설명 |
 |---|---|
-| 구독 리전 | `region-subscription-list.out`에 43개 READY 리전이 확인되었습니다. home region은 `us-ashburn-1`입니다. |
-| 실패 항목 | summary 기준 실패 항목은 없습니다. |
-| 문서 반영 | `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 않았습니다. |
+| 리전 | OCI 서비스를 사용할 물리적 지역입니다. 예: Ashburn, Frankfurt, Seoul. |
+| 온디맨드 | 전용 클러스터 없이 API로 바로 호출하는 모델 사용 방식입니다. |
+| Dedicated / DAC | 특정 모델을 전용 용량으로 운영하기 위한 전용 AI 클러스터입니다. 안정적인 처리량이나 전용 endpoint가 필요할 때 검토합니다. |
+| AQUA | OCI Data Science의 AI Quick Actions입니다. 오픈 모델을 빠르게 배포, 평가, fine-tuning하는 데 사용합니다. |
+| IaaS GPU | GPU VM/BM을 직접 만들어 사용하는 방식입니다. 운영 자유도는 높지만 관리 책임도 큽니다. |
+| Shape | OCI에서 CPU, 메모리, GPU 구성을 나타내는 서버 규격 이름입니다. |
+| GPU family | A10, A100, H100, H200처럼 GPU 세대를 구분하는 이름입니다. |
+| Service limit / quota | 계정 또는 compartment에서 만들 수 있는 리소스 한도입니다. |
+| Capacity | 특정 리전과 AD에 실제로 남아 있는 물리적 자원입니다. |
+| Fine-tuning | 기존 모델을 특정 데이터로 추가 학습해 업무에 맞게 조정하는 작업입니다. |
+| Imported model | Hugging Face 또는 Object Storage에서 가져와 OCI에 배포하는 모델입니다. |
+
+---
+
+## 1. 조회 결과 요약
+
+이 섹션은 고객이 의사결정할 때 필요한 조회 결과만 요약합니다. 내부 검증 파일 경로나 보조 연결 확인 값은 본문에 싣지 않았습니다.
+
+| 조회 항목 | 결과 | 고객 관점의 의미 |
+|---|---|---|
+| 구독 리전 | 43개 READY 리전 확인 | 이 테넌시에서 여러 글로벌 리전을 사용할 수 있습니다. |
+| 대표 리전 IaaS GPU shape | 조회 성공 | 미국, 유럽, 한국/일본, 중동 대표 리전의 GPU shape 가시성을 확인했습니다. |
+| 실패 항목 | 없음 | 이번 대표 리전 조회에서는 실패로 처리한 항목이 없습니다. |
+| 문서 반영 | 성공 결과 반영 | 대표 리전의 IaaS/AQUA 해석 표에 조회 결과를 반영했습니다. |
 
 ---
 
@@ -128,7 +149,7 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 
 ---
 
-## 4. IaaS GPU shape 조회 명령과 결과 해석법
+## 4. IaaS GPU shape 조회와 결과 해석법
 
 ### 4-1. 구독 리전 조회 명령
 
@@ -136,7 +157,7 @@ OCI probe summary: `/home/opc/oci-genai-guide-maintenance/runs/2026-05-18-oci-pr
 oci iam region-subscription list --all --output table
 ```
 
-probe에서 사용한 명령은 위 형식입니다. 이 리포트에서는 전체 구독 리전이 43개 READY 상태임을 확인하고, 아래 대표 리전 규칙에 따라 IaaS/AQUA 비교용 shape 조회를 수행했습니다.
+운영 담당자가 구독 리전을 확인할 때 사용하는 명령입니다. 이 리포트에서는 전체 구독 리전이 43개 READY 상태임을 확인하고, 아래 대표 리전 규칙에 따라 IaaS/AQUA 비교용 GPU shape 조회를 수행했습니다.
 
 ### 4-2. GPU shape 조회 명령
 
@@ -147,7 +168,7 @@ oci --region <region> compute shape list --all \
   --output table
 ```
 
-probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비교에 동일하게 적용할 대표 리전 샘플을 조회했습니다.
+이번 조회는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비교에 동일하게 적용할 대표 리전 샘플입니다.
 
 | 권역 | 대표 리전 |
 |---|---|
@@ -158,12 +179,14 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 
 ### 4-3. 결과 해석법
 
-| CLI 결과 | 해석 |
+| 조회 결과 | 해석 |
 |---|---|
 | 표에 shape가 표시됨 | 해당 tenancy/compartment/region의 `compute shape list` API에서 그 GPU shape가 보였다는 뜻입니다. 실제 생성 성공은 service limit, quota, capacity, AD별 가용성에 따라 달라질 수 있습니다. |
-| `Command returned empty list` | 명령은 성공했지만 GPU shape 목록이 비어 있다는 뜻입니다. OCI CLI 실패로 해석하지 않습니다. |
+| `Command returned empty list` | 명령은 성공했지만 GPU shape 목록이 비어 있다는 뜻입니다. 조회 실패로 해석하지 않습니다. |
 | 같은 shape가 중복 표시됨 | 원본 API 결과 또는 AD/variant 표시 방식 때문에 중복될 수 있습니다. 재고 수량으로 해석하지 않습니다. |
-| 오류 메시지가 없음 | 이번 probe에서는 조회 실패 오류가 없었다고 기록합니다. |
+| 오류 메시지가 없음 | 이번 조회에서는 실패 오류가 없었다고 기록합니다. |
+
+고객 관점에서 중요한 점은 `shape가 보임`이 `지금 바로 생성 가능`을 뜻하지 않는다는 것입니다. 실제 생성 가능 여부는 service limit, quota, capacity, AD별 가용성 확인이 필요합니다.
 
 ---
 
@@ -201,16 +224,16 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 
 주의 사항:
 
-- `BM.GPU.B4.8`은 이번 CLI probe에서 Osaka와 Phoenix에 보였지만, 이 문서의 공식 shape-to-memory 표에서는 Oracle Compute shape 문서에서 확인되는 범위만 확정했습니다.
+- `BM.GPU.B4.8`은 이번 대표 리전 조회에서 Osaka와 Phoenix에 보였지만, 이 문서의 공식 shape-to-memory 표에서는 Oracle Compute shape 문서에서 확인되는 범위만 확정했습니다.
 - Compute 문서와 Data Science 문서는 일부 shape 표기가 다릅니다. 예를 들어 A10 bare metal은 Compute 문서에서 `BM.GPU.A10.4`, Data Science 문서에서 `BM.GPUA10.4`처럼 보일 수 있습니다.
 
 ---
 
-## 6. IaaS / AQUA GPU 재고표
+## 6. 대표 리전 GPU 가시성과 AQUA 해석
 
-### 6-1. 대표 리전 probe 기준 IaaS GPU shape 가시성
+### 6-1. 대표 리전 기준 IaaS GPU shape 가시성
 
-| 리전 | probe 상태 | 보인 GPU 계열 | 보인 shape |
+| 리전 | 조회 상태 | 보인 GPU 계열 | 보인 shape |
 |---|---|---|---|
 | `us-ashburn-1` | 성공 | P100, V100, A10, A100 | `BM.GPU2.2`, `VM.GPU2.1`, `BM.GPU3.8`, `VM.GPU3.1`, `VM.GPU3.2`, `VM.GPU3.4`, `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4`, `BM.GPU4.8` |
 | `us-phoenix-1` | 성공 | A10, A100 | `VM.GPU.A10.1`, `VM.GPU.A10.2`, `BM.GPU.A10.4`, `BM.GPU.B4.8` |
@@ -224,17 +247,17 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 
 ### 6-2. 대표 리전 기준 AQUA 해석
 
-| 리전 | IaaS probe에서 보인 GPU 계열 | AQUA 해석 |
+| 리전 | IaaS 조회에서 보인 GPU 계열 | AQUA 해석 |
 |---|---|---|
-| `us-ashburn-1` | P100, V100, A10, A100 | Data Science/AQUA에서 GPU shape 선택 가능성을 검토할 대표 리전입니다. |
-| `us-phoenix-1` | A10, A100 | Data Science/AQUA에서 GPU shape 선택 가능성을 검토할 대표 리전입니다. |
+| `us-ashburn-1` | P100, V100, A10, A100 | Data Science/AQUA에서 GPU shape 선택 가능성을 검토할 대표 리전입니다. 단, 실제 생성 가능 여부는 별도 확인이 필요합니다. |
+| `us-phoenix-1` | A10, A100 | Data Science/AQUA에서 GPU shape 선택 가능성을 검토할 대표 리전입니다. 단, 실제 생성 가능 여부는 별도 확인이 필요합니다. |
 | `eu-frankfurt-1` | P100, A10, A100 | 유럽 대표 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
 | `uk-london-1` | V100, A10 | 유럽/영국권 대표 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
 | `ap-seoul-1` | V100, A10, A100 | 한국 운영 관심 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
 | `ap-osaka-1` | V100, A10, A100 | 일본 운영 관심 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
 | `me-dubai-1` | A10 | 중동 대표 리전으로, AQUA 사용 전 Data Science 지원 shape와 service limit을 확인해야 합니다. |
-| `me-riyadh-1` | 없음 | IaaS probe 결과가 비어 있지만, AQUA 실재고 없음으로 단정하지 않습니다. Console/limit/capacity 확인이 필요합니다. |
-| `me-abudhabi-1` | 없음 | IaaS probe 결과가 비어 있지만, AQUA 실재고 없음으로 단정하지 않습니다. Console/limit/capacity 확인이 필요합니다. |
+| `me-riyadh-1` | 없음 | IaaS 조회 결과가 비어 있지만, AQUA 실재고 없음으로 단정하지 않습니다. Console/limit/capacity 확인이 필요합니다. |
+| `me-abudhabi-1` | 없음 | IaaS 조회 결과가 비어 있지만, AQUA 실재고 없음으로 단정하지 않습니다. Console/limit/capacity 확인이 필요합니다. |
 
 ### 6-3. 문서 기준 IaaS / AQUA 일반 해석
 
@@ -244,7 +267,7 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 | AQUA GPU 재고 | Oracle 공식 문서는 AQUA의 리전별 GPU 실재고표를 제공하지 않습니다. |
 | AQUA shape 기준 | AQUA는 Data Science가 지원하는 GPU를 사용할 수 있습니다. |
 | GPU 예약 이전 | Data Science 문서는 Compute GPU reservation을 Data Science로 이전하는 support request 절차를 설명합니다. |
-| 리야드/아부다비 | 이번 probe 명령은 성공했지만 GPU shape 목록이 비어 있었습니다. 실패가 아니라 빈 결과입니다. |
+| 리야드/아부다비 | 이번 조회 명령은 성공했지만 GPU shape 목록이 비어 있었습니다. 실패가 아니라 빈 결과입니다. |
 
 ### 6-4. 운영 확인 체크리스트
 
@@ -255,6 +278,8 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 | Quota / Compartment 정책 | tenancy limit과 compartment quota가 모두 영향을 줍니다. |
 | Reservation | 대형 GPU는 예약 또는 capacity 협의가 필요할 수 있습니다. |
 | Data Science 전환 | AQUA/Data Science에서 쓰려면 Data Science 지원 shape와 reservation 이전 절차를 함께 확인해야 합니다. |
+
+정리하면, 이 표는 `어떤 리전에서 어떤 GPU 계열을 검토할 수 있는지`를 보여줍니다. `바로 생성 가능`, `예약 가능`, `AQUA에서 즉시 사용 가능`을 보장하는 표는 아닙니다.
 
 ---
 
@@ -295,6 +320,8 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 ---
 
 ## 8. DAC 중심 모델 표
+
+DAC는 전용 용량으로 모델을 운영하기 위한 선택지입니다. 안정적인 처리량, 전용 endpoint, 장기 운영이 필요할 때 검토합니다. 다만 `DAC hosting 가능`이 `fine-tuning 가능`을 뜻하지는 않습니다.
 
 ### 8-1. 관리형 기본 모델용 DAC
 
@@ -388,7 +415,7 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 
 ## 10. import / custom deployment 권장 DAC
 
-이 절은 관리형 기본 모델이 아니라 imported model과 custom deployment 기준입니다.
+이 절은 관리형 기본 모델이 아니라 imported model과 custom deployment 기준입니다. 여기서의 권장 DAC는 모델을 `호스팅`하기 위한 시작점이며, OCI가 해당 모델을 직접 fine-tuning해준다는 의미가 아닙니다.
 
 ### 10-1. Oracle compatible imported model 기준 권장 DAC
 
@@ -427,6 +454,8 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 ---
 
 ## 11. 파인튜닝 가능 여부
+
+파인튜닝은 서비스별로 의미가 다릅니다. Oracle이 관리형으로 제공하는 fine-tuning, AQUA/Data Science에서의 open model fine-tuning, IaaS GPU 위 self-managed fine-tuning은 운영 책임과 지원 범위가 다릅니다.
 
 ### 11-1. 서비스별 파인튜닝 가능 범위
 
@@ -569,14 +598,16 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 
 ---
 
-## 16. 공식 문서 기준과 CLI 결과의 분리
+## 16. 공식 문서 기준과 대표 리전 조회 결과의 분리
 
-| 항목 | 공식 문서로 확정 가능 | CLI probe로 확인 | 이 문서의 표현 |
+아래 표는 `Oracle 공식 문서로 확정할 수 있는 내용`과 `대표 리전 조회로 보조 확인한 내용`을 구분한 것입니다. 두 근거를 섞어서 실시간 재고나 생성 가능성을 단정하지 않기 위한 기준입니다.
+
+| 항목 | 공식 문서로 확정 가능 | 대표 리전 조회로 확인 | 이 문서의 표현 |
 |---|---|---|---|
 | 모델별 리전 / mode | 가능 | 아니오 | Oracle `Models by Region` / DAC shape 문서 기준으로 썼습니다. |
 | DAC unit 이름 | 가능 | 아니오 | Oracle DAC 문서 기준으로 썼습니다. |
 | generic/cohere unit의 실제 GPU | 불가 | 아니오 | `미공개`로 썼습니다. |
-| IaaS shape 가시성 | 문서상 shape 사양은 가능 | 가능 | 2026-05-18 probe 결과로 썼습니다. |
+| IaaS shape 가시성 | 문서상 shape 사양은 가능 | 가능 | 2026-05-18 대표 리전 조회 결과로 썼습니다. |
 | IaaS 실시간 capacity 수량 | 불가 | 아니오 | 단정하지 않았습니다. |
 | AQUA 리전별 GPU 재고 | 불가 | 아니오 | Oracle 문서상 고정표 없음으로 썼습니다. |
 
@@ -613,7 +644,8 @@ probe는 전체 구독 리전 전수조사가 아니라 GenAI/DAC/IaaS/AQUA 비�
 
 ## 18. 최종 주의사항
 
+- 이 문서는 고객 의사결정을 돕기 위한 가이드이며, 실제 리소스 생성 전에는 리전, quota, service limit, capacity를 별도로 확인해야 합니다.
 - `compute shape list`에 표시된 shape는 생성 가능한 실시간 재고 수량이 아닙니다.
-- `Command returned empty list`는 이번 probe에서 명령 성공 후 GPU shape 결과가 비어 있음을 뜻합니다.
+- `Command returned empty list`는 이번 조회에서 명령 성공 후 GPU shape 결과가 비어 있음을 뜻합니다.
 - 관리형 기본 모델용 DAC와 imported model 권장 DAC를 혼동하지 않았습니다.
 - Oracle 문서에 없는 내용은 `미공개`, `문서상 미확인`, `고정표 없음`으로 표시했습니다.
