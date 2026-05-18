@@ -36,7 +36,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `docs/INDEX.md`
 - `docs/HISTORY.md`
 - `docs/CHANGELOG.md`
-- `docs/guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md`
+- `docs/guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md`
 
 핵심 실행 파일:
 
@@ -184,7 +184,7 @@ OCI 사전 조회 결과:
 1. `cron_refresh.sh`의 commit/push 실패 처리 변경이 다음 실운영 날짜에도 정상 동작하는지 검증
 2. `compute shape list` 권한이 있는 OCI 프로파일을 확보하면 리전별 IaaS GPU 실측표 추가
 3. GitHub Actions를 실제 활성화할지 재검토
-4. v3 문서 구조로 전환할 때도 `probe.json` 입력 계약은 유지
+4. v3 문서 구조에서도 `probe.json` 입력 계약은 유지
 
 제외한 항목:
 

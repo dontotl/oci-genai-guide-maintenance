@@ -10,7 +10,17 @@ CHANGELOG_FILE="$ROOT_DIR/docs/CHANGELOG.md"
 
 mkdir -p "$GUIDE_DIR"
 
-mapfile -t guides < <(find "$GUIDE_DIR" -maxdepth 1 -type f -name 'OCI_GenAI_Regional_Model_Guide_v2_*.md' | sort -r)
+mapfile -t guides < <(
+  find "$GUIDE_DIR" -maxdepth 1 -type f \( -name 'OCI_GenAI_Regional_Model_Guide_v3_*.md' -o -name 'OCI_GenAI_Regional_Model_Guide_v2_*.md' \) |
+    while IFS= read -r guide; do
+      base="$(basename "$guide")"
+      version="$(printf '%s\n' "$base" | sed -n 's/^OCI_GenAI_Regional_Model_Guide_v\([0-9][0-9]*\)_.*/\1/p')"
+      date_part="$(printf '%s\n' "$base" | sed -n 's/^OCI_GenAI_Regional_Model_Guide_v[0-9][0-9]*_\(.*\)\.md$/\1/p')"
+      printf '%s\t%03d\t%s\n' "$date_part" "$version" "$guide"
+    done |
+    sort -t $'\t' -k1,1r -k2,2r |
+    cut -f3-
+)
 
 if [[ ${#guides[@]} -eq 0 ]]; then
   cat > "$INDEX_FILE" <<'EOF'
@@ -64,9 +74,9 @@ cp "$latest" "$LATEST_FILE"
   echo
   for guide in "${guides[@]}"; do
     base="$(basename "$guide")"
-    date_part="${base#OCI_GenAI_Regional_Model_Guide_v2_}"
-    date_part="${date_part%.md}"
-    echo "- ${date_part}: [${base}](guides/${base})"
+    version_part="$(printf '%s\n' "$base" | sed -n 's/^OCI_GenAI_Regional_Model_Guide_\(v[0-9][0-9]*\)_.*/\1/p')"
+    date_part="$(printf '%s\n' "$base" | sed -n 's/^OCI_GenAI_Regional_Model_Guide_v[0-9][0-9]*_\(.*\)\.md$/\1/p')"
+    echo "- ${date_part} (${version_part}): [${base}](guides/${base})"
   done
 } > "$HISTORY_FILE"
 
@@ -77,9 +87,9 @@ cp "$latest" "$LATEST_FILE"
   echo
   for guide in "${guides[@]}"; do
     base="$(basename "$guide")"
-    date_part="${base#OCI_GenAI_Regional_Model_Guide_v2_}"
-    date_part="${date_part%.md}"
-    echo "## ${date_part}"
+    version_part="$(printf '%s\n' "$base" | sed -n 's/^OCI_GenAI_Regional_Model_Guide_\(v[0-9][0-9]*\)_.*/\1/p')"
+    date_part="$(printf '%s\n' "$base" | sed -n 's/^OCI_GenAI_Regional_Model_Guide_v[0-9][0-9]*_\(.*\)\.md$/\1/p')"
+    echo "## ${date_part} (${version_part})"
     echo
     echo "[${base}](guides/${base})"
     echo
@@ -88,7 +98,7 @@ cp "$latest" "$LATEST_FILE"
       awk '
         /^---$/ && in_summary { exit }
         in_summary { print }
-        /^## 이번 업데이트 변화 요약[[:space:]]*$/ { in_summary = 1 }
+        /^## .*이번 업데이트 변화 요약[[:space:]]*$/ { in_summary = 1 }
       ' "$guide" | sed '/^[[:space:]]*$/d'
     )"
 

@@ -51,7 +51,7 @@ cd /home/opc/oci-genai-guide-maintenance
 
 생성 결과:
 
-- `runs/OCI_GenAI_Regional_Model_Guide_v2_<date>.md`
+- `runs/OCI_GenAI_Regional_Model_Guide_v3_<date>.md`
 - `runs/<date>-refresh-prompt.md`
 
 ### 2. 생성된 프롬프트를 Codex 같은 에이전트에 입력
@@ -67,7 +67,7 @@ cat runs/$(date -u +%F)-refresh-prompt.md
 ### 3. 작성이 끝난 가이드를 latest/index에 반영
 
 ```bash
-./scripts/publish_guide.sh runs/OCI_GenAI_Regional_Model_Guide_v2_$(date -u +%F).md
+./scripts/publish_guide.sh runs/OCI_GenAI_Regional_Model_Guide_v3_$(date -u +%F).md
 ```
 
 반영 결과:

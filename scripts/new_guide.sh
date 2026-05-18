@@ -5,7 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DATE_ARG="${1:-$(date -u +%F)}"
 RUN_DIR="$ROOT_DIR/runs"
 PROMPT_TEMPLATE="$ROOT_DIR/OCI_GenAI_Regional_Model_Guide_Prompt.md"
-OUT_FILE="$RUN_DIR/OCI_GenAI_Regional_Model_Guide_v2_${DATE_ARG}.md"
+OUT_FILE="$RUN_DIR/OCI_GenAI_Regional_Model_Guide_v3_${DATE_ARG}.md"
 RUN_PROMPT="$RUN_DIR/${DATE_ARG}-refresh-prompt.md"
 OCI_PROBE_SUMMARY="$RUN_DIR/${DATE_ARG}-oci-probe/summary.md"
 OCI_PROBE_JSON="$RUN_DIR/${DATE_ARG}-oci-probe/probe.json"
@@ -15,7 +15,7 @@ mkdir -p "$RUN_DIR"
 
 if [[ ! -f "$OUT_FILE" ]]; then
   cat > "$OUT_FILE" <<EOF
-# OCI Generative AI / DAC / AQUA / IaaS GPU 리전·모델 정리 v2
+# OCI Generative AI / DAC / AQUA / IaaS GPU 리전·모델 정리 v3
 
 작성일: ${DATE_ARG}
 

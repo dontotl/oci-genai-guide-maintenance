@@ -11,32 +11,31 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - probe JSON이 없으면 probe summary와 원본 파일의 성공 결과를 사용
 - probe JSON, 고객용 summary, probe summary가 없거나 특정 항목이 실패한 경우에만 실패 이유를 적고 문서 기준 해석표로 대체
 - Codex 샌드박스의 네트워크 timeout을 실제 OCI CLI 조회 실패로 단정하지 말 것
-- 결과 파일명은 `OCI_GenAI_Regional_Model_Guide_v2_<DATE>.md`
+- 결과 파일명은 `OCI_GenAI_Regional_Model_Guide_v3_<DATE>.md`
 - 결과 파일 경로는 `<OUTPUT_FILE>`입니다
 - 가로 폭이 너무 길지 않게 표를 여러 개로 나눌 것
 - 반드시 최신 날짜를 문서에 명시할 것
 - 반드시 한국어로 작성할 것
 - 보고서 본문 말투는 `~다`, `~했다`, `~썼다` 체가 아니라 `~습니다`, `~했습니다`, `~썼습니다` 체로 작성할 것
 - OCI를 잘 모르는 고객도 이해할 수 있도록 앞부분에 읽는 법과 주요 용어 설명을 넣을 것
-- 앞부분에 Mermaid로 `서비스 선택 흐름`과 `워크로드별 추천 아키텍처`를 넣을 것. `서비스 선택 흐름`은 긴 이지선다가 아니라 모델 활용 방식을 5개 선택 축으로 단순화하고, `워크로드별 추천 아키텍처`는 `워크로드 -> 필요 요구사항 -> 적용 Oracle 서비스` 3단 구조로 작성할 것. Mermaid가 보이지 않는 환경을 위해 바로 아래에 짧은 요약 표도 유지할 것
+- 앞부분에 Mermaid로 `서비스 선택 흐름`과 `워크로드별 추천 아키텍처`를 넣을 것. `서비스 선택 흐름`은 긴 이지선다가 아니라 `On-demand`, `Dedicated AI Cluster`, `AQUA / Data Science`, `IaaS GPU`의 4대 선택 범주로 단순화할 것. `워크로드별 추천 아키텍처`는 워크로드에서 대표 모델/기능 조합을 거쳐 4대 선택 범주로 연결할 것. Mermaid가 보이지 않는 환경을 위해 바로 아래에 짧은 요약 표도 유지할 것
 - 내부 운영 로그, 로컬 파일 경로, 보조 연결 확인 값처럼 고객 의사결정에 직접 필요 없는 내용은 본문에서 제외할 것
 
 반드시 포함할 항목:
 
-1. 리전별 Generative AI / DAC / AQUA 지원
-2. 리전별 DAC A10/A100/H100/H200 가시성
-3. IaaS GPU shape 조회 명령과 결과 해석법
-4. shape-to-GPU 매핑
-5. IaaS/AQUA GPU 재고표
-6. 온디맨드 핵심 모델 표
-7. DAC 중심 모델 표
-8. DAC 유닛별 배포 필요 GPU 메모리 표
-9. import/custom deployment 권장 DAC
-10. 파인튜닝 가능 여부
-11. A100/H100/H200 선택 가이드
-12. 모델 강점 요약
-13. 빠른 추천
-14. 이번 업데이트 변화 요약
+1. 처음 읽는 분을 위한 요약
+2. 이번 업데이트 변화 요약
+3. 선택 기준과 용어
+4. 4대 서비스 선택 가이드
+5. On-demand 모델 활용
+6. Dedicated AI Cluster 활용
+7. AQUA / Data Science 활용
+8. IaaS GPU 활용
+9. Import / Custom Model 운영
+10. Fine-tuning 가능 여부
+11. 리전 및 가용성 확인
+12. 모델 강점과 빠른 추천
+13. 검증 기준과 참고 문서
 
 작성 규칙:
 
@@ -57,4 +56,4 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 추가로 해줄 것:
 
 - 최종 문서 하단에 사용한 주요 공식 문서 범주를 짧게 정리
-- CLI 조회 성공/실패 상태를 별도 표로 적기
+- OCI 조회 성공/실패 상태를 고객용 표현의 별도 표로 적기
