@@ -6,6 +6,7 @@ GUIDE_DIR="$ROOT_DIR/docs/guides"
 INDEX_FILE="$ROOT_DIR/docs/INDEX.md"
 LATEST_FILE="$ROOT_DIR/docs/LATEST.md"
 HISTORY_FILE="$ROOT_DIR/docs/HISTORY.md"
+CHANGELOG_FILE="$ROOT_DIR/docs/CHANGELOG.md"
 
 mkdir -p "$GUIDE_DIR"
 
@@ -29,6 +30,12 @@ EOF
 
 이력이 아직 없습니다.
 EOF
+
+  cat > "$CHANGELOG_FILE" <<'EOF'
+# OCI GenAI Regional Guide Changelog
+
+변경 이력이 아직 없습니다.
+EOF
   exit 0
 fi
 
@@ -39,6 +46,8 @@ cp "$latest" "$LATEST_FILE"
   echo "# OCI GenAI Regional Guide Index"
   echo
   echo "최신 가이드: \`$(basename "$latest")\`"
+  echo
+  echo "- [CHANGELOG.md](CHANGELOG.md)"
   echo
   echo "## Guides"
   echo
@@ -61,7 +70,38 @@ cp "$latest" "$LATEST_FILE"
   done
 } > "$HISTORY_FILE"
 
+{
+  echo "# OCI GenAI Regional Guide Changelog"
+  echo
+  echo "가이드별 \`이번 업데이트 변화 요약\` 섹션을 최신순으로 모은 자동 생성 파일입니다."
+  echo
+  for guide in "${guides[@]}"; do
+    base="$(basename "$guide")"
+    date_part="${base#OCI_GenAI_Regional_Model_Guide_v2_}"
+    date_part="${date_part%.md}"
+    echo "## ${date_part}"
+    echo
+    echo "[${base}](guides/${base})"
+    echo
+
+    summary="$(
+      awk '
+        /^---$/ && in_summary { exit }
+        in_summary { print }
+        /^## 이번 업데이트 변화 요약[[:space:]]*$/ { in_summary = 1 }
+      ' "$guide" | sed '/^[[:space:]]*$/d'
+    )"
+
+    if [[ -n "$summary" ]]; then
+      printf '%s\n' "$summary"
+    else
+      echo "- 변화 요약 섹션을 찾지 못했습니다."
+    fi
+    echo
+  done
+} > "$CHANGELOG_FILE"
+
 printf 'Updated latest: %s\n' "$LATEST_FILE"
 printf 'Updated index: %s\n' "$INDEX_FILE"
 printf 'Updated history: %s\n' "$HISTORY_FILE"
-
+printf 'Updated changelog: %s\n' "$CHANGELOG_FILE"

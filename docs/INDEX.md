@@ -2,6 +2,8 @@
 
 최신 가이드: `OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md`
 
+- [CHANGELOG.md](CHANGELOG.md)
+
 ## Guides
 
 - [OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md)

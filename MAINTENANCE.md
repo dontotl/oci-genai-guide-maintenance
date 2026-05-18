@@ -35,7 +35,8 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `docs/LATEST.md`
 - `docs/INDEX.md`
 - `docs/HISTORY.md`
-- `docs/guides/OCI_GenAI_Regional_Model_Guide_v2_2026-04-17.md`
+- `docs/CHANGELOG.md`
+- `docs/guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md`
 
 핵심 실행 파일:
 
@@ -60,7 +61,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 
 - `new_guide.sh`: 새 날짜 초안 + 프롬프트 생성
 - `publish_guide.sh`: 초안 발행 + latest/index/history 갱신
-- `refresh_index.sh`: 인덱스 파일 재생성
+- `refresh_index.sh`: 인덱스와 changelog 파일 재생성
 - `cron_refresh.sh`: 주기 실행용 래퍼
 
 ### 2-3. cron
@@ -138,6 +139,8 @@ MAILTO=""
 - Codex 실행 타임아웃
 - 마지막 Codex 메시지 파일 저장
 - 가이드가 실제로 채워졌을 때만 publish
+- git commit 실패 시 중단
+- git push 실패 시 중단하고 로그 기록
 - git remote 없으면 push 생략
 
 로그 파일:
@@ -163,11 +166,13 @@ MAILTO=""
 
 우선순위 높은 것부터 적음.
 
-1. `cron_refresh.sh`의 실제 Codex 실행 결과를 한 번 실운영 날짜로 검증
-2. 갱신 결과에서 `new / deprecated / retired`를 추출해 `CHANGELOG.md` 한 페이지로 자동 반영
-3. `compute shape list` 권한이 있는 OCI 프로파일을 확보하면 리전별 IaaS GPU 실측표 추가
-4. 실패 시 Slack/Telegram/Webhook 알림 추가
-5. GitHub Actions를 실제 활성화할지 재검토
+1. `cron_refresh.sh`의 commit/push 실패 처리 변경이 다음 실운영 날짜에도 정상 동작하는지 검증
+2. `compute shape list` 권한이 있는 OCI 프로파일을 확보하면 리전별 IaaS GPU 실측표 추가
+3. GitHub Actions를 실제 활성화할지 재검토
+
+제외한 항목:
+
+- 실패 시 Slack/Telegram/Webhook 알림은 현재 운영 범위에서 제외
 
 ---
 
@@ -206,6 +211,14 @@ sed -n '1,20p' /etc/cron.d/oci-genai-guide-refresh
 - `cron_refresh.sh` 보수적 버전으로 강화
 - `/etc/cron.d/oci-genai-guide-refresh` 등록
 - 실행 시각을 한국 시간 월요일 02:00 기준으로 조정
+
+### 2026-05-18
+
+- 리포트 본문 말투를 `~습니다` 체로 통일
+- `.codex` bind mount 파일을 `.gitignore`에 추가
+- `refresh_index.sh`가 `docs/CHANGELOG.md`를 자동 생성하도록 변경
+- `cron_refresh.sh`가 git commit/push 실패를 숨기지 않고 실패로 종료하도록 변경
+- 실패 알림 연동은 현재 범위에서 제외
 
 ---
 

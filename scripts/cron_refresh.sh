@@ -59,11 +59,17 @@ if [[ -f "$RUN_GUIDE" ]] && grep -q '^# ' "$RUN_GUIDE" && ! grep -q '빈 문서�
   ./scripts/publish_guide.sh "$RUN_GUIDE"
 
   if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
-    git add docs/ README.md OCI_GenAI_Regional_Model_Guide_Prompt.md scripts/ templates/ .gitignore || true
+    git add docs/ README.md MAINTENANCE.md OCI_GenAI_Regional_Model_Guide_Prompt.md scripts/ templates/ .gitignore
     if ! git diff --cached --quiet; then
-      git commit -m "Refresh OCI GenAI regional guide for ${DATE_ARG}" || true
+      if ! git commit -m "Refresh OCI GenAI regional guide for ${DATE_ARG}"; then
+        log "Git commit failed. Leaving staged changes for manual review."
+        exit 1
+      fi
       if git remote get-url origin >/dev/null 2>&1; then
-        git push || true
+        if ! git push; then
+          log "Git push failed. Refresh output was committed locally but not published to origin."
+          exit 1
+        fi
       else
         log "No git remote named origin. Skipping push."
       fi

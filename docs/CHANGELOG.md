@@ -1,0 +1,106 @@
+# OCI GenAI Regional Guide Changelog
+
+가이드별 `이번 업데이트 변화 요약` 섹션을 최신순으로 모은 자동 생성 파일입니다.
+
+## 2026-05-17
+
+[OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md)
+
+- `2026-05-15` 기준 Oracle release notes에 `xAI Voice (Text to Speech)`가 추가되었습니다. 이 문서는 GPU/DAC 비교 중심이므로 본문 표에는 참고 항목으로만 넣었습니다.
+- `2026-05-11` 기준 Oracle release notes에 OCI Generative AI import 호환 모델이 추가되었습니다.
+  - `Qwen/Qwen3.6-35B-A3B`
+  - `Qwen/Qwen3.5-9B`
+  - `google/gemma-4-31B-it`
+- `2026-05-09` 기준 Oracle release notes에 `Cohere Rerank 4.0 Pro`와 `Cohere Rerank 4.0 Fast`가 추가되었습니다. 따라서 이번 문서부터 `재정렬` 표와 `DAC 중심 모델` 표에 Rerank 4.0 계열을 반영했습니다.
+- `2026-05-09` 기준 Oracle release notes에 `Cohere Embed 4`의 새 기능이 추가되었습니다.
+  - configurable embedding dimensions
+  - `EmbedText` API에서 텍스트와 이미지를 하나의 payload로 함께 처리
+- `2026-05-05` 기준 Oracle release notes에 `UAE Central (Abu Dhabi)` 리전의 OCI Generative AI 가용성이 추가되었습니다.
+- `2026-05-01` 기준 Oracle release notes와 개별 모델 페이지에 `xAI Grok 4.3`가 추가되었습니다.
+- `Models by Region` 기준으로 `UAE Central (Abu Dhabi)`에는 이미 일부 관리형 기본 모델의 dedicated 표기가 보이지만, `Dedicated Cluster Shapes by Region` 쪽에는 아직 Abu Dhabi 전용 A10/A100/H100/H200 하드웨어 표가 명시적으로 보이지 않습니다. 이번 확인 범위에서는 `Cohere Rerank 4.0` 전용 dedicated regional shape 표도 같은 페이지에 아직 명시적으로 반영되지 않았습니다.
+- retirement/deprecation 관련 문서는 이번 기준에서도 계속 중요합니다.
+  - 신규 설계에서 우선 제외할 대상: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`, `Meta Llama 2 70B`
+  - 대체 방향이 명시된 주요 축: `Meta Llama 4 Maverick/Scout`, `Cohere Command A`, `Cohere Embed 4`, `xAI Grok 4.3`
+- `xAI Grok 3`, `xAI Grok 3 Mini`, `xAI Grok 3 Fast`, `xAI Grok 3 Mini Fast`는 Oracle의 on-demand retirement 표에서 `xAI Grok 4.3` 대체 대상으로 정리되어 있습니다.
+- CLI 실조회는 이번에도 성공하지 못했습니다.
+  - `region-subscription list`: 실패
+  - `compute shape list`: 실패
+  - `os ns get`: 실패
+  - 공통 관찰: `--debug` 기준으로 Identity / IaaS / Object Storage endpoint에 대한 GET 요청만 4회가량 반복되었고, HTTP status나 응답 본문을 받기 전에 로컬 `timeout`으로 종료되었습니다.
+  - 따라서 `IaaS/AQUA GPU 재고표`는 실테넌시 live inventory가 아니라 Oracle 문서 기준 해석표로 대체했습니다.
+
+## 2026-05-10
+
+[OCI_GenAI_Regional_Model_Guide_v2_2026-05-10.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-10.md)
+
+- `2026-05-05` 기준 Oracle release notes에 `UAE Central (Abu Dhabi)` 리전의 OCI Generative AI 가용성이 추가되었습니다.
+- `2026-05-01` 기준 Oracle release notes와 개별 모델 페이지에 `xAI Grok 4.3`가 추가되었습니다.
+- `Models by Region` 기준으로 `UAE Central (Abu Dhabi)`에는 이미 일부 관리형 기본 모델의 dedicated 표기가 보이지만, `Dedicated Cluster Shapes by Region` 쪽에는 아직 Abu Dhabi 전용 A10/A100/H100/H200 하드웨어 표가 명시적으로 보이지 않습니다. 따라서 이 문서의 `DAC A10/A100/H100/H200 가시성` 표에서는 Abu Dhabi를 `문서상 미확인`으로 유지했습니다.
+- retirement/deprecation 관련 문서는 이번 기준에서도 계속 중요합니다.
+  - 신규 설계에서 우선 제외할 대상: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`, `Meta Llama 2 70B`
+  - 대체 방향이 명시된 주요 축: `Meta Llama 4 Maverick/Scout`, `Cohere Command A`, `Cohere Embed 4`, `xAI Grok 4.3`
+- `xAI Grok 3`, `xAI Grok 3 Mini`, `xAI Grok 3 Fast`, `xAI Grok 3 Mini Fast`는 Oracle의 on-demand retirement 표에서 `xAI Grok 4.3` 대체 대상으로 정리되어 있습니다.
+- CLI 실조회는 이번에도 성공하지 못했습니다.
+  - `region-subscription list`: 실패
+  - `compute shape list`: 실패
+  - `os ns get`: 실패
+  - 공통 관찰: 인증 오류 응답까지 가지 못하고 OCI endpoint GET 재시도만 반복되다가 로컬 `timeout`으로 종료되었습니다.
+  - 따라서 `IaaS/AQUA GPU 재고표`는 실테넌시 live inventory가 아니라 Oracle 문서 기준 해석표로 대체했습니다.
+
+## 2026-05-03
+
+[OCI_GenAI_Regional_Model_Guide_v2_2026-05-03.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-03.md)
+
+- `2026-05-03` 확인 기준, Oracle `Models by Region` 페이지에 `xAI Grok 4.3`가 반영되어 있습니다.
+- `2026-03-24` 기준, Oracle release notes에 `xAI Grok 4.20`과 `xAI Grok 4.20 Multi-Agent` 추가가 반영되어 있습니다.
+- `2026-03-11` 기준, imported model 계열 문서와 release notes에 `Qwen 3 Embedding`과 `NVIDIA Nemotron` 계열 확장이 반영되어 있습니다.
+- `2026-03-04` 기준, 관리형 `OpenAI gpt-oss` 전용 DAC 가시성이 `UAE East (Dubai)`, `Saudi Arabia Central (Riyadh)`, `US West (Phoenix)`까지 확대되어 있습니다.
+- retired/deprecated 관점에서 신규 설계에서 먼저 제외할 모델군은 여전히 분명합니다.
+  - retired: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`
+  - retirement window 주의: `Cohere Embed English Light 3`, `Cohere Embed Multilingual Light 3`는 dedicated 문서에서 `No sooner than 2026-03-29`로 표시됩니다.
+- OCI Compute 문서에는 `MI300X`, `MI355X`, `B200`, `GB200`, `GB300` 같은 더 새로운 GPU 계열도 보이지만, Oracle Generative AI 관리형 DAC 문서와 imported model 권장 unit 표는 이번 기준에서도 `A10/A100/H100/H200` 축이 중심입니다.
+- 이번 문서 생성 시 OCI CLI 자동 조회는 성공하지 못했습니다.
+  - `region-subscription list`: 실패
+  - `compute shape list`: 실패
+  - `os ns get`: 실패
+  - 공통 관찰: 인증 오류 메시지보다 먼저 OCI endpoint 요청이 반복되다가 로컬 타임아웃으로 종료되었습니다.
+  - 따라서 `IaaS/AQUA GPU 재고표`는 실테넌시 live inventory가 아니라 Oracle 문서 기준 해석표로 대체했습니다.
+
+## 2026-04-26
+
+[OCI_GenAI_Regional_Model_Guide_v2_2026-04-26.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-04-26.md)
+
+- `2026-03-24` 기준, Oracle release notes에 `xAI Grok 4.20`과 `xAI Grok 4.20 Multi-Agent` 추가가 반영되었습니다.
+- `2026-03-04` 기준, 관리형 `OpenAI gpt-oss` 전용 DAC 가시성이 `UAE East (Dubai)`, `Saudi Arabia Central (Riyadh)`, `US West (Phoenix)`까지 확대되었습니다.
+- `2026-02-26` 기준, `Cohere Embed 4` 온디맨드 지원 리전에 `US East (Ashburn)`, `Saudi Arabia Central (Riyadh)`가 추가되었습니다.
+- `2026-01-21` 전후 기준, Oracle이 `Models by Region` / `Dedicated Cluster Shapes by Region` 페이지를 별도로 제공하기 시작했고, `Cohere Command A Vision`, `Cohere Command A Reasoning`, `xAI Grok 4.1 Fast`가 현재 문서 체계에 반영되었습니다.
+- retired/deprecated 관점에서 신규 설계에서 먼저 제외할 모델군은 여전히 분명합니다.
+  - retired: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`
+  - dedicated retirement window 주의: `Cohere Embed English Light 3`, `Cohere Embed Multilingual Light 3`는 Oracle 문서상 dedicated retirement date가 `No sooner than 2026-03-29`로 표시됩니다.
+- 이번 문서 생성 시 OCI CLI 자동 조회는 성공하지 못했습니다.
+  - `region-subscription list`: 실패
+  - `compute shape list`: 실패
+  - 보조 연결 확인용 `oci os ns get`: 실패
+  - 실패 원인은 `권한 부족`이 아니라 `endpoint connection timeout`으로 관찰되었고, 따라서 `IaaS/AQUA 리전별 실제 GPU 재고`는 Oracle 문서 기준 해석표로 대체했습니다.
+
+## 2026-04-19
+
+[OCI_GenAI_Regional_Model_Guide_v2_2026-04-19.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-04-19.md)
+
+- `2026-03-04` 기준, OpenAI `gpt-oss` 전용 DAC 가시성이 `UAE East (Dubai)`, `Saudi Arabia Central (Riyadh)`, `US West (Phoenix)`로 확장되었습니다.
+- `2026-02-26` 기준, `Cohere Embed 4` 온디맨드가 `US East (Ashburn)`, `Saudi Arabia Central (Riyadh)`로 확대되었습니다.
+- `2026-01-21` 기준, Oracle이 `Models by Region` / `Dedicated Cluster Shapes by Region` 페이지를 별도로 제공하기 시작해 리전별 판정 근거가 더 명확해졌습니다.
+- 현재 기준 retired/deprecated 관점에서 신규 설계에서 먼저 제외해야 할 모델군이 분명해졌습니다.
+  - retired: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`
+  - dedicated retirement window 경과 주의: `Cohere Embed English Light 3`, `Cohere Embed Multilingual Light 3`는 Oracle 문서상 dedicated retirement date가 `No sooner than 2026-03-29`로 표시됩니다.
+- 이번 문서 생성 시 OCI CLI 자동 조회는 성공하지 못했습니다.
+  - `region-subscription list`: 타임아웃
+  - `compute shape list`: 타임아웃
+  - 따라서 `IaaS/AQUA 리전별 실제 GPU 재고`는 문서 기준 해석표로 대체했습니다.
+
+## 2026-04-17
+
+[OCI_GenAI_Regional_Model_Guide_v2_2026-04-17.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-04-17.md)
+
+- 변화 요약 섹션을 찾지 못했습니다.
+
