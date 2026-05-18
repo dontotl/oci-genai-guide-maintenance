@@ -12,38 +12,47 @@
 ### 서비스 선택 흐름
 
 ```mermaid
-flowchart TD
-  A["시작: 어떤 방식으로 모델을 사용할 것인가?"] --> B{"관리형 모델을 API로 바로 쓰면 충분한가?"}
-  B -->|예| C["On-demand 모델 우선 검토"]
-  B -->|아니오| D{"전용 처리량 또는 전용 endpoint가 필요한가?"}
-  D -->|예| E["DAC 검토"]
-  D -->|아니오| F{"Hugging Face 또는 open model fine-tuning이 필요한가?"}
-  F -->|예| G["AQUA 또는 Data Science Jobs/Notebook 검토"]
-  F -->|아니오| H{"외부에서 fine-tuned된 compatible model을 운영할 것인가?"}
-  H -->|예| I["Imported model + DAC hosting 검토"]
-  H -->|아니오| J{"GPU 인프라를 직접 운영할 수 있는가?"}
-  J -->|예| K["IaaS GPU 검토"]
-  J -->|아니오| L["On-demand 또는 Oracle 관리형 경로로 범위 재조정"]
+flowchart LR
+  A["모델 활용 방식 선택"] --> B["관리형 API로 바로 사용"]
+  A --> C["전용 용량으로 운영"]
+  A --> D["오픈 모델 실험 / 튜닝"]
+  A --> E["외부 모델 import / hosting"]
+  A --> F["GPU 인프라 직접 운영"]
+
+  B --> B1["OCI Generative AI On-demand"]
+  C --> C1["OCI Generative AI Dedicated AI Cluster"]
+  D --> D1["OCI Data Science AQUA / Jobs"]
+  E --> E1["OCI Generative AI Imported Models + DAC hosting"]
+  F --> F1["OCI Compute IaaS GPU"]
 ```
 
 ### 워크로드별 추천 아키텍처
 
 ```mermaid
 flowchart LR
-  W1["업무 챗봇 / 문서 요약"] --> A1["On-demand chat model"]
-  W2["RAG / 검색 품질 개선"] --> A2["Embed + Rerank + Chat"]
-  W3["전용 처리량 / 전용 endpoint"] --> A3["DAC"]
-  W4["Hugging Face / open model fine-tuning"] --> A4["AQUA 또는 Data Science Jobs"]
-  W5["외부 fine-tuned 모델 운영"] --> A5["Imported model + DAC hosting"]
-  W6["완전 커스텀 학습 / 프레임워크 직접 운영"] --> A6["IaaS GPU"]
+  W1["업무 챗봇 / 문서 요약"] --> R1["관리형 모델 API, 빠른 도입, 낮은 운영 부담"]
+  W2["RAG / 검색 품질 개선"] --> R2["임베딩, 재정렬, 생성 모델 조합"]
+  W3["전용 처리량 / 안정적 지연시간"] --> R3["전용 endpoint, 전용 용량, 모델별 DAC unit"]
+  W4["Hugging Face / open model fine-tuning"] --> R4["학습 Job, GPU shape, Object Storage, 모델 실험"]
+  W5["외부 fine-tuned 모델 운영"] --> R5["compatible model import, endpoint hosting, 권장 DAC"]
+  W6["완전 커스텀 학습 / 프레임워크 직접 운영"] --> R6["GPU VM/BM, 드라이버, 컨테이너, 분산 학습 운영"]
 
-  A1 --> C1["리전별 모델 지원 확인"]
-  A2 --> C2["임베딩, 재정렬, 생성 모델 조합 확인"]
-  A3 --> C3["모델별 DAC unit, service limit, capacity 확인"]
-  A4 --> C4["Data Science 지원 shape, Object Storage, Job 설정 확인"]
-  A5 --> C5["compatible model 조건과 권장 DAC 확인"]
-  A6 --> C6["드라이버, 컨테이너, 보안, 분산 학습 운영 책임 확인"]
+  R1 --> S1["OCI Generative AI On-demand"]
+  R2 --> S2["OCI Generative AI Embed / Rerank / Chat"]
+  R3 --> S3["OCI Generative AI Dedicated AI Cluster"]
+  R4 --> S4["OCI Data Science AQUA 또는 Data Science Jobs"]
+  R5 --> S5["OCI Generative AI Imported Models + DAC hosting"]
+  R6 --> S6["OCI Compute IaaS GPU"]
 ```
+
+| 워크로드 | 필요 요구사항 | 적용 Oracle 서비스 |
+|---|---|---|
+| 업무 챗봇 / 문서 요약 | 관리형 모델 API, 빠른 도입, 낮은 운영 부담 | OCI Generative AI On-demand |
+| RAG / 검색 품질 개선 | 임베딩, 재정렬, 생성 모델 조합 | OCI Generative AI Embed / Rerank / Chat |
+| 전용 처리량 / 안정적 지연시간 | 전용 endpoint, 전용 용량, 모델별 DAC unit | OCI Generative AI Dedicated AI Cluster |
+| Hugging Face / open model fine-tuning | 학습 Job, GPU shape, Object Storage, 모델 실험 | OCI Data Science AQUA 또는 Data Science Jobs |
+| 외부 fine-tuned 모델 운영 | compatible model import, endpoint hosting, 권장 DAC | OCI Generative AI Imported Models + DAC hosting |
+| 완전 커스텀 학습 / 프레임워크 직접 운영 | GPU VM/BM, 드라이버, 컨테이너, 분산 학습 운영 | OCI Compute IaaS GPU |
 
 | 질문 | 짧은 답 |
 |---|---|
