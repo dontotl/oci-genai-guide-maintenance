@@ -216,4 +216,4 @@ sed -n '1,20p' /etc/cron.d/oci-genai-guide-refresh
 - Oracle 문서에 없는 내용은 추정으로 확정하지 않기
 - `compute shape list` 결과가 없으면 문서 기반 해석이라고 명시하기
 - workflow scope 없는 PAT로는 Actions 활성 push가 실패할 수 있음
-
+- 생성되는 리포트 본문은 `~다`, `~했다`, `~썼다` 체가 아니라 `~습니다`, `~했습니다`, `~썼습니다` 체로 통일하기

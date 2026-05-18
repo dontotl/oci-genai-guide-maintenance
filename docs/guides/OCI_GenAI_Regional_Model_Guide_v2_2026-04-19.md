@@ -9,16 +9,16 @@
 
 ## 이번 업데이트 변화 요약
 
-- `2026-03-04` 기준, OpenAI `gpt-oss` 전용 DAC 가시성이 `UAE East (Dubai)`, `Saudi Arabia Central (Riyadh)`, `US West (Phoenix)`로 확장되었다.
-- `2026-02-26` 기준, `Cohere Embed 4` 온디맨드가 `US East (Ashburn)`, `Saudi Arabia Central (Riyadh)`로 확대되었다.
-- `2026-01-21` 기준, Oracle이 `Models by Region` / `Dedicated Cluster Shapes by Region` 페이지를 별도로 제공하기 시작해 리전별 판정 근거가 더 명확해졌다.
-- 현재 기준 retired/deprecated 관점에서 신규 설계에서 먼저 제외해야 할 모델군이 분명해졌다.
+- `2026-03-04` 기준, OpenAI `gpt-oss` 전용 DAC 가시성이 `UAE East (Dubai)`, `Saudi Arabia Central (Riyadh)`, `US West (Phoenix)`로 확장되었습니다.
+- `2026-02-26` 기준, `Cohere Embed 4` 온디맨드가 `US East (Ashburn)`, `Saudi Arabia Central (Riyadh)`로 확대되었습니다.
+- `2026-01-21` 기준, Oracle이 `Models by Region` / `Dedicated Cluster Shapes by Region` 페이지를 별도로 제공하기 시작해 리전별 판정 근거가 더 명확해졌습니다.
+- 현재 기준 retired/deprecated 관점에서 신규 설계에서 먼저 제외해야 할 모델군이 분명해졌습니다.
   - retired: `Cohere Command R+`, `Cohere Command R 16K`, `Cohere Command (52B)`, `Cohere Command Light`, `Meta Llama 3.1 70B`, `Meta Llama 3 70B`
-  - dedicated retirement window 경과 주의: `Cohere Embed English Light 3`, `Cohere Embed Multilingual Light 3`는 Oracle 문서상 dedicated retirement date가 `No sooner than 2026-03-29`로 표시된다.
-- 이번 문서 생성 시 OCI CLI 자동 조회는 성공하지 못했다.
+  - dedicated retirement window 경과 주의: `Cohere Embed English Light 3`, `Cohere Embed Multilingual Light 3`는 Oracle 문서상 dedicated retirement date가 `No sooner than 2026-03-29`로 표시됩니다.
+- 이번 문서 생성 시 OCI CLI 자동 조회는 성공하지 못했습니다.
   - `region-subscription list`: 타임아웃
   - `compute shape list`: 타임아웃
-  - 따라서 `IaaS/AQUA 리전별 실제 GPU 재고`는 문서 기준 해석표로 대체했다.
+  - 따라서 `IaaS/AQUA 리전별 실제 GPU 재고`는 문서 기준 해석표로 대체했습니다.
 
 ---
 
@@ -33,10 +33,10 @@
 
 ### 0-2. 문서 해석 원칙
 
-- Oracle 문서에 있는 사실만 확정적으로 썼다.
-- Oracle 문서에 없는 리전별 고정 재고표는 `없음`으로 적었다.
-- 관리형 기본 모델용 DAC unit과 imported model용 GPU unit을 구분했다.
-- `LARGE_COHERE_V3`, `LARGE_GENERIC_V2` 같은 일부 DAC unit은 Oracle 문서가 하드웨어 구성을 고객에게 숨긴다고 밝히므로, GPU 메모리를 단정하지 않았다.
+- Oracle 문서에 있는 사실만 확정적으로 썼습니다.
+- Oracle 문서에 없는 리전별 고정 재고표는 `없음`으로 적었습니다.
+- 관리형 기본 모델용 DAC unit과 imported model용 GPU unit을 구분했습니다.
+- `LARGE_COHERE_V3`, `LARGE_GENERIC_V2` 같은 일부 DAC unit은 Oracle 문서가 하드웨어 구성을 고객에게 숨긴다고 밝히므로, GPU 메모리를 단정하지 않았습니다.
 
 ---
 
@@ -58,8 +58,8 @@
 
 실무 메모:
 
-- 이번 실행에서는 `권한 부족(NotAuthorizedOrNotFound)`보다 `API 응답 타임아웃`이 먼저 확인되었다.
-- 따라서 이 문서의 `IaaS/AQUA 리전별 재고`는 실제 테넌시 live inventory가 아니라 Oracle 공식 문서 기준 해석이다.
+- 이번 실행에서는 `권한 부족(NotAuthorizedOrNotFound)`보다 `API 응답 타임아웃`이 먼저 확인되었습니다.
+- 따라서 이 문서의 `IaaS/AQUA 리전별 재고`는 실제 테넌시 live inventory가 아니라 Oracle 공식 문서 기준 해석입니다.
 
 ---
 
@@ -89,9 +89,9 @@
 
 정리:
 
-- Generative AI 서비스 자체는 Oracle의 공식 리전 문서에 위 12개 리전이 명시된다.
-- AQUA는 Oracle 문서상 `all commercial and government regions` 지원이다.
-- AQUA의 sovereign 리전 지원은 이번 기준 문서에서 확인하지 못했다.
+- Generative AI 서비스 자체는 Oracle의 공식 리전 문서에 위 12개 리전이 명시됩니다.
+- AQUA는 Oracle 문서상 `all commercial and government regions` 지원입니다.
+- AQUA의 sovereign 리전 지원은 이번 기준 문서에서 확인하지 못했습니다.
 
 ---
 
@@ -99,9 +99,9 @@
 
 판정 기준:
 
-- 이 표는 Oracle의 `OpenAI gpt-oss-20b / 120b` 모델 카드와 `Dedicated Cluster Shapes by Region` 페이지에서 확인되는 DAC hardware unit만 사용했다.
-- 즉, `OAI_*` unit이 Oracle 문서에 드러난 리전만 `가시성 있음`으로 기록했다.
-- 다른 관리형 모델의 `LARGE_COHERE_*`, `LARGE_GENERIC_*`는 GPU 종류가 고객에게 공개되지 않으므로 여기서는 A/H 계열 가시성 판정에 쓰지 않았다.
+- 이 표는 Oracle의 `OpenAI gpt-oss-20b / 120b` 모델 카드와 `Dedicated Cluster Shapes by Region` 페이지에서 확인되는 DAC hardware unit만 사용했습니다.
+- 즉, `OAI_*` unit이 Oracle 문서에 드러난 리전만 `가시성 있음`으로 기록했습니다.
+- 다른 관리형 모델의 `LARGE_COHERE_*`, `LARGE_GENERIC_*`는 GPU 종류가 고객에게 공개되지 않으므로 여기서는 A/H 계열 가시성 판정에 쓰지 않았습니다.
 
 ### 3-1. 상용 리전
 
@@ -127,10 +127,10 @@
 
 요약:
 
-- 관리형 `gpt-oss` 기준으로 가장 넓게 보이는 계열은 `H100`이다.
-- `H200`은 이번 기준에서 `Riyadh`의 `gpt-oss` 전용 DAC에서만 공식 확인된다.
-- `A100 80G`는 `Chicago`, `Phoenix`에서 공식 확인된다.
-- `A100 40G`는 `Dubai`에서 공식 확인된다.
+- 관리형 `gpt-oss` 기준으로 가장 넓게 보이는 계열은 `H100`입니다.
+- `H200`은 이번 기준에서 `Riyadh`의 `gpt-oss` 전용 DAC에서만 공식 확인됩니다.
+- `A100 80G`는 `Chicago`, `Phoenix`에서 공식 확인됩니다.
+- `A100 40G`는 `Dubai`에서 공식 확인됩니다.
 
 ---
 
@@ -153,9 +153,9 @@ oci --region <region> compute shape list --all \
 
 ### 4-2. 이번 실행의 해석
 
-- 명령 자체는 유효하다.
-- 이번 환경에서는 두 명령 모두 타임아웃으로 자동 수집에 실패했다.
-- 따라서 이 문서의 IaaS/AQUA 리전 표는 아래 `shape-to-GPU 매핑`과 `Data Science supported shapes` 문서로 읽어야 한다.
+- 명령 자체는 유효합니다.
+- 이번 환경에서는 두 명령 모두 타임아웃으로 자동 수집에 실패했습니다.
+- 따라서 이 문서의 IaaS/AQUA 리전 표는 아래 `shape-to-GPU 매핑`과 `Data Science supported shapes` 문서로 읽어야 합니다.
 
 ### 4-3. 결과 해석법
 
@@ -236,9 +236,9 @@ oci --region <region> compute shape list --all \
 
 중요:
 
-- `AQUA = Data Science GPU shape 활용`으로 이해하는 것이 안전하다.
-- Oracle 문서상 `service limit`과 `shape capacity`는 다르다.
-- limit이 있어도 `Out of host capacity`가 날 수 있다.
+- `AQUA = Data Science GPU shape 활용`으로 이해하는 것이 안전합니다.
+- Oracle 문서상 `service limit`과 `shape capacity`는 다릅니다.
+- limit이 있어도 `Out of host capacity`가 날 수 있습니다.
 
 ---
 
@@ -268,9 +268,9 @@ oci --region <region> compute shape list --all \
 
 메모:
 
-- Gemini 계열은 Oracle 문서상 온디맨드 전용이다.
-- xAI Grok 계열도 Oracle 문서상 온디맨드 전용이다.
-- Google 모델은 OCI Generative AI를 통해 접근하지만 Oracle 문서상 `external calls` 설명이 있다.
+- Gemini 계열은 Oracle 문서상 온디맨드 전용입니다.
+- xAI Grok 계열도 Oracle 문서상 온디맨드 전용입니다.
+- Google 모델은 OCI Generative AI를 통해 접근하지만 Oracle 문서상 `external calls` 설명이 있습니다.
 
 ---
 
@@ -305,8 +305,8 @@ oci --region <region> compute shape list --all \
 
 중요:
 
-- 아래 9-1 표는 `A10/A100/H100/H200`처럼 이름만으로 GPU 메모리를 계산할 수 있는 unit만 넣었다.
-- 아래 9-2 표는 Oracle이 하드웨어를 숨기는 unit이다. GPU 메모리를 Oracle 공식 문서만으로는 단정할 수 없다.
+- 아래 9-1 표는 `A10/A100/H100/H200`처럼 이름만으로 GPU 메모리를 계산할 수 있는 unit만 넣었습니다.
+- 아래 9-2 표는 Oracle이 하드웨어를 숨기는 unit입니다. GPU 메모리를 Oracle 공식 문서만으로는 단정할 수 없습니다.
 
 ### 9-1. GPU 메모리를 계산할 수 있는 DAC unit
 
@@ -361,10 +361,10 @@ oci --region <region> compute shape list --all \
 
 중요:
 
-- Oracle 공식 문서는 imported model마다 정답형 권장 unit 표를 제공하지 않는다.
-- 따라서 아래 표는 `Oracle이 공개한 GPU 메모리`만으로 만든 보수적 시작점이다.
-- 실제 선택은 `vendor model card의 VRAM 요구량`, `양자화 여부`, `컨텍스트 길이`, `동시성`으로 최종 확정해야 한다.
-- 이 절은 imported/custom deployment 기준이며, `OAI_*` unit은 관리형 `gpt-oss` 전용 표에서 별도로 본다.
+- Oracle 공식 문서는 imported model마다 정답형 권장 unit 표를 제공하지 않습니다.
+- 따라서 아래 표는 `Oracle이 공개한 GPU 메모리`만으로 만든 보수적 시작점입니다.
+- 실제 선택은 `vendor model card의 VRAM 요구량`, `양자화 여부`, `컨텍스트 길이`, `동시성`으로 최종 확정해야 합니다.
+- 이 절은 imported/custom deployment 기준이며, `OAI_*` unit은 관리형 `gpt-oss` 전용 표에서 별도로 봅니다.
 
 | 필요 VRAM 기준 | 권장 시작 DAC | 해석 |
 |---|---|---|
@@ -378,9 +378,9 @@ oci --region <region> compute shape list --all \
 
 실무 메모:
 
-- imported model에서 메모리 병목이 먼저 걱정되면 `H200`이 가장 단순하다.
-- throughput과 생태계 균형을 보려면 `H100`이 무난하다.
-- 비용과 범용성을 먼저 보면 `A100 80G`가 시작점으로 좋다.
+- imported model에서 메모리 병목이 먼저 걱정되면 `H200`이 가장 단순합니다.
+- throughput과 생태계 균형을 보려면 `H100`이 무난합니다.
+- 비용과 범용성을 먼저 보면 `A100 80G`가 시작점으로 좋습니다.
 
 ---
 
