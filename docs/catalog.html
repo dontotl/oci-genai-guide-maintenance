@@ -150,8 +150,37 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1080px;
+      table-layout: fixed;
+      min-width: 1180px;
       font-size: 14px;
+    }
+
+    col.region-col {
+      width: 13%;
+    }
+
+    col.models-col {
+      width: 21%;
+    }
+
+    col.dac-col {
+      width: 14%;
+    }
+
+    col.ds-col {
+      width: 16%;
+    }
+
+    col.iaas-col {
+      width: 16%;
+    }
+
+    col.status-col {
+      width: 10%;
+    }
+
+    col.notes-col {
+      width: 10%;
     }
 
     th,
@@ -160,6 +189,7 @@
       border-bottom: 1px solid var(--line);
       text-align: left;
       vertical-align: top;
+      overflow-wrap: anywhere;
     }
 
     th {
@@ -195,7 +225,10 @@
       color: #34414d;
       padding: 3px 8px;
       font-size: 12px;
-      white-space: nowrap;
+      line-height: 1.25;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     .status {
@@ -227,9 +260,13 @@
     }
 
     .notes {
-      max-width: 320px;
       color: var(--muted);
       font-size: 13px;
+      overflow-wrap: anywhere;
+    }
+
+    .dac-cell .notes {
+      margin-top: 6px;
     }
 
     .empty {
@@ -319,6 +356,15 @@
 
     <section class="table-wrap" aria-label="Catalog table">
       <table>
+        <colgroup>
+          <col class="region-col">
+          <col class="models-col">
+          <col class="dac-col">
+          <col class="ds-col">
+          <col class="iaas-col">
+          <col class="status-col">
+          <col class="notes-col">
+        </colgroup>
         <thead>
           <tr>
             <th>Region</th>
@@ -396,6 +442,66 @@
       return state.dacByRegion.get(region.region) || state.dacByRegion.get(region.display_name) || null;
     }
 
+    function gpuFamilyFromText(value) {
+      const text = String(value || '').toUpperCase();
+      const families = ['GB300', 'GB200', 'B200', 'MI355', 'MI300', 'H200', 'H100', 'A100', 'A10', 'L40S', 'V100', 'P100'];
+      return families.find((family) => text.includes(family)) || null;
+    }
+
+    function gpuFamiliesFromValues(values) {
+      return uniq(values.map(gpuFamilyFromText));
+    }
+
+    function serviceValues(region, service) {
+      const dac = dacFor(region);
+      if (service === 'dac') {
+        return [
+          ...(dac?.gpu_families || []),
+          ...(dac?.evidence_models || [])
+        ];
+      }
+      if (service === 'data-science') {
+        return [
+          ...(region.data_science?.gpu_families || []),
+          ...(region.data_science?.gpu_shapes || [])
+        ];
+      }
+      if (service === 'iaas') {
+        return [
+          ...(region.iaas?.gpu_families || []),
+          ...(region.iaas?.gpu_shapes || [])
+        ];
+      }
+      if (service === 'genai') {
+        return (region.genai?.models || []).flatMap((model) => [
+          model.display_name,
+          model.vendor,
+          ...(model.capabilities || [])
+        ]);
+      }
+      return [];
+    }
+
+    function serviceGpuFamilies(region, service) {
+      return gpuFamiliesFromValues(serviceValues(region, service));
+    }
+
+    function allGpuFamilies(region) {
+      return uniq([
+        ...serviceGpuFamilies(region, 'dac'),
+        ...serviceGpuFamilies(region, 'data-science'),
+        ...serviceGpuFamilies(region, 'iaas')
+      ]);
+    }
+
+    function hasService(region, service) {
+      if (service === 'genai') return (region.genai?.model_count || 0) > 0;
+      if (service === 'dac') return Boolean(dacFor(region));
+      if (service === 'data-science') return serviceValues(region, 'data-science').length > 0;
+      if (service === 'iaas') return serviceValues(region, 'iaas').length > 0;
+      return true;
+    }
+
     function regionText(region) {
       const dac = dacFor(region);
       const models = (region.genai?.models || []).flatMap((model) => [
@@ -414,6 +520,7 @@
         ...(region.data_science?.gpu_shapes || []),
         ...(region.iaas?.gpu_families || []),
         ...(region.iaas?.gpu_shapes || []),
+        ...allGpuFamilies(region),
         ...(region.customer_notes || [])
       ].join(' ').toLowerCase();
     }
@@ -426,21 +533,14 @@
 
       if (selectedRegion && region.region !== selectedRegion) return false;
       if (query && !regionText(region).includes(query)) return false;
+      if (selectedService && !hasService(region, selectedService)) return false;
 
       if (selectedGpu) {
-        const dac = dacFor(region);
-        const families = [
-          ...(dac?.gpu_families || []),
-          ...(region.data_science?.gpu_families || []),
-          ...(region.iaas?.gpu_families || [])
-        ];
+        const families = selectedService
+          ? serviceGpuFamilies(region, selectedService)
+          : allGpuFamilies(region);
         if (!families.includes(selectedGpu)) return false;
       }
-
-      if (selectedService === 'genai' && (region.genai?.model_count || 0) === 0) return false;
-      if (selectedService === 'dac' && !dacFor(region)) return false;
-      if (selectedService === 'data-science' && (region.data_science?.gpu_shapes || []).length === 0) return false;
-      if (selectedService === 'iaas' && (region.iaas?.gpu_shapes || []).length === 0) return false;
 
       return true;
     }
@@ -468,11 +568,11 @@
           return `${vendor}${model.display_name}`;
         });
         const dsValues = [
-          ...(region.data_science?.gpu_families || []),
+          ...serviceGpuFamilies(region, 'data-science'),
           ...(region.data_science?.gpu_shapes || [])
         ];
         const iaasValues = [
-          ...(region.iaas?.gpu_families || []),
+          ...serviceGpuFamilies(region, 'iaas'),
           ...(region.iaas?.gpu_shapes || [])
         ];
         const dac = dacFor(region);
@@ -482,12 +582,12 @@
               ...(dac.gpu_families || []),
               ...(dac.evidence_models || [])
             ]
-          : [region.dac?.guidance || 'Check model-specific DAC support and capacity separately.'];
+          : ['Model-specific check required'];
         return `
           <tr>
             <td><code>${escapeHtml(region.region)}</code><div class="notes">${escapeHtml(region.display_name || dac?.display_name || '')}</div></td>
             <td>${chips(modelNames, 10)}</td>
-            <td>${chips(dacValues, 8)}<div class="notes">${escapeHtml(dac?.status || 'official-reference-required')}</div></td>
+            <td class="dac-cell">${chips(dacValues, 5)}<div class="notes">${escapeHtml(dac?.status || region.dac?.status || 'official-reference-required')}</div></td>
             <td>${chips(dsValues, 8)}</td>
             <td>${chips(iaasValues, 8)}</td>
             <td>
@@ -505,11 +605,7 @@
       const regions = state.regions.map((region) => region.region).sort();
       els.regionFilter.innerHTML = '<option value="">All regions</option>' + regions.map((region) => `<option value="${escapeHtml(region)}">${escapeHtml(region)}</option>`).join('');
 
-      const gpuFamilies = uniq(state.regions.flatMap((region) => [
-        ...(dacFor(region)?.gpu_families || []),
-        ...(region.data_science?.gpu_families || []),
-        ...(region.iaas?.gpu_families || [])
-      ]));
+      const gpuFamilies = uniq(state.regions.flatMap(allGpuFamilies));
       els.gpuFilter.innerHTML = '<option value="">All GPU families</option>' + gpuFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(family)}</option>`).join('');
     }
 

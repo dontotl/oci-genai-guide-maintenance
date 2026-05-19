@@ -3,6 +3,7 @@
 최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md`
 
 - [catalog.html](catalog.html): 리전별 OCI AI 스냅샷 UI
+- GitHub Pages GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html
 - [CHANGELOG.md](CHANGELOG.md)
 - [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨
 

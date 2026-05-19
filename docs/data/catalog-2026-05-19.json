@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "date": "2026-05-19",
-  "generated_at_utc": "2026-05-19T06:52:59Z",
+  "generated_at_utc": "2026-05-19T07:14:29Z",
   "source": "oci-cli-snapshot",
   "public_data_policy": {
     "includes": [
@@ -396,7 +396,8 @@
       },
       "iaas": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -445,7 +446,8 @@
       },
       "iaas": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -767,7 +769,8 @@
       },
       "data_science": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "L40S"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -786,6 +789,7 @@
       "iaas": {
         "gpu_families": [
           "A10",
+          "A100",
           "V100"
         ],
         "gpu_shapes": [
@@ -838,6 +842,7 @@
       "iaas": {
         "gpu_families": [
           "A10",
+          "A100",
           "V100"
         ],
         "gpu_shapes": [
@@ -896,7 +901,8 @@
       },
       "iaas": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -1032,6 +1038,7 @@
       "iaas": {
         "gpu_families": [
           "A10",
+          "A100",
           "V100"
         ],
         "gpu_shapes": [
@@ -1072,7 +1079,8 @@
       },
       "data_science": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -1446,6 +1454,7 @@
       "data_science": {
         "gpu_families": [
           "A10",
+          "A100",
           "H100"
         ],
         "gpu_shapes": [
@@ -1464,6 +1473,7 @@
       "iaas": {
         "gpu_families": [
           "A10",
+          "A100",
           "P100"
         ],
         "gpu_shapes": [
@@ -1646,7 +1656,8 @@
       },
       "iaas": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -1860,7 +1871,8 @@
       },
       "iaas": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -2861,7 +2873,9 @@
       },
       "data_science": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100",
+          "L40S"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -3692,7 +3706,9 @@
       "data_science": {
         "gpu_families": [
           "A10",
-          "H100"
+          "A100",
+          "H100",
+          "L40S"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -3716,6 +3732,7 @@
       "iaas": {
         "gpu_families": [
           "A10",
+          "A100",
           "P100",
           "V100"
         ],
@@ -4242,6 +4259,7 @@
       "data_science": {
         "gpu_families": [
           "A10",
+          "A100",
           "H100"
         ],
         "gpu_shapes": [
@@ -4555,7 +4573,8 @@
       },
       "data_science": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -4570,7 +4589,8 @@
       },
       "iaas": {
         "gpu_families": [
-          "A10"
+          "A10",
+          "A100"
         ],
         "gpu_shapes": [
           "BM.GPU.A10.4",
@@ -4625,6 +4645,7 @@
       "iaas": {
         "gpu_families": [
           "A10",
+          "A100",
           "V100"
         ],
         "gpu_shapes": [

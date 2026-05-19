@@ -204,7 +204,7 @@ extract_gpu_families_json() {
   jq '
     [
       .[]?
-      | capture("(?<family>P100|V100|A10|A100|H100|H200|MI300|MI355|B200|GB200|GB300)")?
+      | capture("(?<family>GB300|GB200|B200|MI355|MI300|H200|H100|A100|A10|L40S|V100|P100)")?
       | .family
     ]
     | unique
