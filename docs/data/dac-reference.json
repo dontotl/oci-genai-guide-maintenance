@@ -1,0 +1,104 @@
+{
+  "schema_version": "1.0",
+  "source": "manual-reference-from-current-v3-guide",
+  "generated_at_utc": null,
+  "interpretation_notes": [
+    "This file summarizes public DAC GPU-family visibility from the current v3 guide.",
+    "DAC availability is model-specific and must be checked against Oracle Models by Region / Dedicated Cluster Shapes by Region before design decisions.",
+    "Cohere, generic, embed, and rerank DAC units can be valid DAC choices even when the underlying GPU family is not public.",
+    "This reference does not prove service limit, quota, or capacity."
+  ],
+  "regions": [
+    {
+      "region": "us-ashburn-1",
+      "display_name": "US East (Ashburn)",
+      "gpu_families": ["A10", "H100"],
+      "evidence_models": ["openai.gpt-oss-20b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "us-chicago-1",
+      "display_name": "US Midwest (Chicago)",
+      "gpu_families": ["A10", "A100 80G", "H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "us-phoenix-1",
+      "display_name": "US West (Phoenix)",
+      "gpu_families": ["A100 80G"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "sa-saopaulo-1",
+      "display_name": "Brazil East (Sao Paulo)",
+      "gpu_families": ["H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "eu-frankfurt-1",
+      "display_name": "Germany Central (Frankfurt)",
+      "gpu_families": ["A10", "H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "eu-frankfurt-2",
+      "display_name": "EU Sovereign Central (Frankfurt)",
+      "gpu_families": ["A10", "H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "uk-london-1",
+      "display_name": "UK South (London)",
+      "gpu_families": ["H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "uk-gov-london-1",
+      "display_name": "UK Gov South (London)",
+      "gpu_families": ["H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "me-riyadh-1",
+      "display_name": "Saudi Arabia Central (Riyadh)",
+      "gpu_families": ["H200"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "me-dubai-1",
+      "display_name": "UAE East (Dubai)",
+      "gpu_families": ["A10", "A100 40G"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "me-abudhabi-1",
+      "display_name": "UAE Central (Abu Dhabi)",
+      "gpu_families": [],
+      "evidence_models": [],
+      "status": "gpu-family-unconfirmed"
+    },
+    {
+      "region": "ap-hyderabad-1",
+      "display_name": "India South (Hyderabad)",
+      "gpu_families": ["H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    },
+    {
+      "region": "ap-osaka-1",
+      "display_name": "Japan Central (Osaka)",
+      "gpu_families": ["H100"],
+      "evidence_models": ["openai.gpt-oss-20b", "openai.gpt-oss-120b"],
+      "status": "official-reference"
+    }
+  ]
+}

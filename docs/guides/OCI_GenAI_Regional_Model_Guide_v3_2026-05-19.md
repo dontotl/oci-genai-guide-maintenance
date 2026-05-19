@@ -3,9 +3,6 @@
 > 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)
 > Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)
 
-> 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)
-> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)
-
 최신 작성일: 2026-05-19 (GMT)  
 작성 기준: Oracle 공식 문서 우선, 고객용 probe summary와 정규화 JSON 우선, 대표 리전 GPU 조회 결과 보조
 

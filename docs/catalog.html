@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OCI AI Region Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f9;
+      --panel: #ffffff;
+      --text: #1d252d;
+      --muted: #5f6b76;
+      --line: #d8dde3;
+      --accent: #0f6b6e;
+      --warn: #8a5a00;
+      --bad: #9a3412;
+      --ok-bg: #e8f4f1;
+      --warn-bg: #fff4d6;
+      --bad-bg: #fde9df;
+      --chip: #edf1f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    header {
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .wrap {
+      width: min(1440px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .top {
+      display: grid;
+      gap: 12px;
+      padding: 24px 0 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 36px);
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .notice {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border: 1px solid var(--line);
+      background: #fbfcfd;
+      border-radius: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    main {
+      padding: 18px 0 32px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1.2fr) minmax(180px, 0.8fr) minmax(180px, 0.8fr) minmax(180px, 0.8fr);
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    input,
+    select {
+      min-height: 40px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--text);
+      padding: 8px 10px;
+      font: inherit;
+      width: 100%;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .metric {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 1080px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      background: #eef2f5;
+      z-index: 1;
+      font-size: 13px;
+      color: #34414d;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .chip {
+      display: inline-flex;
+      max-width: 100%;
+      align-items: center;
+      border-radius: 999px;
+      background: var(--chip);
+      color: #34414d;
+      padding: 3px 8px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .status {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status-ok {
+      background: var(--ok-bg);
+      color: var(--accent);
+    }
+
+    .status-warn {
+      background: var(--warn-bg);
+      color: var(--warn);
+    }
+
+    .status-bad {
+      background: var(--bad-bg);
+      color: var(--bad);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .notes {
+      max-width: 320px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .empty {
+      padding: 32px 12px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      .controls,
+      .summary {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .wrap {
+        width: min(100% - 20px, 1440px);
+      }
+
+      .controls,
+      .summary {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap top">
+      <h1>OCI AI Region Catalog</h1>
+      <div class="meta">
+        <span>Snapshot: <strong id="snapshot-date">loading</strong></span>
+        <span>Generated: <strong id="generated-at">loading</strong></span>
+        <span>Source: <strong id="source">loading</strong></span>
+      </div>
+      <div class="notice">
+        이 화면은 cron이 수집한 공개 가능 스냅샷을 보여줍니다. 표시된 모델과 shape는 즉시 생성 가능, service limit, quota, capacity를 보장하지 않습니다. DAC는 모델별 공식 지원과 capacity 확인이 필요한 별도 항목입니다.
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="controls" aria-label="Filters">
+      <label>
+        Search
+        <input id="search" type="search" placeholder="region, model, shape, GPU family">
+      </label>
+      <label>
+        Region
+        <select id="region-filter">
+          <option value="">All regions</option>
+        </select>
+      </label>
+      <label>
+        Service
+        <select id="service-filter">
+          <option value="">All services</option>
+          <option value="genai">GenAI models</option>
+          <option value="dac">DAC official reference</option>
+          <option value="data-science">Data Science / AQUA shapes</option>
+          <option value="iaas">IaaS GPU shapes</option>
+        </select>
+      </label>
+      <label>
+        GPU family
+        <select id="gpu-filter">
+          <option value="">All GPU families</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="summary" aria-label="Summary">
+      <div class="metric"><strong id="region-count">0</strong><span>regions</span></div>
+      <div class="metric"><strong id="model-count">0</strong><span>GenAI model entries</span></div>
+      <div class="metric"><strong id="dac-count">0</strong><span>DAC reference regions</span></div>
+      <div class="metric"><strong id="ds-count">0</strong><span>Data Science GPU shapes</span></div>
+      <div class="metric"><strong id="iaas-count">0</strong><span>IaaS GPU shapes</span></div>
+    </section>
+
+    <section class="legend" aria-label="Status legend">
+      <span class="status status-ok" title="The specific query returned successfully. This is not capacity proof.">success</span>
+      <span class="status status-warn" title="The query completed but the usable list is empty or the reference is not model-specific enough.">empty / reference required</span>
+      <span class="status status-bad" title="The snapshot query did not complete within the configured timeout. Do not interpret as unsupported.">timeout / failed</span>
+      <span>공식 지원, CLI 가시성, 실제 capacity는 서로 다른 판단 기준입니다.</span>
+    </section>
+
+    <section class="table-wrap" aria-label="Catalog table">
+      <table>
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>GenAI Models</th>
+            <th>DAC Guidance</th>
+            <th>Data Science / AQUA GPU</th>
+            <th>IaaS GPU</th>
+            <th>Query Status</th>
+            <th>Customer Notes</th>
+          </tr>
+        </thead>
+        <tbody id="rows">
+          <tr><td colspan="7" class="empty">Loading catalog...</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <script>
+    const state = {
+      catalog: null,
+      dacReference: null,
+      regions: [],
+      dacByRegion: new Map()
+    };
+
+    const els = {
+      snapshotDate: document.getElementById('snapshot-date'),
+      generatedAt: document.getElementById('generated-at'),
+      source: document.getElementById('source'),
+      search: document.getElementById('search'),
+      regionFilter: document.getElementById('region-filter'),
+      serviceFilter: document.getElementById('service-filter'),
+      gpuFilter: document.getElementById('gpu-filter'),
+      regionCount: document.getElementById('region-count'),
+      modelCount: document.getElementById('model-count'),
+      dacCount: document.getElementById('dac-count'),
+      dsCount: document.getElementById('ds-count'),
+      iaasCount: document.getElementById('iaas-count'),
+      rows: document.getElementById('rows')
+    };
+
+    function escapeHtml(value) {
+      return String(value ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function uniq(values) {
+      return [...new Set(values.filter(Boolean))].sort();
+    }
+
+    function chips(values, limit = 8) {
+      const list = uniq(values);
+      if (list.length === 0) return '<span class="muted">None observed</span>';
+      const visible = list.slice(0, limit);
+      const more = list.length > limit ? [`+${list.length - limit} more`] : [];
+      return `<div class="chips">${visible.concat(more).map((item) => `<span class="chip">${escapeHtml(item)}</span>`).join('')}</div>`;
+    }
+
+    function statusClass(value) {
+      if (value === 'success') return 'status-ok';
+      if (value === 'timeout' || value === 'failed') return 'status-bad';
+      return 'status-warn';
+    }
+
+    function statuses(region) {
+      return Object.entries(region.statuses || {}).map(([key, value]) => ({ key, value }));
+    }
+
+    function dacFor(region) {
+      return state.dacByRegion.get(region.region) || state.dacByRegion.get(region.display_name) || null;
+    }
+
+    function regionText(region) {
+      const dac = dacFor(region);
+      const models = (region.genai?.models || []).flatMap((model) => [
+        model.display_name,
+        model.vendor,
+        ...(model.capabilities || [])
+      ]);
+      return [
+        region.region,
+        dac?.display_name,
+        ...(dac?.gpu_families || []),
+        ...(dac?.evidence_models || []),
+        dac?.status,
+        ...models,
+        ...(region.data_science?.gpu_families || []),
+        ...(region.data_science?.gpu_shapes || []),
+        ...(region.iaas?.gpu_families || []),
+        ...(region.iaas?.gpu_shapes || []),
+        ...(region.customer_notes || [])
+      ].join(' ').toLowerCase();
+    }
+
+    function matchesFilters(region) {
+      const query = els.search.value.trim().toLowerCase();
+      const selectedRegion = els.regionFilter.value;
+      const selectedService = els.serviceFilter.value;
+      const selectedGpu = els.gpuFilter.value;
+
+      if (selectedRegion && region.region !== selectedRegion) return false;
+      if (query && !regionText(region).includes(query)) return false;
+
+      if (selectedGpu) {
+        const dac = dacFor(region);
+        const families = [
+          ...(dac?.gpu_families || []),
+          ...(region.data_science?.gpu_families || []),
+          ...(region.iaas?.gpu_families || [])
+        ];
+        if (!families.includes(selectedGpu)) return false;
+      }
+
+      if (selectedService === 'genai' && (region.genai?.model_count || 0) === 0) return false;
+      if (selectedService === 'dac' && !dacFor(region)) return false;
+      if (selectedService === 'data-science' && (region.data_science?.gpu_shapes || []).length === 0) return false;
+      if (selectedService === 'iaas' && (region.iaas?.gpu_shapes || []).length === 0) return false;
+
+      return true;
+    }
+
+    function render() {
+      const rows = state.regions.filter(matchesFilters);
+
+      els.regionCount.textContent = String(rows.length);
+      els.modelCount.textContent = String(rows.reduce((sum, region) => sum + (region.genai?.model_count || 0), 0));
+      els.dacCount.textContent = String(rows.filter((region) => dacFor(region)).length);
+      els.dsCount.textContent = String(uniq(rows.flatMap((region) => region.data_science?.gpu_shapes || [])).length);
+      els.iaasCount.textContent = String(uniq(rows.flatMap((region) => region.iaas?.gpu_shapes || [])).length);
+
+      if (rows.length === 0) {
+        const emptyMessage = state.regions.length === 0
+          ? '아직 공개 스냅샷이 없습니다. 다음 cron 실행 후 리전별 결과가 표시됩니다.'
+          : 'No matching regions.';
+        els.rows.innerHTML = `<tr><td colspan="7" class="empty">${escapeHtml(emptyMessage)}</td></tr>`;
+        return;
+      }
+
+      els.rows.innerHTML = rows.map((region) => {
+        const modelNames = (region.genai?.models || []).map((model) => {
+          const vendor = model.vendor && model.vendor !== 'unknown' ? `${model.vendor}: ` : '';
+          return `${vendor}${model.display_name}`;
+        });
+        const dsValues = [
+          ...(region.data_science?.gpu_families || []),
+          ...(region.data_science?.gpu_shapes || [])
+        ];
+        const iaasValues = [
+          ...(region.iaas?.gpu_families || []),
+          ...(region.iaas?.gpu_shapes || [])
+        ];
+        const dac = dacFor(region);
+        const dacValues = dac
+          ? [
+              dac.display_name || region.region,
+              ...(dac.gpu_families || []),
+              ...(dac.evidence_models || [])
+            ]
+          : [region.dac?.guidance || 'Check model-specific DAC support and capacity separately.'];
+        return `
+          <tr>
+            <td><code>${escapeHtml(region.region)}</code><div class="notes">${escapeHtml(region.display_name || dac?.display_name || '')}</div></td>
+            <td>${chips(modelNames, 10)}</td>
+            <td>${chips(dacValues, 8)}<div class="notes">${escapeHtml(dac?.status || 'official-reference-required')}</div></td>
+            <td>${chips(dsValues, 8)}</td>
+            <td>${chips(iaasValues, 8)}</td>
+            <td>
+              <div class="chips">
+                ${statuses(region).map(({ key, value }) => `<span class="status ${statusClass(value)}" title="${escapeHtml(key)}">${escapeHtml(value)}</span>`).join('')}
+              </div>
+            </td>
+            <td class="notes">${escapeHtml((region.customer_notes || []).join(' '))}</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function populateFilters() {
+      const regions = state.regions.map((region) => region.region).sort();
+      els.regionFilter.innerHTML = '<option value="">All regions</option>' + regions.map((region) => `<option value="${escapeHtml(region)}">${escapeHtml(region)}</option>`).join('');
+
+      const gpuFamilies = uniq(state.regions.flatMap((region) => [
+        ...(dacFor(region)?.gpu_families || []),
+        ...(region.data_science?.gpu_families || []),
+        ...(region.iaas?.gpu_families || [])
+      ]));
+      els.gpuFilter.innerHTML = '<option value="">All GPU families</option>' + gpuFamilies.map((family) => `<option value="${escapeHtml(family)}">${escapeHtml(family)}</option>`).join('');
+    }
+
+    async function load() {
+      try {
+        const response = await fetch('data/latest-catalog.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        state.catalog = await response.json();
+        const dacResponse = await fetch('data/dac-reference.json', { cache: 'no-store' });
+        state.dacReference = dacResponse.ok ? await dacResponse.json() : { regions: [] };
+        state.dacByRegion = new Map();
+        (state.dacReference.regions || []).forEach((item) => {
+          state.dacByRegion.set(item.region, item);
+          if (item.display_name) state.dacByRegion.set(item.display_name, item);
+        });
+        const catalogRegions = Array.isArray(state.catalog.regions) ? state.catalog.regions : [];
+        state.regions = catalogRegions.length > 0
+          ? catalogRegions
+          : (state.dacReference.regions || []).map((item) => ({
+              region: item.region,
+              display_name: item.display_name,
+              statuses: { snapshot: 'not-collected' },
+              genai: { model_count: 0, models: [] },
+              data_science: { gpu_families: [], gpu_shapes: [] },
+              iaas: { gpu_families: [], gpu_shapes: [] },
+              customer_notes: ['아직 공개 스냅샷이 없습니다. DAC 공식 reference만 표시합니다.']
+            }));
+        els.snapshotDate.textContent = state.catalog.date || 'unknown';
+        els.generatedAt.textContent = state.catalog.generated_at_utc || 'not generated';
+        els.source.textContent = state.catalog.source || 'unknown';
+        populateFilters();
+        render();
+      } catch (error) {
+        els.rows.innerHTML = `<tr><td colspan="7" class="empty">Failed to load catalog: ${escapeHtml(error.message)}</td></tr>`;
+      }
+    }
+
+    [els.search, els.regionFilter, els.serviceFilter, els.gpuFilter].forEach((el) => {
+      el.addEventListener('input', render);
+      el.addEventListener('change', render);
+    });
+
+    load();
+  </script>
+</body>
+</html>

@@ -1,11 +1,14 @@
 # OCI GenAI Regional Guide Index
 
-최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md`
+최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md`
 
+- [catalog.html](catalog.html): 리전별 OCI AI 스냅샷 UI
 - [CHANGELOG.md](CHANGELOG.md)
+- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨
 
 ## Guides
 
+- [OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md)
 - [OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md)
 - [OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md)
 - [OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-17.md)

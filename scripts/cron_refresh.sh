@@ -49,6 +49,17 @@ else
   log "OCI probe script not found or not executable. Continuing without pre-collected OCI data."
 fi
 
+if [[ -x ./scripts/collect_oci_ai_catalog.sh ]]; then
+  log "Collecting public OCI AI catalog snapshot"
+  if ./scripts/collect_oci_ai_catalog.sh "$DATE_ARG" >> "$LOG_FILE" 2>&1; then
+    log "OCI AI catalog collected: $ROOT_DIR/docs/data/latest-catalog.json"
+  else
+    log "OCI AI catalog failed unexpectedly. Continuing so the report can record the failure."
+  fi
+else
+  log "OCI AI catalog script not found or not executable. Continuing without catalog snapshot."
+fi
+
 if [[ -x "$CODEX_BIN" ]]; then
   if "$CODEX_BIN" exec --help >/dev/null 2>&1; then
     log "Starting Codex non-interactive refresh"

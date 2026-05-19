@@ -51,13 +51,24 @@ fi
 
 latest="${guides[0]}"
 cp "$latest" "$LATEST_FILE"
+latest_tmp="$(mktemp)"
+{
+  sed -n '1p' "$LATEST_FILE"
+  echo
+  echo "> 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)"
+  echo "> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)"
+  tail -n +2 "$LATEST_FILE"
+} > "$latest_tmp"
+mv "$latest_tmp" "$LATEST_FILE"
 
 {
   echo "# OCI GenAI Regional Guide Index"
   echo
   echo "최신 가이드: \`$(basename "$latest")\`"
   echo
+  echo "- [catalog.html](catalog.html): 리전별 OCI AI 스냅샷 UI"
   echo "- [CHANGELOG.md](CHANGELOG.md)"
+  echo "- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨"
   echo
   echo "## Guides"
   echo

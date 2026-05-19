@@ -22,11 +22,16 @@ oci-genai-guide-maintenance/
 │   ├── INDEX.md
 │   ├── LATEST.md
 │   ├── HISTORY.md
+│   ├── catalog.html
+│   ├── data/
+│   ├── appendix/
 │   └── guides/
 ├── runs/
 ├── scripts/
 │   ├── cron_refresh.sh
 │   ├── collect_oci_probe.sh
+│   ├── collect_oci_ai_catalog.sh
+│   ├── check_public_docs.sh
 │   ├── new_guide.sh
 │   ├── publish_guide.sh
 │   └── refresh_index.sh
@@ -94,9 +99,10 @@ cd /home/opc/oci-genai-guide-maintenance
 
 1. 새 날짜 초안과 prompt 생성
 2. VM의 일반 실행 환경에서 OCI CLI 사전 조회 결과를 `runs/<date>-oci-probe/`에 저장
-3. `codex exec` 또는 `codex`로 prompt 실행 시도
-4. 결과 파일이 채워졌다고 판단되면 `publish_guide.sh` 실행
-5. Git 저장소라면 자동 commit/push 시도
+3. VM의 일반 실행 환경에서 리전별 AI catalog 스냅샷을 수집하고 공개용 JSON을 `docs/data/`에 저장
+4. `codex exec` 또는 `codex`로 prompt 실행 시도
+5. 결과 파일이 채워졌다고 판단되면 `publish_guide.sh` 실행
+6. Git 저장소라면 자동 commit/push 시도
 
 OCI 사전 조회 산출물:
 
@@ -106,6 +112,37 @@ OCI 사전 조회 산출물:
 - `runs/<date>-oci-probe/summary.md`: 운영자용 상세 요약
 
 고객용 리포트는 `probe.json`과 `customer-summary.md`를 우선 사용하고, raw 출력 경로, namespace, tenancy OCID, 로컬 경로 같은 내부 값은 본문에 노출하지 않습니다.
+
+AI catalog 스냅샷 산출물:
+
+- `docs/data/latest-catalog.json`: GitHub Pages UI가 읽는 최신 공개용 스냅샷
+- `docs/data/catalog-<date>.json`: 날짜별 공개용 스냅샷
+- `docs/data/dac-reference.json`: 현재 v3 가이드 기준 DAC GPU family 공개 reference
+- `docs/catalog.html`: 정적 리전 탐색 UI
+- `runs/<date>-ai-catalog/*.json`, `*.err`, `*.meta`: 운영자 검증용 raw 조회 결과
+- `runs/<date>-ai-catalog/customer-matrix.md`: 고객용 표에 반영 가능한 요약
+
+공개용 JSON에는 리전, 모델 표시명, vendor, capability, lifecycle state, GPU family, shape name, 정규화된 조회 상태만 넣습니다. OCID, tenancy OCID, compartment OCID, namespace, OCI profile, raw stdout/stderr 경로, request id, raw 오류 전문은 넣지 않습니다.
+
+AI catalog 수집은 기본적으로 여러 OCI CLI 조회를 병렬 실행합니다.
+
+- `OCI_CATALOG_PARALLELISM`: 동시 실행 수, 기본값 `8`
+- `OCI_CATALOG_TIMEOUT_SECONDS`: 조회별 timeout, 기본값 `45`
+- `OCI_CATALOG_RETENTION_COUNT`: `docs/data/catalog-*.json` 보관 개수, 기본값 `12`, `0`이면 삭제하지 않음
+- `OCI_CATALOG_REGIONS`: 공백으로 구분한 테스트/제한 리전 목록
+- `OCI_CATALOG_COMPARTMENT_ID`: 조회 대상 compartment OCID. 없으면 probe 설정 또는 OCI config의 tenancy 값을 사용
+
+공개 JSON 생성 후에는 내부 식별자, raw 출력 경로, 요청 식별자, profile 문자열이 들어갔는지 자동 검사합니다. 금지 패턴이 발견되면 catalog 수집은 실패로 종료합니다.
+
+발행 전 공개 문서 검사는 아래 명령으로 수행합니다.
+
+```bash
+./scripts/check_public_docs.sh
+```
+
+이 검사는 `docs/data/*.json`의 JSON 문법과 공개 금지 패턴을 확인하고, `docs/*.md`, `docs/*.html` 계열에서 내부 경로와 요청 식별자 같은 고위험 문자열을 찾습니다.
+
+GenAI private endpoint 아키텍처 별첨은 `docs/appendix/private-endpoint-architecture.md`에 있습니다. private endpoint는 미지원 리전에 모델이나 GPU capacity를 새로 만드는 기능이 아니라, 지원 리전에 있는 GenAI endpoint를 private network로 접근하는 패턴으로 설명합니다.
 
 ### 2. cron 등록 예시
 

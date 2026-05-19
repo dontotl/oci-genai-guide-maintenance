@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "date": "not-collected",
+  "generated_at_utc": null,
+  "source": "placeholder",
+  "public_data_policy": {
+    "includes": [
+      "region",
+      "model display name",
+      "model vendor",
+      "model capabilities",
+      "lifecycle state",
+      "GPU family",
+      "shape name",
+      "normalized query status"
+    ],
+    "excludes": [
+      "internal identifiers",
+      "account scope identifiers",
+      "raw command outputs",
+      "local paths",
+      "raw error details"
+    ]
+  },
+  "interpretation_notes": [
+    "아직 cron 스냅샷이 수집되지 않았습니다.",
+    "CLI에서 보이는 모델 또는 shape는 즉시 생성 가능이나 capacity 보장을 뜻하지 않습니다.",
+    "Private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하지 않습니다."
+  ],
+  "regions": []
+}
