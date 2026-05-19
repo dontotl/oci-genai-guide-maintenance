@@ -18,6 +18,7 @@ RETENTION_COUNT="${OCI_CATALOG_RETENTION_COUNT:-12}"
 PROFILE="${OCI_CLI_PROFILE:-DEFAULT}"
 CONFIG_FILE="${OCI_CLI_CONFIG_FILE:-$HOME/.oci/config}"
 REGION_ALLOWLIST="${OCI_CATALOG_REGIONS:-}"
+USE_EXISTING_RAW="${OCI_CATALOG_USE_EXISTING_RAW:-0}"
 
 mkdir -p "$OUT_DIR" "$PUBLIC_DATA_DIR"
 
@@ -143,7 +144,12 @@ discover_regions() {
 
   if [[ -s "$OUT_DIR/region-subscription-list.json" ]] && jq empty "$OUT_DIR/region-subscription-list.json" >/dev/null 2>&1; then
     jq -r '.data[]? | select(."status" == "READY") | ."region-name"' "$OUT_DIR/region-subscription-list.json" | sort -u
+    return
   fi
+
+  find "$OUT_DIR" -maxdepth 1 -type f -name 'compute-gpu-shapes-*.json' -printf '%f\n' |
+    sed -E 's/^compute-gpu-shapes-(.*)\.json$/\1/' |
+    sort -u
 }
 
 extract_models_json() {
@@ -444,8 +450,10 @@ if ! command -v oci >/dev/null 2>&1; then
   exit 0
 fi
 
-run_probe "region-subscription-list" "Subscribed READY regions" \
-  oci iam region-subscription list --all --output json
+if [[ "$USE_EXISTING_RAW" != "1" ]]; then
+  run_probe "region-subscription-list" "Subscribed READY regions" \
+    oci iam region-subscription list --all --output json
+fi
 
 mapfile -t REGIONS < <(discover_regions)
 
@@ -454,7 +462,9 @@ if [[ ${#REGIONS[@]} -eq 0 ]]; then
   REGIONS=()
 fi
 
-if [[ -n "$COMPARTMENT_ID" ]]; then
+if [[ "$USE_EXISTING_RAW" == "1" ]]; then
+  printf 'Using existing raw catalog files from: %s\n' "$OUT_DIR"
+elif [[ -n "$COMPARTMENT_ID" ]]; then
   for region in "${REGIONS[@]}"; do
     schedule_probe "genai-models-${region}" "Generative AI models (${region})" \
       oci --region "$region" generative-ai model-collection list-models \

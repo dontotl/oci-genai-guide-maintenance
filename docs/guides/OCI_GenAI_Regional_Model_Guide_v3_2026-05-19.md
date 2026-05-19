@@ -81,9 +81,9 @@ flowchart LR
 | 리전 추가 | OCI Generative AI가 UAE Central (Abu Dhabi) 리전에서 사용 가능해졌습니다. | 2026-05-05 | 서비스 가용성 표에 넣었습니다. 다만 A10/A100/H100/H200 전용 DAC 공개표에는 확인되지 않아 `문서상 미확인`으로 표시했습니다. |
 | retired / replacement | Oracle retirement 문서 기준으로 Grok 3 계열과 일부 구형 Cohere / Meta 모델은 신규 설계에서 우선 제외하는 편이 안전합니다. | 2026-05-19 확인 | retired / deprecated 메모와 빠른 추천에서 제외했습니다. |
 | 대표 리전 GPU 조회 | 대표 리전의 IaaS GPU shape 조회가 성공했습니다. | 2026-05-19 | IaaS/AQUA 해석 표에 반영했습니다. |
-| AI catalog 공개 JSON | 공개 JSON은 존재하지만 현재 스냅샷에는 리전 행이 없습니다. | 2026-05-19 | 리전별 모델 표는 Oracle 공식 문서와 DAC reference를 기준으로 해석하고, shape 가시성은 고객용 probe summary를 우선 반영했습니다. |
+| AI catalog 공개 JSON | 43개 리전 행을 포함한 공개 스냅샷을 생성했습니다. | 2026-05-19 | `docs/catalog.html`에서 리전별 모델/shape 가시성과 조회 상태를 표로 확인할 수 있습니다. |
 
-핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `대표 리전 GPU 조회 성공 결과 반영`, `AI catalog 공개 JSON 상태 반영`입니다.
+핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `대표 리전 GPU 조회 성공 결과 반영`, `AI catalog 공개 JSON 생성`입니다.
 
 ---
 
@@ -96,7 +96,7 @@ flowchart LR
 | Oracle 공식 문서 우선 | 모델 리전, DAC unit, shape 사양, AQUA 지원 범위는 Oracle 공식 문서를 1순위로 사용했습니다. |
 | 사전 수집 결과 우선 | OCI CLI는 이 문서 작성 중 재실행하지 않았습니다. 고객용 probe summary와 정규화 JSON이 있으면 이를 먼저 사용했습니다. |
 | 대표 리전 실조회 보조 | 대표 리전의 IaaS GPU shape 조회 결과를 보조 근거로 사용했습니다. |
-| 공개 catalog 상태 반영 | AI catalog 공개 JSON은 확인했지만 리전 행이 비어 있어, 리전별 모델 availability는 Oracle 공식 문서 기준으로 해석했습니다. |
+| 공개 catalog 상태 반영 | AI catalog 공개 JSON은 43개 리전 행을 포함합니다. 단, API별 success/failed/timeout 상태를 함께 표시하므로 공식 지원과 capacity 보장으로 단정하지 않습니다. |
 | 추정 금지 | Oracle 문서에 없는 리전별 실시간 재고, generic/cohere DAC의 실제 GPU 종류, GPU 메모리는 단정하지 않았습니다. |
 | 관리형 기본 모델과 imported model 분리 | Oracle 관리형 기본 모델의 dedicated cluster unit과 사용자가 import한 모델의 권장 DAC를 별도로 다루었습니다. |
 | 표 폭 제한 | 리전, 모델, GPU, 조회 상태를 여러 표로 나눴습니다. |
@@ -531,7 +531,7 @@ Imported model과 custom deployment는 관리형 기본 모델을 그대로 쓰�
 | 대표 리전 IaaS GPU shape | 조회 성공 | 미국, 유럽, 한국/일본, 중동 대표 리전의 GPU shape 가시성을 확인했습니다. |
 | 실패 항목 | 없음 | 이번 대표 리전 조회에서는 실패로 처리한 항목이 없습니다. |
 | 문서 반영 | 성공 결과 반영 | 대표 리전의 IaaS/AQUA 해석 표에 조회 결과를 반영했습니다. |
-| AI catalog 공개 JSON | 리전 행 없음 | 공개 JSON은 확인했지만 수집된 리전별 모델/shape 행이 없어, 이 문서에서는 Oracle 공식 문서와 고객용 probe summary를 우선 근거로 사용했습니다. |
+| AI catalog 공개 JSON | 43개 리전 행 생성 | 공개 JSON은 UI 필터용 스냅샷입니다. GenAI 모델 조회는 일부 리전에서 실패/타임아웃이 있으므로, 표의 상태 라벨과 Oracle 공식 문서를 함께 확인해야 합니다. |
 
 ### 11-1-2. 용어별 의미 차이
 
