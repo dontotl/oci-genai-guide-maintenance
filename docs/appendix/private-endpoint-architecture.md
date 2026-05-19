@@ -90,21 +90,7 @@ Mermaid가 보이지 않는 환경에서는 아래 표로 판단합니다.
 
 ---
 
-## 6. 고객 안내 문구
-
-고객에게는 아래 표현을 그대로 쓰는 편이 안전합니다.
-
-| 표현 | 사용 여부 |
-|---|---|
-| Private endpoint를 쓰면 미지원 리전에서도 모델을 사용할 수 있습니다. | 사용하지 않습니다. 오해 소지가 큽니다. |
-| Private endpoint는 지원 리전에 있는 GenAI endpoint를 private network로 접근하는 방식입니다. | 사용합니다. |
-| 모델 지원 여부와 private access 여부는 별도 확인 항목입니다. | 사용합니다. |
-| shape가 보이면 즉시 GPU를 만들 수 있습니다. | 사용하지 않습니다. |
-| shape 가시성은 capacity, quota, service limit 보장이 아닙니다. | 사용합니다. |
-
----
-
-## 7. 체크리스트
+## 6. 체크리스트
 
 | 구분 | 확인 항목 |
 |---|---|
@@ -117,6 +103,6 @@ Mermaid가 보이지 않는 환경에서는 아래 표로 판단합니다.
 
 ---
 
-## 8. 최종 원칙
+## 7. 최종 원칙
 
 Private endpoint는 좋은 보안 아키텍처 구성 요소입니다. 그러나 리전별 모델 availability나 GPU capacity를 대체하지 않습니다. 따라서 이 가이드는 항상 리전 스냅샷 UI, Oracle 공식 Models by Region 문서, service limit/quota/capacity 확인과 함께 사용해야 합니다.
