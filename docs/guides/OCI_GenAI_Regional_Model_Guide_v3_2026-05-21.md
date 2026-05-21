@@ -1,17 +1,18 @@
 # OCI Generative AI / DAC / AQUA / IaaS GPU 리전 및 모델 가이드 v3
 
 > GitHub Pages 리전별 GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html
-> 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)
-> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)
+> 리전별 실측 스냅샷 UI: [catalog.html](../catalog.html)
+> Catalog 해석 기준: [catalog-notes.md](../catalog-notes.md)
+> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](../appendix/private-endpoint-architecture.md)
 
-최신 작성일: 2026-05-21 (GMT)
-작성 기준: Oracle 공식 문서 우선, 고객용 probe summary와 정규화 JSON 우선, 대표 리전 GPU 조회 결과 보조
-모델/리전 데이터 기준: 2026-05-19 스냅샷
+최신 작성일: 2026-05-21 (GMT)  
+작성 기준: Oracle 공식 문서 우선, 고객용 probe summary와 정규화 JSON 우선, 대표 리전 GPU 조회 결과 보조  
+모델/리전 데이터 기준: 2026-05-19 스냅샷  
 Catalog UI / query retry 운영 기준: 2026-05-21
 
 이 문서는 OCI Generative AI 모델을 어느 리전에서 어떤 방식으로 사용할지, 전용 클러스터가 필요한지, GPU를 직접 써야 하는지 판단하기 위한 고객용 가이드입니다. v3에서는 `On-demand`, `Dedicated AI Cluster`, `AQUA / Data Science`, `IaaS GPU`의 4대 선택 범주를 먼저 설명하고, 리전/가용성/검증 근거는 뒤쪽에서 확인하도록 재배열했습니다.
 
-리전별 스냅샷을 화면에서 필터링하려면 GitHub Pages GUI `https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html` 또는 이 저장소의 [catalog.html](catalog.html)을 함께 보시면 됩니다. Catalog의 컬럼별 source badge, query status, retry 취합 기준은 [catalog-notes.md](../catalog-notes.md)를 참고하시면 됩니다. 네트워크 보안 설계는 [private endpoint 별첨](appendix/private-endpoint-architecture.md)을 참고하시면 됩니다. 단, private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하는 기능이 아닙니다. private endpoint는 지원 리전에 있는 Generative AI endpoint를 private network로 접근하는 패턴입니다.
+리전별 스냅샷을 화면에서 필터링하려면 GitHub Pages GUI `https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html` 또는 이 저장소의 [catalog.html](../catalog.html)을 함께 보시면 됩니다. Catalog의 컬럼별 source badge, query status, retry 취합 기준은 [catalog-notes.md](../catalog-notes.md)를 참고하시면 됩니다. 네트워크 보안 설계는 [private endpoint 별첨](../appendix/private-endpoint-architecture.md)을 참고하시면 됩니다. 단, private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하는 기능이 아닙니다. private endpoint는 지원 리전에 있는 Generative AI endpoint를 private network로 접근하는 패턴입니다.
 
 ---
 

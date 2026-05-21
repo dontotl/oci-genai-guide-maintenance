@@ -2,6 +2,7 @@
 
 최신순 목록입니다.
 
+- 2026-05-21 (v3): [OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md)
 - 2026-05-19 (v3): [OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md)
 - 2026-05-18 (v3): [OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md)
 - 2026-05-18 (v2): [OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md)

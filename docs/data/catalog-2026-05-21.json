@@ -1,0 +1,2742 @@
+{
+  "schema_version": "1.0",
+  "date": "2026-05-21",
+  "generated_at_utc": "2026-05-21T06:05:11Z",
+  "source": "oci-cli-snapshot",
+  "public_data_policy": {
+    "includes": [
+      "region",
+      "model display name",
+      "model vendor",
+      "model capabilities",
+      "lifecycle state",
+      "GPU family",
+      "shape name",
+      "normalized query status",
+      "safe query retry summary"
+    ],
+    "excludes": [
+      "internal identifiers",
+      "account scope identifiers",
+      "raw command outputs",
+      "local paths",
+      "raw error details"
+    ]
+  },
+  "interpretation_notes": [
+    "CLI에서 보이는 모델 또는 shape는 즉시 생성 가능이나 capacity 보장을 뜻하지 않습니다.",
+    "Service limit, quota, capacity, availability domain별 가용성은 별도로 확인해야 합니다.",
+    "Private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하지 않습니다."
+  ],
+  "regions": [
+    {
+      "region": "af-johannesburg-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-batam-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-chuncheon-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-hyderabad-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-kulai-2",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-melbourne-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-mumbai-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-osaka-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-seoul-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-singapore-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-singapore-2",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-sydney-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ap-tokyo-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ca-montreal-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "ca-toronto-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-amsterdam-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-frankfurt-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-madrid-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-madrid-3",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-marseille-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-milan-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-paris-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-stockholm-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-turin-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "eu-zurich-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "il-jerusalem-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "me-abudhabi-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "me-dubai-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "me-jeddah-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "me-riyadh-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "mx-monterrey-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "mx-queretaro-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "sa-bogota-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "sa-santiago-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "sa-saopaulo-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "sa-valparaiso-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "sa-vinhedo-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "uk-cardiff-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "uk-london-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "us-ashburn-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "us-chicago-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "us-phoenix-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    },
+    {
+      "region": "us-sanjose-1",
+      "statuses": {
+        "genai_models": "timeout",
+        "data_science_job_shapes": "timeout",
+        "data_science_notebook_shapes": "timeout",
+        "data_science_model_deployment_shapes": "timeout",
+        "iaas_gpu_shapes": "timeout"
+      },
+      "genai": {
+        "model_count": 0,
+        "models": []
+      },
+      "dac": {
+        "status": "official-reference-required",
+        "guidance": "DAC availability is model-specific. Use the guide and Oracle Models by Region / Dedicated Cluster Shapes by Region references before design decisions."
+      },
+      "data_science": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "iaas": {
+        "gpu_families": [],
+        "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "timeout",
+          "attempts": 3,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
+      "customer_notes": [
+        "GenAI model list 조회 상태: timeout (3회 시도)",
+        "IaaS GPU shape 조회 상태: timeout (3회 시도)",
+        "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
+      ]
+    }
+  ]
+}

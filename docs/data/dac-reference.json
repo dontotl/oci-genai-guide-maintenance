@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
-  "source": "manual-reference-from-current-v3-guide",
+  "source": "oracle-docs-reference-from-current-v3-guide",
   "generated_at_utc": null,
   "interpretation_notes": [
-    "This file summarizes public DAC GPU-family visibility from the current v3 guide.",
+    "This file summarizes public DAC GPU-family visibility extracted from Oracle Models by Region / Dedicated Cluster Shapes by Region references and normalized in the current v3 guide.",
     "DAC availability is model-specific and must be checked against Oracle Models by Region / Dedicated Cluster Shapes by Region before design decisions.",
     "Cohere, generic, embed, and rerank DAC units can be valid DAC choices even when the underlying GPU family is not public.",
     "This reference does not prove service limit, quota, or capacity."

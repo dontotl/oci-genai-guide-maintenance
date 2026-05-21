@@ -105,6 +105,101 @@
       width: 100%;
     }
 
+    .label-row,
+    .metric-label,
+    .th-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-width: 0;
+    }
+
+    .help-icon {
+      position: relative;
+      display: inline-flex;
+      width: 16px;
+      height: 16px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #3a4652;
+      border-radius: 50%;
+      background: #fbfcfd;
+      color: #17212b;
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1;
+      cursor: default;
+      user-select: none;
+    }
+
+    .help-icon:focus {
+      outline: 2px solid rgba(41, 111, 76, 0.35);
+      outline-offset: 2px;
+    }
+
+    .help-icon::after {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 8px);
+      z-index: 4;
+      width: max-content;
+      max-width: min(300px, 70vw);
+      transform: translateX(-50%);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #17212b;
+      color: #fff;
+      padding: 8px 10px;
+      box-shadow: 0 10px 24px rgba(23, 33, 43, 0.18);
+      content: attr(data-help);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.4;
+      opacity: 0;
+      pointer-events: none;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .help-icon::before {
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% + 3px);
+      z-index: 5;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-top-color: #17212b;
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .help-icon:hover::after,
+    .help-icon:focus::after,
+    .help-icon:hover::before,
+    .help-icon:focus::before {
+      opacity: 1;
+    }
+
+    .metric .help-icon,
+    th .help-icon {
+      color: #17212b;
+      font-size: 11px;
+    }
+
+    th .help-icon::after {
+      top: calc(100% + 8px);
+      bottom: auto;
+    }
+
+    th .help-icon::before {
+      top: calc(100% + 3px);
+      bottom: auto;
+      border-top-color: transparent;
+      border-bottom-color: #17212b;
+    }
+
     .summary {
       display: grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -156,31 +251,27 @@
     }
 
     col.region-col {
-      width: 13%;
+      width: 15%;
     }
 
     col.models-col {
-      width: 21%;
+      width: 20%;
     }
 
     col.dac-col {
-      width: 14%;
+      width: 16%;
     }
 
     col.ds-col {
-      width: 16%;
+      width: 17%;
     }
 
     col.iaas-col {
-      width: 16%;
+      width: 17%;
     }
 
     col.status-col {
-      width: 10%;
-    }
-
-    col.notes-col {
-      width: 10%;
+      width: 15%;
     }
 
     th,
@@ -255,6 +346,44 @@
       color: var(--bad);
     }
 
+    .source-badge {
+      display: inline-flex;
+      max-width: 100%;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #fbfcfd;
+      color: var(--muted);
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .service-block {
+      display: grid;
+      gap: 8px;
+    }
+
+    .service-heading,
+    .status-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .service-section {
+      display: grid;
+      gap: 4px;
+    }
+
+    .section-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
     .muted {
       color: var(--muted);
     }
@@ -312,17 +441,17 @@
   <main class="wrap">
     <section class="controls" aria-label="Filters">
       <label>
-        Search
+        <span class="label-row">Search <span class="help-icon" tabindex="0" role="button" aria-label="검색 설명" data-help="리전명, 모델명, vendor, capability, GPU family, shape 이름, 조회 상태 텍스트를 기준으로 필터링합니다.">i</span></span>
         <input id="search" type="search" placeholder="region, model, shape, GPU family">
       </label>
       <label>
-        Region
+        <span class="label-row">Region <span class="help-icon" tabindex="0" role="button" aria-label="리전 필터 설명" data-help="공개 catalog 스냅샷에 포함된 OCI 리전 중 하나로 표를 제한합니다.">i</span></span>
         <select id="region-filter">
           <option value="">All regions</option>
         </select>
       </label>
       <label>
-        Service
+        <span class="label-row">Service <span class="help-icon" tabindex="0" role="button" aria-label="서비스 필터 설명" data-help="선택한 서비스에 CLI 관측 데이터나 Oracle 문서 reference가 있는 리전만 표시합니다.">i</span></span>
         <select id="service-filter">
           <option value="">All services</option>
           <option value="genai">GenAI models</option>
@@ -332,7 +461,7 @@
         </select>
       </label>
       <label>
-        GPU family
+        <span class="label-row">GPU family <span class="help-icon" tabindex="0" role="button" aria-label="GPU family 필터 설명" data-help="DAC reference, Data Science shape, IaaS GPU shape에서 추출한 정규화 GPU family 이름으로 필터링합니다.">i</span></span>
         <select id="gpu-filter">
           <option value="">All GPU families</option>
         </select>
@@ -340,18 +469,20 @@
     </section>
 
     <section class="summary" aria-label="Summary">
-      <div class="metric"><strong id="region-count">0</strong><span>regions</span></div>
-      <div class="metric"><strong id="model-count">0</strong><span>GenAI model entries</span></div>
-      <div class="metric"><strong id="dac-count">0</strong><span>DAC reference regions</span></div>
-      <div class="metric"><strong id="ds-count">0</strong><span>Data Science GPU shapes</span></div>
-      <div class="metric"><strong id="iaas-count">0</strong><span>IaaS GPU shapes</span></div>
+      <div class="metric"><strong id="region-count">0</strong><span class="metric-label">regions <span class="help-icon" tabindex="0" role="button" aria-label="리전 수 설명" data-help="현재 필터 조건을 적용한 뒤 화면에 표시되는 리전 수입니다.">i</span></span></div>
+      <div class="metric"><strong id="model-count">0</strong><span class="metric-label">GenAI model entries <span class="help-icon" tabindex="0" role="button" aria-label="GenAI model entries 설명" data-help="현재 필터 결과의 리전별 GenAI 모델 entry 합계입니다. 같은 모델이 여러 리전에 있으면 리전별로 각각 세므로 전역 unique 모델 수가 아닙니다.">i</span></span></div>
+      <div class="metric"><strong id="dac-count">0</strong><span class="metric-label">DAC reference regions <span class="help-icon" tabindex="0" role="button" aria-label="DAC reference regions 설명" data-help="Oracle Models by Region / Dedicated Cluster Shapes by Region 문서에서 추출한 DAC reference가 있는 표시 리전 수입니다.">i</span></span></div>
+      <div class="metric"><strong id="ds-count">0</strong><span class="metric-label">Data Science GPU shapes <span class="help-icon" tabindex="0" role="button" aria-label="Data Science GPU shapes 수 설명" data-help="현재 필터 결과에서 Data Science job, notebook, model deployment shape 조회로 관측된 unique GPU 관련 shape 문자열 수입니다.">i</span></span></div>
+      <div class="metric"><strong id="iaas-count">0</strong><span class="metric-label">IaaS GPU shapes <span class="help-icon" tabindex="0" role="button" aria-label="IaaS GPU shapes 수 설명" data-help="현재 필터 결과에서 OCI Compute shape list 조회로 관측된 unique GPU 관련 shape 문자열 수입니다.">i</span></span></div>
     </section>
 
     <section class="legend" aria-label="Status legend">
       <span class="status status-ok" title="The specific query returned successfully. This is not capacity proof.">success</span>
       <span class="status status-warn" title="The query completed but the usable list is empty or the reference is not model-specific enough.">empty / reference required</span>
       <span class="status status-bad" title="The snapshot query did not complete within the configured timeout. Do not interpret as unsupported.">timeout / failed</span>
-      <span>공식 지원, CLI 가시성, 실제 capacity는 서로 다른 판단 기준입니다.</span>
+      <span class="source-badge">CLI query</span>
+      <span class="source-badge">Oracle docs reference</span>
+      <span>공식 지원, CLI 가시성, 실제 capacity는 서로 다른 판단 기준입니다. timeout/failed는 미지원이 아니라 조회 불완전으로 해석합니다.</span>
     </section>
 
     <section class="table-wrap" aria-label="Catalog table">
@@ -363,21 +494,19 @@
           <col class="ds-col">
           <col class="iaas-col">
           <col class="status-col">
-          <col class="notes-col">
         </colgroup>
         <thead>
           <tr>
-            <th>Region</th>
-            <th>GenAI Models</th>
-            <th>DAC Guidance</th>
-            <th>Data Science / AQUA GPU</th>
-            <th>IaaS GPU</th>
-            <th>Query Status</th>
-            <th>Customer Notes</th>
+            <th><span class="th-label">Region <span class="help-icon" tabindex="0" role="button" aria-label="Region 컬럼 설명" data-help="공개 CLI catalog 스냅샷의 OCI 리전 행입니다.">i</span></span></th>
+            <th><span class="th-label">GenAI Models <span class="help-icon" tabindex="0" role="button" aria-label="GenAI Models 컬럼 설명" data-help="해당 리전에서 OCI Generative AI model list CLI 조회로 관측된 모델입니다. 조회 성공은 service limit, quota, capacity 보장을 뜻하지 않습니다.">i</span></span></th>
+            <th><span class="th-label">DAC Official Reference <span class="help-icon" tabindex="0" role="button" aria-label="DAC Official Reference 컬럼 설명" data-help="Oracle Models by Region / Dedicated Cluster Shapes by Region 문서에서 추출한 DAC GPU family reference입니다. CLI capacity 조회가 아닙니다.">i</span></span></th>
+            <th><span class="th-label">Data Science / AQUA GPU <span class="help-icon" tabindex="0" role="button" aria-label="Data Science AQUA GPU 컬럼 설명" data-help="OCI Data Science job, notebook, model deployment shape 조회에서 관측된 GPU family와 shape 문자열입니다.">i</span></span></th>
+            <th><span class="th-label">IaaS GPU <span class="help-icon" tabindex="0" role="button" aria-label="IaaS GPU 컬럼 설명" data-help="OCI Compute shape list 조회에서 관측된 GPU family와 shape 문자열입니다. 보이는 shape가 즉시 생성 가능하거나 capacity가 있다는 뜻은 아닙니다.">i</span></span></th>
+            <th><span class="th-label">Query Details <span class="help-icon" tabindex="0" role="button" aria-label="Query Details 컬럼 설명" data-help="정규화된 CLI 조회 상태, 선택된 시도 번호, 전체 시도 횟수, 관측 항목 수를 보여줍니다. timeout/failed는 미지원이 아니라 조회 불완전입니다.">i</span></span></th>
           </tr>
         </thead>
         <tbody id="rows">
-          <tr><td colspan="7" class="empty">Loading catalog...</td></tr>
+          <tr><td colspan="6" class="empty">Loading catalog...</td></tr>
         </tbody>
       </table>
     </section>
@@ -432,6 +561,32 @@
       if (value === 'success') return 'status-ok';
       if (value === 'timeout' || value === 'failed') return 'status-bad';
       return 'status-warn';
+    }
+
+    function sourceBadge(label, title = '') {
+      const safeTitle = title ? ` title="${escapeHtml(title)}"` : '';
+      return `<span class="source-badge"${safeTitle}>${escapeHtml(label)}</span>`;
+    }
+
+    function queryMeta(region, key) {
+      const attempts = region.query_attempts?.[key] || {};
+      return {
+        final_status: attempts.final_status || region.statuses?.[key] || 'not-collected',
+        attempts: attempts.attempts ?? null,
+        selected_attempt: attempts.selected_attempt ?? null,
+        observed_item_count: attempts.observed_item_count ?? null
+      };
+    }
+
+    function statusBadge(region, key, label = key) {
+      const meta = queryMeta(region, key);
+      const attemptText = meta.attempts
+        ? ` · ${meta.selected_attempt || '?'} of ${meta.attempts}`
+        : '';
+      const title = meta.attempts
+        ? `${key}; selected attempt ${meta.selected_attempt || 'none'} of ${meta.attempts}; observed items ${meta.observed_item_count ?? 'unknown'}`
+        : key;
+      return `<span class="status ${statusClass(meta.final_status)}" title="${escapeHtml(title)}">${escapeHtml(label)}: ${escapeHtml(meta.final_status)}${escapeHtml(attemptText)}</span>`;
     }
 
     function statuses(region) {
@@ -502,6 +657,38 @@
       return true;
     }
 
+    function serviceSection(label, values, limit = 8) {
+      return `
+        <div class="service-section">
+          <div class="section-label">${escapeHtml(label)}</div>
+          ${chips(values, limit)}
+        </div>
+      `;
+    }
+
+    function statusNote(status, itemCount, itemLabel) {
+      if (status === 'success' && itemCount === 0) {
+        return `조회는 성공했지만 ${itemLabel}는 관측되지 않았습니다.`;
+      }
+      if (status === 'timeout') {
+        return '제한 시간 내 응답이 없어 재조회 또는 공식 문서 확인이 필요합니다.';
+      }
+      if (status === 'failed') {
+        return '조회가 실패했습니다. 권한, endpoint, 일시 오류 가능성이 있어 미지원으로 단정하지 않습니다.';
+      }
+      return '';
+    }
+
+    function serviceBlock({ source, sourceTitle, queryHtml = '', sections = [], note = '' }) {
+      return `
+        <div class="service-block">
+          <div class="service-heading">${sourceBadge(source, sourceTitle)}${queryHtml}</div>
+          ${sections.join('')}
+          ${note ? `<div class="notes">${escapeHtml(note)}</div>` : ''}
+        </div>
+      `;
+    }
+
     function regionText(region) {
       const dac = dacFor(region);
       const models = (region.genai?.models || []).flatMap((model) => [
@@ -520,6 +707,7 @@
         ...(region.data_science?.gpu_shapes || []),
         ...(region.iaas?.gpu_families || []),
         ...(region.iaas?.gpu_shapes || []),
+        ...(Object.entries(region.statuses || {}).flatMap(([key, value]) => [key, value])),
         ...allGpuFamilies(region),
         ...(region.customer_notes || [])
       ].join(' ').toLowerCase();
@@ -558,7 +746,7 @@
         const emptyMessage = state.regions.length === 0
           ? '아직 공개 스냅샷이 없습니다. 다음 cron 실행 후 리전별 결과가 표시됩니다.'
           : 'No matching regions.';
-        els.rows.innerHTML = `<tr><td colspan="7" class="empty">${escapeHtml(emptyMessage)}</td></tr>`;
+        els.rows.innerHTML = `<tr><td colspan="6" class="empty">${escapeHtml(emptyMessage)}</td></tr>`;
         return;
       }
 
@@ -567,14 +755,17 @@
           const vendor = model.vendor && model.vendor !== 'unknown' ? `${model.vendor}: ` : '';
           return `${vendor}${model.display_name}`;
         });
-        const dsValues = [
-          ...serviceGpuFamilies(region, 'data-science'),
-          ...(region.data_science?.gpu_shapes || [])
+        const dsFamilies = serviceGpuFamilies(region, 'data-science');
+        const dsShapes = region.data_science?.gpu_shapes || [];
+        const iaasFamilies = serviceGpuFamilies(region, 'iaas');
+        const iaasShapes = region.iaas?.gpu_shapes || [];
+        const genaiMeta = queryMeta(region, 'genai_models');
+        const dsStatusKeys = [
+          ['data_science_job_shapes', 'job'],
+          ['data_science_notebook_shapes', 'notebook'],
+          ['data_science_model_deployment_shapes', 'deploy']
         ];
-        const iaasValues = [
-          ...serviceGpuFamilies(region, 'iaas'),
-          ...(region.iaas?.gpu_shapes || [])
-        ];
+        const iaasMeta = queryMeta(region, 'iaas_gpu_shapes');
         const dac = dacFor(region);
         const dacValues = dac
           ? [
@@ -583,19 +774,61 @@
               ...(dac.evidence_models || [])
             ]
           : ['Model-specific check required'];
+        const genaiNote = statusNote(genaiMeta.final_status, modelNames.length, 'GenAI model');
+        const dsNote = dsStatusKeys
+          .map(([key]) => statusNote(queryMeta(region, key).final_status, dsShapes.length, 'Data Science GPU shape'))
+          .find(Boolean) || '';
+        const iaasNote = statusNote(iaasMeta.final_status, iaasShapes.length, 'IaaS GPU shape');
         return `
           <tr>
-            <td><code>${escapeHtml(region.region)}</code><div class="notes">${escapeHtml(region.display_name || dac?.display_name || '')}</div></td>
-            <td>${chips(modelNames, 10)}</td>
-            <td class="dac-cell">${chips(dacValues, 5)}<div class="notes">${escapeHtml(dac?.status || region.dac?.status || 'official-reference-required')}</div></td>
-            <td>${chips(dsValues, 8)}</td>
-            <td>${chips(iaasValues, 8)}</td>
             <td>
-              <div class="chips">
-                ${statuses(region).map(({ key, value }) => `<span class="status ${statusClass(value)}" title="${escapeHtml(key)}">${escapeHtml(value)}</span>`).join('')}
+              <div class="service-block">
+                <div class="service-heading">${sourceBadge('CLI snapshot', 'Region row from the public OCI CLI snapshot')}</div>
+                <code>${escapeHtml(region.region)}</code>
+                <div class="notes">${escapeHtml(region.display_name || dac?.display_name || '')}</div>
               </div>
             </td>
-            <td class="notes">${escapeHtml((region.customer_notes || []).join(' '))}</td>
+            <td>${serviceBlock({
+              source: 'CLI query',
+              sourceTitle: 'OCI Generative AI model list query',
+              queryHtml: statusBadge(region, 'genai_models', 'genai_models'),
+              sections: [serviceSection('Models', modelNames, 10)],
+              note: genaiNote
+            })}</td>
+            <td class="dac-cell">${serviceBlock({
+              source: 'Oracle docs reference',
+              sourceTitle: 'Extracted from Oracle Models by Region and Dedicated Cluster Shapes by Region references',
+              sections: [serviceSection('Reference', dacValues, 5)],
+              note: dac?.status || region.dac?.status || 'official-reference-required'
+            })}</td>
+            <td>${serviceBlock({
+              source: 'CLI query',
+              sourceTitle: 'OCI Data Science job, notebook, and model deployment shape queries',
+              queryHtml: `<div class="status-list">${dsStatusKeys.map(([key, label]) => statusBadge(region, key, label)).join('')}</div>`,
+              sections: [
+                serviceSection('Families', dsFamilies, 6),
+                serviceSection('Shapes', dsShapes, 8)
+              ],
+              note: dsNote
+            })}</td>
+            <td>${serviceBlock({
+              source: 'CLI query',
+              sourceTitle: 'OCI Compute shape list query filtered for GPU strings',
+              queryHtml: statusBadge(region, 'iaas_gpu_shapes', 'iaas_gpu_shapes'),
+              sections: [
+                serviceSection('Families', iaasFamilies, 6),
+                serviceSection('Shapes', iaasShapes, 8)
+              ],
+              note: iaasNote
+            })}</td>
+            <td>
+              <div class="service-block">
+                <div class="service-heading">${sourceBadge('CLI query status', 'Normalized query result status')}</div>
+                <div class="status-list">
+                  ${statuses(region).map(({ key }) => statusBadge(region, key, key)).join('')}
+                </div>
+              </div>
+            </td>
           </tr>
         `;
       }).join('');
@@ -639,7 +872,7 @@
         populateFilters();
         render();
       } catch (error) {
-        els.rows.innerHTML = `<tr><td colspan="7" class="empty">Failed to load catalog: ${escapeHtml(error.message)}</td></tr>`;
+        els.rows.innerHTML = `<tr><td colspan="6" class="empty">Failed to load catalog: ${escapeHtml(error.message)}</td></tr>`;
       }
     }
 

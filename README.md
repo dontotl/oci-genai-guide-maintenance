@@ -25,6 +25,7 @@ oci-genai-guide-maintenance/
 │   ├── catalog.html
 │   ├── data/
 │   ├── appendix/
+│   ├── archive/
 │   └── guides/
 ├── runs/
 ├── scripts/
@@ -45,7 +46,18 @@ oci-genai-guide-maintenance/
 
 ## 기본 흐름
 
-작업을 이어서 할 때는 먼저 [MAINTENANCE.md](/home/opc/oci-genai-guide-maintenance/MAINTENANCE.md) 를 보는 것을 권장합니다.
+작업을 이어서 할 때는 먼저 [MAINTENANCE.md](MAINTENANCE.md) 를 보는 것을 권장합니다.
+
+문서만 읽을 때는 아래 순서가 가장 빠릅니다.
+
+- [docs/INDEX.md](docs/INDEX.md): 공개 문서 진입점
+- [docs/LATEST.md](docs/LATEST.md): 최신 가이드 한 페이지 복사본
+- [docs/catalog.html](docs/catalog.html): 리전별 AI catalog 정적 UI
+- [docs/catalog-notes.md](docs/catalog-notes.md): catalog 컬럼, source badge, query retry 해석 기준
+- [docs/appendix/private-endpoint-architecture.md](docs/appendix/private-endpoint-architecture.md): private endpoint 별첨
+- [docs/archive/README.md](docs/archive/README.md): 초기 가이드와 과거 운영 메모 보관 위치
+
+`docs/LATEST.md`, `docs/INDEX.md`, `docs/HISTORY.md`, `docs/CHANGELOG.md`는 `scripts/refresh_index.sh`가 다시 생성합니다. 영구적으로 바꿀 내용은 해당 스크립트나 원본 가이드에 반영합니다.
 
 ### 1. 새 날짜 파일과 실행용 프롬프트 생성
 
@@ -115,24 +127,39 @@ OCI 사전 조회 산출물:
 
 AI catalog 스냅샷 산출물:
 
-- `docs/data/latest-catalog.json`: GitHub Pages UI가 읽는 최신 공개용 스냅샷
+- `docs/data/latest-catalog.json`: GitHub Pages UI가 읽는 최신 유효 공개용 스냅샷
 - `docs/data/catalog-<date>.json`: 날짜별 공개용 스냅샷
 - `docs/data/dac-reference.json`: 현재 v3 가이드 기준 DAC GPU family 공개 reference
 - `docs/catalog.html`: 정적 리전 탐색 UI
+- `docs/catalog-notes.md`: catalog 컬럼별 데이터 기준과 `timeout`/`failed` 해석 기준
 - `runs/<date>-ai-catalog/*.json`, `*.err`, `*.meta`: 운영자 검증용 raw 조회 결과
 - `runs/<date>-ai-catalog/customer-matrix.md`: 고객용 표에 반영 가능한 요약
 
-공개용 JSON에는 리전, 모델 표시명, vendor, capability, lifecycle state, GPU family, shape name, 정규화된 조회 상태만 넣습니다. OCID, tenancy OCID, compartment OCID, namespace, OCI profile, raw stdout/stderr 경로, request id, raw 오류 전문은 넣지 않습니다.
+공개용 JSON에는 리전, 모델 표시명, vendor, capability, lifecycle state, GPU family, shape name, 정규화된 조회 상태만 넣습니다. OCID, tenancy OCID, compartment OCID, namespace, OCI profile, raw stdout/stderr 경로, 요청 추적값, raw 오류 전문은 넣지 않습니다.
 
 AI catalog 수집은 기본적으로 여러 OCI CLI 조회를 병렬 실행합니다.
 
-- `OCI_CATALOG_PARALLELISM`: 동시 실행 수, 기본값 `8`
-- `OCI_CATALOG_TIMEOUT_SECONDS`: 조회별 timeout, 기본값 `45`
+- `OCI_CATALOG_PROFILE`: 수집 profile, 기본값 `fast`
+- `fast`: 기본 운영용. timeout `20`, attempts `1`, retry delay `0`, parallelism `24`
+- `balanced`: 보완 조회용. timeout `30`, attempts `2`, retry delay `10`, parallelism `16`
+- `deep`: 장애 조사/발행 전 수동 확인용. timeout `45`, attempts `3`, retry delay `60`, parallelism `8`
+- `OCI_CATALOG_PARALLELISM`: 동시 실행 수. 지정하면 profile 기본값보다 우선
+- `OCI_CATALOG_TIMEOUT_SECONDS`: 조회별 timeout. 지정하면 profile 기본값보다 우선
+- `OCI_CATALOG_ATTEMPTS`: 조회 시도 횟수. 지정하면 profile 기본값보다 우선
+- `OCI_CATALOG_RETRY_DELAY_SECONDS`: 재시도 전 대기 시간. 지정하면 profile 기본값보다 우선
+- `OCI_CATALOG_RETRY_ONLY_INCOMPLETE`: 완료된 조회를 다시 실행하지 않을지 여부, 기본값 `1`
+- `OCI_CATALOG_RETRY_EMPTY_RESULTS`: 조회 성공이지만 결과가 비어 있는 항목도 재시도할지 여부, 기본값 `1`
 - `OCI_CATALOG_RETENTION_COUNT`: `docs/data/catalog-*.json` 보관 개수, 기본값 `12`, `0`이면 삭제하지 않음
 - `OCI_CATALOG_REGIONS`: 공백으로 구분한 테스트/제한 리전 목록
 - `OCI_CATALOG_COMPARTMENT_ID`: 조회 대상 compartment OCID. 없으면 probe 설정 또는 OCI config의 tenancy 값을 사용
 
-공개 JSON 생성 후에는 내부 식별자, raw 출력 경로, 요청 식별자, profile 문자열이 들어갔는지 자동 검사합니다. 금지 패턴이 발견되면 catalog 수집은 실패로 종료합니다.
+일반 운영은 `fast`를 사용합니다. timeout/failed가 많은 날의 완전성 확인은 별도 수동 실행으로 `OCI_CATALOG_PROFILE=balanced` 또는 `OCI_CATALOG_PROFILE=deep`를 지정합니다.
+
+AI catalog 공개 JSON에는 각 조회 항목의 최종 상태와 선택된 시도 번호를 `query_attempts`로 저장합니다. `success`는 조회 성공을 뜻하며, 실제 생성 가능, service limit, quota, capacity 보장은 아닙니다. `timeout`이나 `failed`는 미지원이 아니라 조회 불완전으로 해석하고, 재조회 또는 공식 문서 확인이 필요합니다.
+
+`docs/data/catalog-<date>.json`은 실행 결과를 항상 남깁니다. 하지만 모든 CLI 조회가 `timeout`/`failed`로 끝나 성공 조회가 하나도 없으면 `docs/data/latest-catalog.json`은 덮어쓰지 않습니다. 이 경우 날짜별 스냅샷으로 실패 실행을 추적하고, GitHub Pages UI는 마지막 유효 스냅샷을 계속 사용합니다.
+
+공개 JSON 생성 후에는 내부 식별자, raw 출력 경로, 요청 추적값, profile 문자열이 들어갔는지 자동 검사합니다. 금지 패턴이 발견되면 catalog 수집은 실패로 종료합니다.
 
 발행 전 공개 문서 검사는 아래 명령으로 수행합니다.
 

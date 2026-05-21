@@ -1,14 +1,21 @@
 # OCI GenAI Regional Guide Index
 
-최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md`
+최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md`
+
+## Entry Points
 
 - [catalog.html](catalog.html): 리전별 OCI AI 스냅샷 UI
+- [catalog-notes.md](catalog-notes.md): catalog 컬럼, source badge, query retry 해석 기준
 - GitHub Pages GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html
+- [LATEST.md](LATEST.md): 최신 가이드 복사본
 - [CHANGELOG.md](CHANGELOG.md)
+- [HISTORY.md](HISTORY.md)
 - [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨
+- [archive/README.md](archive/README.md): 초기 가이드와 운영 메모 보관 위치
 
 ## Guides
 
+- [OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md)
 - [OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md)
 - [OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md)
 - [OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-05-18.md)

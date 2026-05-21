@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "date": "2026-05-19",
-  "generated_at_utc": "2026-05-19T07:14:29Z",
+  "generated_at_utc": "2026-05-21T04:31:12Z",
   "source": "oci-cli-snapshot",
   "public_data_policy": {
     "includes": [
@@ -12,7 +12,8 @@
       "lifecycle state",
       "GPU family",
       "shape name",
-      "normalized query status"
+      "normalized query status",
+      "safe query retry summary"
     ],
     "excludes": [
       "internal identifiers",
@@ -73,8 +74,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -111,8 +144,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -146,8 +211,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 3
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 3
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 3
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -320,6 +417,38 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 17
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 3
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 3
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 3
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
@@ -358,8 +487,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -409,8 +570,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -458,8 +651,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -807,6 +1032,38 @@
           "VM.GPU3.4"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 35
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        }
+      },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -859,8 +1116,40 @@
           "VM.GPU3.4"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -913,8 +1202,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -950,6 +1271,38 @@
       "iaas": {
         "gpu_families": [],
         "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
       },
       "customer_notes": [
         "GenAI model list는 성공했지만 표시할 모델이 없습니다.",
@@ -997,8 +1350,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 5
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 5
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 5
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -1055,8 +1440,40 @@
           "VM.GPU3.4"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -1095,8 +1512,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1133,8 +1582,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1163,6 +1644,38 @@
       "iaas": {
         "gpu_families": [],
         "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
       },
       "customer_notes": [
         "GenAI model list는 성공했지만 표시할 모델이 없습니다.",
@@ -1489,6 +2002,38 @@
           "VM.GPU2.1"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 32
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        }
+      },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1536,8 +2081,40 @@
           "NVIDIA® A10"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 2
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -1574,8 +2151,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1613,8 +2222,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1668,8 +2309,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -1718,8 +2391,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -1756,8 +2461,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1795,8 +2532,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -1826,8 +2595,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "Data Science GPU shape가 보이지 않습니다.",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
@@ -1883,8 +2684,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -1961,6 +2794,38 @@
       "iaas": {
         "gpu_families": [],
         "gpu_shapes": []
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 5
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
       },
       "customer_notes": [
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
@@ -2167,6 +3032,38 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 19
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -2212,8 +3109,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -2387,6 +3316,38 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 16
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
@@ -2437,8 +3398,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -2487,8 +3480,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -2537,8 +3562,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -2587,8 +3644,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -2898,6 +3987,38 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 32
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -2935,8 +4056,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -2986,8 +4139,40 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 10
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     },
@@ -3024,8 +4209,40 @@
         "gpu_families": [],
         "gpu_shapes": []
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "failed",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 7
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: failed",
+        "GenAI model list 조회 상태: failed (1회 시도)",
         "IaaS GPU shape 조회는 성공했지만 GPU shape가 보이지 않습니다.",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -3342,6 +4559,38 @@
           "VM.GPU3.2",
           "VM.GPU3.4"
         ]
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 32
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 9
+        }
       },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
@@ -3752,6 +5001,38 @@
           "VM.GPU3.2",
           "VM.GPU3.4"
         ]
+      },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 42
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 16
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 16
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 16
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 14
+        }
       },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
@@ -4291,6 +5572,38 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 59
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 15
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 15
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 15
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 4
+        }
+      },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -4601,6 +5914,38 @@
           "VM.GPU.A10.2"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 32
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 8
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 8
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 8
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 6
+        }
+      },
       "customer_notes": [
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
@@ -4662,8 +6007,40 @@
           "VM.GPU3.4"
         ]
       },
+      "query_attempts": {
+        "genai_models": {
+          "final_status": "timeout",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 0
+        },
+        "data_science_job_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        },
+        "data_science_notebook_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        },
+        "data_science_model_deployment_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 12
+        },
+        "iaas_gpu_shapes": {
+          "final_status": "success",
+          "attempts": 1,
+          "selected_attempt": 1,
+          "observed_item_count": 11
+        }
+      },
       "customer_notes": [
-        "GenAI model list 조회 상태: timeout",
+        "GenAI model list 조회 상태: timeout (1회 시도)",
         "표시된 모델/shape는 즉시 생성 가능 또는 capacity 보장을 뜻하지 않습니다."
       ]
     }

@@ -2,6 +2,24 @@
 
 가이드별 `이번 업데이트 변화 요약` 섹션을 최신순으로 모은 자동 생성 파일입니다.
 
+## 2026-05-21 (v3)
+
+[OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md)
+
+| 구분 | 변화 | 기준일 | 이 문서의 반영 |
+|---|---|---:|---|
+| 신규 모델 | `xai.grok-tts` 기반 xAI Voice Text to Speech가 추가되었습니다. | 2026-05-15 | 음성 합성 모델로 별도 표에 넣었습니다. |
+| import 호환 모델 추가 | `Qwen/Qwen3.6-35B-A3B`, `Qwen/Qwen3.5-9B`, `google/gemma-4-31B-it`가 import 호환 모델에 추가되었습니다. | 2026-05-11 | imported model 권장 DAC 표에 넣었습니다. |
+| 신규 모델 | `cohere.rerank-v4.0-pro`, `cohere.rerank-v4.0-fast`가 Cohere Rerank 4.0으로 확인됩니다. | 2026-05-09 | 전용 DAC `RERANK_COHERE x1`로 넣었습니다. release notes는 on-demand와 dedicated를 함께 언급하지만, 개별 모델 페이지는 dedicated only라고 설명하므로 mode는 문서 간 상충으로 표시했습니다. |
+| 기능 확장 | Cohere Embed 4가 configurable output dimensions와 text+image `EmbedText` payload를 지원합니다. | 2026-05-09 | 임베딩 모델 강점과 DAC 표에 반영했습니다. |
+| 리전 추가 | OCI Generative AI가 UAE Central (Abu Dhabi) 리전에서 사용 가능해졌습니다. | 2026-05-05 | 서비스 가용성 표에 넣었습니다. 다만 A10/A100/H100/H200 전용 DAC 공개표에는 확인되지 않아 `문서상 미확인`으로 표시했습니다. |
+| retired / replacement | Oracle retirement 문서 기준으로 Grok 3 계열과 일부 구형 Cohere / Meta 모델은 신규 설계에서 우선 제외하는 편이 안전합니다. | 2026-05-19 확인 | retired / deprecated 메모와 빠른 추천에서 제외했습니다. |
+| 대표 리전 GPU 조회 | 대표 리전의 IaaS GPU shape 조회가 성공했습니다. | 2026-05-19 | IaaS/AQUA 해석 표에 반영했습니다. |
+| AI catalog 공개 JSON | 43개 리전 행을 포함한 공개 스냅샷을 생성했습니다. | 2026-05-19 | GitHub Pages catalog UI에서 리전별 모델/shape 가시성과 조회 상태를 표로 확인할 수 있습니다. |
+| Catalog UI 개선 | catalog 표의 컬럼별 source badge, GPU shape/status 매핑, `Query Details`, `query_attempts` 표시 기준을 추가했습니다. | 2026-05-21 | `CLI query`, `Oracle docs reference`를 구분하고 `timeout`/`failed`를 미지원이 아닌 조회 불완전으로 설명합니다. |
+| Catalog 수집 profile | AI catalog 수집은 기본 `fast` profile과 필요 시 `balanced`/`deep` profile을 사용합니다. | 2026-05-21 | `fast`는 1회 빠른 수집, `balanced`/`deep`은 수동 보완 조회에 사용하며 `query_attempts`에는 최종 상태와 선택된 시도 번호를 공개합니다. |
+핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `대표 리전 GPU 조회 성공 결과 반영`, `AI catalog 공개 JSON 생성`, `catalog UI source/status 매핑 개선`, `catalog query 재시도 기준 추가`입니다.
+
 ## 2026-05-19 (v3)
 
 [OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md)
@@ -15,8 +33,8 @@
 | 리전 추가 | OCI Generative AI가 UAE Central (Abu Dhabi) 리전에서 사용 가능해졌습니다. | 2026-05-05 | 서비스 가용성 표에 넣었습니다. 다만 A10/A100/H100/H200 전용 DAC 공개표에는 확인되지 않아 `문서상 미확인`으로 표시했습니다. |
 | retired / replacement | Oracle retirement 문서 기준으로 Grok 3 계열과 일부 구형 Cohere / Meta 모델은 신규 설계에서 우선 제외하는 편이 안전합니다. | 2026-05-19 확인 | retired / deprecated 메모와 빠른 추천에서 제외했습니다. |
 | 대표 리전 GPU 조회 | 대표 리전의 IaaS GPU shape 조회가 성공했습니다. | 2026-05-19 | IaaS/AQUA 해석 표에 반영했습니다. |
-| AI catalog 공개 JSON | 공개 JSON은 존재하지만 현재 스냅샷에는 리전 행이 없습니다. | 2026-05-19 | 리전별 모델 표는 Oracle 공식 문서와 DAC reference를 기준으로 해석하고, shape 가시성은 고객용 probe summary를 우선 반영했습니다. |
-핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `대표 리전 GPU 조회 성공 결과 반영`, `AI catalog 공개 JSON 상태 반영`입니다.
+| AI catalog 공개 JSON | 43개 리전 행을 포함한 공개 스냅샷을 생성했습니다. | 2026-05-19 | GitHub Pages catalog UI에서 리전별 모델/shape 가시성과 조회 상태를 표로 확인할 수 있습니다. |
+핵심 변화는 `Cohere Rerank 4.0`, `Cohere Embed 4 기능 확장`, `xAI Voice`, `Abu Dhabi 리전`, `import 호환 모델 3개 추가`, `대표 리전 GPU 조회 성공 결과 반영`, `AI catalog 공개 JSON 생성`입니다.
 
 ## 2026-05-18 (v3)
 
@@ -149,4 +167,3 @@
 [OCI_GenAI_Regional_Model_Guide_v2_2026-04-17.md](guides/OCI_GenAI_Regional_Model_Guide_v2_2026-04-17.md)
 
 - 변화 요약 섹션을 찾지 못했습니다.
-

@@ -55,9 +55,21 @@ latest_tmp="$(mktemp)"
 {
   sed -n '1p' "$LATEST_FILE"
   echo
+  echo "> GitHub Pages 리전별 GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html"
   echo "> 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)"
   echo "> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)"
-  tail -n +2 "$LATEST_FILE"
+  echo
+  awk '
+    NR == 1 { next }
+    !started {
+      if ($0 == "" || $0 ~ /^>/) next
+      started = 1
+    }
+    { print }
+  ' "$LATEST_FILE" |
+    sed \
+      -e 's|(../catalog.html)|(catalog.html)|g' \
+      -e 's|(../appendix/|(appendix/|g'
 } > "$latest_tmp"
 mv "$latest_tmp" "$LATEST_FILE"
 
@@ -66,9 +78,16 @@ mv "$latest_tmp" "$LATEST_FILE"
   echo
   echo "최신 가이드: \`$(basename "$latest")\`"
   echo
+  echo "## Entry Points"
+  echo
   echo "- [catalog.html](catalog.html): 리전별 OCI AI 스냅샷 UI"
+  echo "- [catalog-notes.md](catalog-notes.md): catalog 컬럼, source badge, query retry 해석 기준"
+  echo "- GitHub Pages GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html"
+  echo "- [LATEST.md](LATEST.md): 최신 가이드 복사본"
   echo "- [CHANGELOG.md](CHANGELOG.md)"
+  echo "- [HISTORY.md](HISTORY.md)"
   echo "- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨"
+  echo "- [archive/README.md](archive/README.md): 초기 가이드와 운영 메모 보관 위치"
   echo
   echo "## Guides"
   echo

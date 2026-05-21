@@ -37,10 +37,12 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `docs/HISTORY.md`
 - `docs/CHANGELOG.md`
 - `docs/catalog.html`
+- `docs/catalog-notes.md`
 - `docs/data/latest-catalog.json`
 - `docs/data/dac-reference.json`
 - `docs/appendix/private-endpoint-architecture.md`
-- `docs/guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-18.md`
+- `docs/archive/README.md`
+- `docs/guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md`
 
 핵심 실행 파일:
 
@@ -61,8 +63,10 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 
 - 날짜 버전 가이드 저장 구조 생성
 - `LATEST.md`, `INDEX.md`, `HISTORY.md` 자동 갱신 구조 생성
+- `CHANGELOG.md` 자동 갱신 구조 생성
 - 실행용 prompt-only 문서 생성
 - 생성용 운영 MD 생성
+- 초기 가이드와 과거 운영 메모를 `docs/archive/` 아래로 편입
 
 ### 2-2. 자동화
 
@@ -72,8 +76,9 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 - `cron_refresh.sh`: 주기 실행용 래퍼
 - `collect_oci_probe.sh`: Codex 실행 전에 VM 일반 환경에서 OCI CLI 조회 결과 수집
 - `collect_oci_probe.sh`는 raw 조회 결과와 별도로 `probe.json`, `customer-summary.md`를 생성해 고객용 리포트에 안전하게 반영할 수 있는 정규화 입력을 제공합니다.
-- `collect_oci_ai_catalog.sh`: 구독 READY 리전 기준으로 GenAI 모델, Data Science shape, IaaS GPU shape를 조회하고 공개 가능한 `docs/data/latest-catalog.json` 스냅샷을 생성
+- `collect_oci_ai_catalog.sh`: 구독 READY 리전 기준으로 GenAI 모델, Data Science shape, IaaS GPU shape를 조회하고 공개 가능한 날짜별 catalog 스냅샷을 생성
 - `docs/catalog.html`: GitHub Pages에서 정적 JSON을 읽어 리전별 AI catalog를 필터링해 보여주는 UI
+- `docs/catalog-notes.md`: catalog 컬럼별 source badge, query status, retry 취합 해석 기준
 - `docs/data/dac-reference.json`: v3 가이드 기준 공식 DAC GPU family 공개 reference. CLI 관측값이 아니라 공식 문서 기준 보조 데이터입니다.
 - `docs/appendix/private-endpoint-architecture.md`: GenAI/DAC/GPU 미지원 리전에서 private endpoint와 cross-region 접근을 어떻게 설명할지 정리한 별첨
 - `check_public_docs.sh`: 공개 JSON과 docs 문서의 민감 문자열 노출 여부를 발행 전 검사
@@ -129,8 +134,9 @@ MAILTO=""
 ### 3-3. OCI CLI 관련
 
 - `region-subscription list`는 성공
-- `compute shape list`는 현재 계정/권한으로 `NotAuthorizedOrNotFound`
-- 따라서 IaaS GPU 리전별 실측표는 문서 기반 해석으로 대체 중
+- 2026-05-19 AI catalog 스냅샷 기준 `compute shape list`는 43개 리전에서 success로 정규화됨
+- 일부 GenAI model list 조회는 리전별로 실패할 수 있으므로 공개 가이드는 공식 문서와 스냅샷 조회 상태를 분리해서 해석함
+- shape 가시성은 즉시 생성 가능 또는 capacity 보장을 뜻하지 않음
 
 ### 3-4. GitHub 관련
 
@@ -153,10 +159,12 @@ MAILTO=""
 - Codex 실행 전 `runs/<date>-oci-probe/summary.md`에 OCI CLI 사전 조회 결과 저장
 - Codex 실행 전 `runs/<date>-oci-probe/probe.json`과 `customer-summary.md`에 리포트 생성용 정규화 결과 저장
 - Codex 실행 전 `runs/<date>-ai-catalog/`에 리전별 AI catalog raw 결과 저장
-- Codex 실행 전 `docs/data/catalog-<date>.json`과 `docs/data/latest-catalog.json`에 공개 가능한 스냅샷 저장
-- AI catalog 수집은 `OCI_CATALOG_PARALLELISM` 동시 실행 수로 병렬 처리하며 기본값은 `8`
+- Codex 실행 전 `docs/data/catalog-<date>.json`에 공개 가능한 스냅샷 저장. 성공한 CLI 조회가 하나 이상 있을 때만 `docs/data/latest-catalog.json` 갱신
+- AI catalog 수집은 기본 `OCI_CATALOG_PROFILE=fast`로 실행하며 timeout `20`, attempts `1`, retry delay `0`, parallelism `24`를 사용
+- 보완 조회는 `balanced`, 장애 조사/발행 전 수동 확인은 `deep` profile을 명시해 실행
+- 공개 JSON의 `query_attempts`는 최종 상태, 선택된 시도 번호, 관측 항목 수만 저장하고 raw 경로와 오류 전문은 공개하지 않음
 - 날짜별 공개 스냅샷은 `OCI_CATALOG_RETENTION_COUNT` 기준으로 보관하며 기본값은 `12`
-- 공개 JSON 생성 후 내부 식별자, raw 출력 경로, 요청 식별자, profile 문자열이 들어갔는지 자동 검사
+- 공개 JSON 생성 후 내부 식별자, raw 출력 경로, 요청 추적값, profile 문자열이 들어갔는지 자동 검사
 - 발행 전 `./scripts/check_public_docs.sh`로 `docs/data/*.json` 문법과 공개 문서 금지 패턴을 확인
 - Codex 실행 타임아웃
 - 마지막 Codex 메시지 파일 저장
@@ -202,8 +210,9 @@ OCI 사전 조회 결과:
 2. `compute shape list` 권한이 있는 OCI 프로파일을 확보하면 리전별 IaaS GPU 실측표 추가
 3. GitHub Actions를 실제 활성화할지 재검토
 4. v3 문서 구조에서도 `probe.json` 입력 계약은 유지
-5. 공개 catalog JSON에는 OCID, tenancy OCID, compartment OCID, namespace, OCI profile, raw stdout/stderr 경로, request id, raw 오류 전문을 넣지 않기
+5. 공개 catalog JSON에는 OCID, tenancy OCID, compartment OCID, namespace, OCI profile, raw stdout/stderr 경로, 요청 추적값, raw 오류 전문을 넣지 않기
 6. GitHub Pages UI는 정적 스냅샷 필터링만 수행하고 OCI API를 직접 호출하지 않기
+7. `docs/archive/`의 오래된 기준 문서는 최신 설계 근거가 아니라 참고 이력으로만 사용하기
 
 제외한 항목:
 
@@ -254,6 +263,20 @@ sed -n '1,20p' /etc/cron.d/oci-genai-guide-refresh
 - `refresh_index.sh`가 `docs/CHANGELOG.md`를 자동 생성하도록 변경
 - `cron_refresh.sh`가 git commit/push 실패를 숨기지 않고 실패로 종료하도록 변경
 - 실패 알림 연동은 현재 범위에서 제외
+
+### 2026-05-21
+
+- 상위 디렉토리에 있던 현재 프로젝트 관련 초기 가이드와 생성 지침을 `docs/archive/`로 편입
+- `docs/UPDATE_2026-05-18.md`를 `docs/archive/update-notes/`로 이동해 과거 운영 메모로 분류
+- `refresh_index.sh`가 INDEX에 최신 가이드, catalog, latest, changelog, history, private endpoint, archive 진입점을 함께 생성하도록 정리
+
+### 2026-05-21 catalog UI / retry
+
+- `collect_oci_ai_catalog.sh`에 `fast`/`balanced`/`deep` profile과 best-result 취합을 추가
+- `docs/data/latest-catalog.json`에 `query_attempts` 공개 메타데이터를 추가
+- `docs/catalog.html`에서 컬럼별 source badge, GPU shape/status 매핑, `Query Details`를 명확히 표시
+- `timeout`과 `failed`는 미지원이 아니라 조회 불완전으로 설명
+- timeout-only 실행은 날짜별 스냅샷에 보존하되 `latest-catalog.json`은 마지막 유효 스냅샷으로 유지
 
 ---
 
