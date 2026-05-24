@@ -1,9 +1,5 @@
 # OCI Generative AI / DAC / AQUA / IaaS GPU 리전 및 모델 가이드 v3
 
-> GitHub Pages 리전별 GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html
-> 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)
-> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)
-
 작성일: 2026-05-24  
 기준 데이터: 2026-05-24 OCI probe summary, OCI probe JSON, 고객용 probe summary, AI catalog 공개 JSON, AI catalog 고객용 matrix  
 문서 성격: 고객 의사결정용 공개 요약입니다. 내부 운영 로그, 계정 식별자, 보조 연결 확인 값, 원본 출력 경로, 원본 오류 전문은 본문에서 제외했습니다.
