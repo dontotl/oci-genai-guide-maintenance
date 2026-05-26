@@ -72,7 +72,7 @@ https://github.com/dontotl/oci-genai-guide-maintenance
 
 - `new_guide.sh`: 새 날짜 초안 + 프롬프트 생성
 - `publish_guide.sh`: 초안 발행 + latest/index/history 갱신
-- `refresh_index.sh`: 인덱스와 changelog 파일 재생성
+- `refresh_index.sh`: 인덱스, changelog, GitHub Pages 루트 `docs/index.html` 재생성
 - `cron_refresh.sh`: 주기 실행용 래퍼
 - `collect_oci_probe.sh`: Codex 실행 전에 VM 일반 환경에서 OCI CLI 조회 결과 수집
 - `collect_oci_probe.sh`는 raw 조회 결과와 별도로 `probe.json`, `customer-summary.md`를 생성해 고객용 리포트에 안전하게 반영할 수 있는 정규화 입력을 제공합니다.

@@ -114,7 +114,8 @@ cd /home/opc/oci-genai-guide-maintenance
 3. VM의 일반 실행 환경에서 리전별 AI catalog 스냅샷을 수집하고 공개용 JSON을 `docs/data/`에 저장
 4. `codex exec` 또는 `codex`로 prompt 실행 시도
 5. 결과 파일이 채워졌다고 판단되면 `publish_guide.sh` 실행
-6. Git 저장소라면 자동 commit/push 시도
+6. `refresh_index.sh`가 `docs/index.html`을 보장해 GitHub Pages 루트 URL이 `catalog.html`로 연결되도록 갱신
+7. Git 저장소라면 자동 commit/push 시도
 
 OCI 사전 조회 산출물:
 
@@ -131,6 +132,7 @@ AI catalog 스냅샷 산출물:
 - `docs/data/catalog-<date>.json`: 날짜별 공개용 스냅샷
 - `docs/data/dac-reference.json`: 현재 v3 가이드 기준 DAC GPU family 공개 reference
 - `docs/catalog.html`: 정적 리전 탐색 UI
+- `docs/index.html`: GitHub Pages 루트 URL에서 `catalog.html`로 보내는 진입점
 - `docs/catalog-notes.md`: catalog 컬럼별 데이터 기준과 `timeout`/`failed` 해석 기준
 - `runs/<date>-ai-catalog/*.json`, `*.err`, `*.meta`: 운영자 검증용 raw 조회 결과
 - `runs/<date>-ai-catalog/customer-matrix.md`: 고객용 표에 반영 가능한 요약

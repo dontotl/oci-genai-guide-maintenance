@@ -4,11 +4,88 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 GUIDE_DIR="$ROOT_DIR/docs/guides"
 INDEX_FILE="$ROOT_DIR/docs/INDEX.md"
+INDEX_HTML_FILE="$ROOT_DIR/docs/index.html"
 LATEST_FILE="$ROOT_DIR/docs/LATEST.md"
 HISTORY_FILE="$ROOT_DIR/docs/HISTORY.md"
 CHANGELOG_FILE="$ROOT_DIR/docs/CHANGELOG.md"
 
 mkdir -p "$GUIDE_DIR"
+
+write_pages_index() {
+  cat > "$INDEX_HTML_FILE" <<'EOF'
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="refresh" content="0; url=./catalog.html">
+  <link rel="canonical" href="./catalog.html">
+  <title>OCI AI Region Catalog</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f8f9;
+      --panel: #ffffff;
+      --text: #1d252d;
+      --muted: #5f6b76;
+      --line: #d8dde3;
+      --accent: #0f6b6e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(520px, calc(100% - 32px));
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--accent);
+      font-weight: 700;
+    }
+  </style>
+  <script>
+    window.location.replace('./catalog.html');
+  </script>
+</head>
+<body>
+  <main>
+    <h1>OCI AI Region Catalog</h1>
+    <p>카탈로그 화면으로 이동 중입니다.</p>
+    <a href="./catalog.html">catalog.html 열기</a>
+  </main>
+</body>
+</html>
+EOF
+}
 
 mapfile -t guides < <(
   find "$GUIDE_DIR" -maxdepth 1 -type f \( -name 'OCI_GenAI_Regional_Model_Guide_v3_*.md' -o -name 'OCI_GenAI_Regional_Model_Guide_v2_*.md' \) |
@@ -23,6 +100,8 @@ mapfile -t guides < <(
 )
 
 if [[ ${#guides[@]} -eq 0 ]]; then
+  write_pages_index
+
   cat > "$INDEX_FILE" <<'EOF'
 # OCI GenAI Regional Guide Index
 
@@ -48,6 +127,8 @@ EOF
 EOF
   exit 0
 fi
+
+write_pages_index
 
 latest="${guides[0]}"
 cp "$latest" "$LATEST_FILE"
@@ -143,5 +224,6 @@ mv "$latest_tmp" "$LATEST_FILE"
 
 printf 'Updated latest: %s\n' "$LATEST_FILE"
 printf 'Updated index: %s\n' "$INDEX_FILE"
+printf 'Updated pages root: %s\n' "$INDEX_HTML_FILE"
 printf 'Updated history: %s\n' "$HISTORY_FILE"
 printf 'Updated changelog: %s\n' "$CHANGELOG_FILE"
