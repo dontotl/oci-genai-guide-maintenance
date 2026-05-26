@@ -1,10 +1,11 @@
 # OCI Generative AI / DAC / AQUA / IaaS GPU 리전 및 모델 가이드 v3
 
 작성일: 2026-05-24  
-기준 데이터: 2026-05-24 OCI probe summary, OCI probe JSON, 고객용 probe summary, AI catalog 공개 JSON, AI catalog 고객용 matrix  
-문서 성격: 고객 의사결정용 공개 요약입니다. 내부 운영 로그, 계정 식별자, 보조 연결 확인 값, 원본 출력 경로, 원본 오류 전문은 본문에서 제외했습니다.
+기준 데이터 : 2026-05-24, 출처는 OCI Docs, OCI CLI 조회  
+문서 성격 : OCI Gen AI 구성 가이드를 위한 문서입니다.
 
-> 리전별 스냅샷은 [docs/catalog.html](../docs/catalog.html)에서 필터링해 볼 수 있습니다. Private endpoint 설계는 [docs/appendix/private-endpoint-architecture.md](../docs/appendix/private-endpoint-architecture.md)를 함께 보시면 됩니다. Private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하는 기능이 아닙니다. 지원 리전에 있는 OCI Generative AI endpoint를 private network로 접근하는 패턴입니다.
+> 리전별 스냅샷은 https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html 에서 확인할 수 있습니다.
+> Private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하는 기능이 아닙니다. 지원 리전에 있는 OCI Generative AI endpoint를 private network로 접근하는 패턴입니다.
 
 ## 1. 처음 읽는 분을 위한 요약
 
@@ -29,8 +30,6 @@ flowchart LR
   E --> I["AQUA / Data Science"]
   F --> J["IaaS GPU"]
 ```
-
-Mermaid가 보이지 않는 환경에서는 아래 표를 보시면 됩니다.
 
 | 범주 | 대표 사용처 | 고객이 확인할 것 |
 |---|---|---|

@@ -136,9 +136,11 @@ latest_tmp="$(mktemp)"
 {
   sed -n '1p' "$LATEST_FILE"
   echo
-  echo "> GitHub Pages 리전별 GUI: https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html"
-  echo "> 리전별 실측 스냅샷 UI: [catalog.html](catalog.html)"
-  echo "> Private endpoint 별첨: [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)"
+  echo "> github 페이지 웹사이트 :"
+  echo "> https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html"
+  echo ">"
+  echo "> Private endpoint 가이드 :"
+  echo "> [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)"
   echo
   awk '
     NR == 1 { next }
