@@ -57,7 +57,10 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - `CLI에서 보임`, `공식 문서상 지원`, `capacity 확인 필요`를 서로 다른 의미로 구분해서 쓸 것
 - probe summary에 성공 결과가 있으면 `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 말 것
 - 문장 종결은 정중한 보고서체로 통일할 것. 예: `작성했다` 대신 `작성했습니다`, `썼다` 대신 `썼습니다`
-- deprecated / retired / newly added 모델이 있으면 문서 앞부분의 `이번 업데이트 변화 요약`에 먼저 적을 것
+- `이번 업데이트 변화 요약`에는 Oracle Docs, Oracle release notes, 공식 모델 문서에서 확인한 서비스/모델 변경만 적을 것
+- `이번 업데이트 변화 요약` 표는 `기준일` 기준 최신 날짜가 위로 오도록 내림차순 정렬할 것
+- OCI CLI 조회 결과, 프로젝트 스냅샷 실행 결과, probe 성공/실패 요약은 `이번 업데이트 변화 요약`에 넣지 말고 11번 `리전 및 가용성 확인` 또는 13번 `검증 기준`에서만 다룰 것
+- deprecated / retired / newly added 모델이 Oracle 공식 문서에서 확인되면 문서 앞부분의 `이번 업데이트 변화 요약`에 먼저 적을 것
 - `LATEST.md`로 복사될 수 있으므로 앞부분 1페이지 안에 핵심 변화가 보이게 쓸 것
 - 표가 너무 넓으면 분리할 것
 - 관리형 기본 모델과 imported model을 혼동하지 말 것

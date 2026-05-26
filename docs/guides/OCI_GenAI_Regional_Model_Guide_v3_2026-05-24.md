@@ -68,15 +68,11 @@ flowchart TD
 
 | 변화 | 기준일 | 고객 영향 |
 |---|---:|---|
-| OCI Generative AI가 UAE Central, `me-abudhabi-1`에서 제공되기 시작한 것으로 Oracle 릴리스 노트에 공지되어 있습니다. | 2026-05-05 | 중동 리전 설계 시 Abu Dhabi를 GenAI 후보 리전으로 포함할 수 있습니다. |
-| Cohere Rerank 4가 추가되었습니다. `cohere.rerank-v4.0-fast`, `cohere.rerank-v4.0-pro`를 OCI CLI를 통한 리소스 조회 결과에서 확인했습니다. | 2026-05-09 | RAG 검색 품질 개선과 낮은 지연 시간 옵션을 분리해 설계할 수 있습니다. |
-| Cohere Embed 4의 텍스트+이미지 입력, configurable embedding dimension 등 신규 기능을 Oracle 문서에서 확인했습니다. | 2026-05-09 | 신규 벡터 인덱스 설계에서는 `cohere.embed-v4.0`을 우선 후보로 검토할 수 있습니다. |
-| imported model 호환 목록에 Alibaba Qwen과 Google Gemma 계열이 추가되었다고 Oracle 릴리스 노트에 공지되어 있습니다. | 2026-05-11 | 관리형 기본 모델이 아니라 import 가능한 모델입니다. On-demand 기본 모델과 혼동하지 않아야 합니다. |
 | xAI Voice 기반 TTS가 Oracle 릴리스 노트에 추가되었습니다. | 2026-05-15 | 음성 응답 워크로드를 GenAI 서비스 범주에서 검토할 수 있습니다. |
-| 2026-05-24 OCI CLI를 통한 리소스 조회 결과 기준 GenAI 모델이 관측된 READY 리전은 11개입니다. | 2026-05-24 | 리전별 모델 수는 아래 스냅샷 표를 기준으로 보시면 됩니다. |
-| 2026-05-24 대표 리전 OCI probe는 구독 리전, Object Storage 연결 확인, 대표 리전 Compute GPU shape 조회 모두 성공으로 정규화되었습니다. | 2026-05-24 | `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 않습니다. |
-
-이번 OCI CLI를 통한 리소스 조회 결과의 GenAI 모델 항목은 `lifecycle_state=ACTIVE`로 관측되었습니다. 이 스냅샷 안에서는 deprecated 또는 retired로 표시된 모델을 별도 관측하지 못했습니다. 다만 Oracle은 모델별 release/retirement 페이지를 제공하므로 신규 도입 전에는 대상 모델의 retirement date를 다시 확인해야 합니다.
+| imported model 호환 목록에 Alibaba Qwen과 Google Gemma 계열이 추가되었다고 Oracle 릴리스 노트에 공지되어 있습니다. | 2026-05-11 | 관리형 기본 모델이 아니라 import 가능한 모델입니다. On-demand 기본 모델과 혼동하지 않아야 합니다. |
+| Cohere Rerank 4가 Oracle 문서에 추가되었습니다. `cohere.rerank-v4.0-fast`, `cohere.rerank-v4.0-pro`를 RAG 검색 품질 개선 후보로 검토할 수 있습니다. | 2026-05-09 | RAG 검색 품질 개선과 낮은 지연 시간 옵션을 분리해 설계할 수 있습니다. |
+| Cohere Embed 4의 텍스트+이미지 입력, configurable embedding dimension 등 신규 기능을 Oracle 문서에서 확인했습니다. | 2026-05-09 | 신규 벡터 인덱스 설계에서는 `cohere.embed-v4.0`을 우선 후보로 검토할 수 있습니다. |
+| OCI Generative AI가 UAE Central, `me-abudhabi-1`에서 제공되기 시작한 것으로 Oracle 릴리스 노트에 공지되어 있습니다. | 2026-05-05 | 중동 리전 설계 시 Abu Dhabi를 GenAI 후보 리전으로 포함할 수 있습니다. |
 
 ## 3. 선택 기준과 용어
 
