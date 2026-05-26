@@ -27,6 +27,7 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - 기준 데이터 문구는 `기준 데이터 : <DATE>, 출처는 OCI Docs, OCI CLI 조회`로 쓸 것
 - 문서 성격 문구는 `문서 성격 : OCI Gen AI 구성 가이드를 위한 문서입니다.`로 쓸 것
 - 리전별 스냅샷 안내는 `https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html` 공개 URL을 안내할 것
+- 보고서 마지막의 `함께 볼 로컬 자료`에는 `리전별 스냅샷 UI: docs/catalog.html` 항목을 넣지 말 것
 - `docs/appendix/private-endpoint-architecture.md`는 상단의 `Private endpoint 가이드 :` 링크로만 안내하고, 본문에서 `Private endpoint 설계는 docs/appendix/...를 함께 보시면 됩니다` 문구를 반복하지 말 것
 - private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하는 기능이 아니라, 지원 리전에 있는 GenAI endpoint를 private network로 접근하는 패턴이라고 명확히 적을 것
 

@@ -307,6 +307,5 @@ OCI CLI를 통한 리소스 조회 결과 기준입니다. `모델 수`는 리�
 
 ### 함께 볼 로컬 자료
 
-- 리전별 스냅샷 UI: [docs/catalog.html](../docs/catalog.html)
 - catalog 해석 기준: [docs/catalog-notes.md](../docs/catalog-notes.md)
 - Private endpoint 가이드: [docs/appendix/private-endpoint-architecture.md](../docs/appendix/private-endpoint-architecture.md)

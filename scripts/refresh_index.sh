@@ -151,6 +151,7 @@ latest_tmp="$(mktemp)"
     { print }
   ' "$LATEST_FILE" |
     sed \
+      -e '/^- 리전별 스냅샷 UI:/d' \
       -e 's|(../catalog.html)|(catalog.html)|g' \
       -e 's|(../appendix/|(appendix/|g'
 } > "$latest_tmp"
