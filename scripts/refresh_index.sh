@@ -169,7 +169,7 @@ mv "$latest_tmp" "$LATEST_FILE"
   echo "- [LATEST.md](LATEST.md): 최신 가이드 복사본"
   echo "- [CHANGELOG.md](CHANGELOG.md)"
   echo "- [HISTORY.md](HISTORY.md)"
-  echo "- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨"
+  echo "- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): Private endpoint 가이드"
   echo "- [archive/README.md](archive/README.md): 초기 가이드와 운영 메모 보관 위치"
   echo
   echo "## Guides"

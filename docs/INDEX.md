@@ -10,7 +10,7 @@
 - [LATEST.md](LATEST.md): 최신 가이드 복사본
 - [CHANGELOG.md](CHANGELOG.md)
 - [HISTORY.md](HISTORY.md)
-- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): GenAI private endpoint 아키텍처 별첨
+- [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md): Private endpoint 가이드
 - [archive/README.md](archive/README.md): 초기 가이드와 운영 메모 보관 위치
 
 ## Guides

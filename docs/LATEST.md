@@ -75,14 +75,14 @@ flowchart TD
 | 변화 | 기준일 | 고객 영향 |
 |---|---:|---|
 | OCI Generative AI가 UAE Central, `me-abudhabi-1`에서 제공되기 시작한 것으로 Oracle 릴리스 노트에 공지되어 있습니다. | 2026-05-05 | 중동 리전 설계 시 Abu Dhabi를 GenAI 후보 리전으로 포함할 수 있습니다. |
-| Cohere Rerank 4가 추가되었습니다. `cohere.rerank-v4.0-fast`, `cohere.rerank-v4.0-pro`를 catalog에서 확인했습니다. | 2026-05-09 | RAG 검색 품질 개선과 낮은 지연 시간 옵션을 분리해 설계할 수 있습니다. |
+| Cohere Rerank 4가 추가되었습니다. `cohere.rerank-v4.0-fast`, `cohere.rerank-v4.0-pro`를 OCI CLI를 통한 리소스 조회 결과에서 확인했습니다. | 2026-05-09 | RAG 검색 품질 개선과 낮은 지연 시간 옵션을 분리해 설계할 수 있습니다. |
 | Cohere Embed 4의 텍스트+이미지 입력, configurable embedding dimension 등 신규 기능을 Oracle 문서에서 확인했습니다. | 2026-05-09 | 신규 벡터 인덱스 설계에서는 `cohere.embed-v4.0`을 우선 후보로 검토할 수 있습니다. |
 | imported model 호환 목록에 Alibaba Qwen과 Google Gemma 계열이 추가되었다고 Oracle 릴리스 노트에 공지되어 있습니다. | 2026-05-11 | 관리형 기본 모델이 아니라 import 가능한 모델입니다. On-demand 기본 모델과 혼동하지 않아야 합니다. |
 | xAI Voice 기반 TTS가 Oracle 릴리스 노트에 추가되었습니다. | 2026-05-15 | 음성 응답 워크로드를 GenAI 서비스 범주에서 검토할 수 있습니다. |
-| 2026-05-24 공개 catalog JSON 기준 GenAI 모델이 관측된 READY 리전은 11개입니다. | 2026-05-24 | 리전별 모델 수는 아래 스냅샷 표를 기준으로 보시면 됩니다. |
+| 2026-05-24 OCI CLI를 통한 리소스 조회 결과 기준 GenAI 모델이 관측된 READY 리전은 11개입니다. | 2026-05-24 | 리전별 모델 수는 아래 스냅샷 표를 기준으로 보시면 됩니다. |
 | 2026-05-24 대표 리전 OCI probe는 구독 리전, Object Storage 연결 확인, 대표 리전 Compute GPU shape 조회 모두 성공으로 정규화되었습니다. | 2026-05-24 | `region-subscription list`, `compute shape list`, `os ns get`을 실패로 쓰지 않습니다. |
 
-이번 공개 catalog JSON의 GenAI 모델 항목은 `lifecycle_state=ACTIVE`로 관측되었습니다. 이 스냅샷 안에서는 deprecated 또는 retired로 표시된 모델을 별도 관측하지 못했습니다. 다만 Oracle은 모델별 release/retirement 페이지를 제공하므로 신규 도입 전에는 대상 모델의 retirement date를 다시 확인해야 합니다.
+이번 OCI CLI를 통한 리소스 조회 결과의 GenAI 모델 항목은 `lifecycle_state=ACTIVE`로 관측되었습니다. 이 스냅샷 안에서는 deprecated 또는 retired로 표시된 모델을 별도 관측하지 못했습니다. 다만 Oracle은 모델별 release/retirement 페이지를 제공하므로 신규 도입 전에는 대상 모델의 retirement date를 다시 확인해야 합니다.
 
 ## 3. 선택 기준과 용어
 
@@ -119,17 +119,17 @@ flowchart TD
 
 ## 5. On-demand 모델 활용
 
-On-demand는 가장 먼저 검토할 경로입니다. Oracle 문서의 Models by Region 표와 이번 catalog JSON을 함께 보고, 원하는 모델이 고객의 데이터/지연 시간/규제 조건에 맞는 리전에 있는지 확인합니다.
+On-demand는 가장 먼저 검토할 경로입니다. Oracle 문서의 Models by Region 표와 OCI CLI를 통한 리소스 조회 결과를 함께 보고, 원하는 모델이 고객의 데이터/지연 시간/규제 조건에 맞는 리전에 있는지 확인합니다.
 
-| 모델 범주 | catalog에서 관측된 예 | 대표 사용처 |
+| 모델 범주 | OCI CLI 조회 결과에서 관측된 예 | 대표 사용처 |
 |---|---|---|
 | Chat / Reasoning | Command A, Llama 4, Gemini 2.5, Grok, gpt-oss | 챗봇, 요약, 코드/추론, agentic task |
 | Embedding | `cohere.embed-v4.0`, Embed 3 계열 | RAG 인덱싱, semantic search |
 | Rerank | `cohere.rerank-v4.0-fast`, `cohere.rerank-v4.0-pro`, Rerank 3.5 | 검색 결과 재정렬, RAG 품질 개선 |
 | Vision / multimodal | Command A Vision, Gemini, Llama Vision, Embed 4 | 이미지+텍스트 이해, 멀티모달 검색 |
-| Guard / safety / utility | Llama Guard, content moderator, prompt injection detector | 입력/출력 안전성 보조 |
+| Guard / safety / 보조 모델 | Llama Guard, content moderator, prompt injection detector | 입력/출력 안전성 보조 |
 
-On-demand 설계에서는 `지원 리전`, `모델명`, `API operation`, `throttling`, `데이터 이동`, `fallback 모델`을 같이 정리해야 합니다. Oracle 문서에 없거나 catalog에서 관측되지 않은 리전은 추정으로 지원한다고 쓰지 않습니다.
+On-demand 설계에서는 `지원 리전`, `모델명`, `API operation`, `throttling`, `데이터 이동`, `fallback 모델`을 같이 정리해야 합니다. Oracle 문서에 없거나 OCI CLI 조회 결과에서 관측되지 않은 리전은 추정으로 지원한다고 쓰지 않습니다.
 
 ## 6. Dedicated AI Cluster 활용
 
@@ -156,7 +156,7 @@ AQUA / Data Science는 오픈 모델을 빠르게 평가, 배포, fine-tuning하
 | 운영 배포 | Model Deployment shape, autoscaling, endpoint 보안, 로깅을 확인합니다. |
 | GPU 필요 | Data Science 지원 shape와 테넌시 limit, quota, capacity를 확인합니다. |
 
-AI catalog 공개 JSON 기준 Data Science GPU family가 관측된 리전은 아래와 같습니다. 이 표는 AQUA에서 GPU 재고가 보장된다는 뜻이 아니라 Data Science/AQUA 경로를 검토할 수 있는 shape 가시성 단서입니다.
+OCI CLI를 통한 리소스 조회 결과 기준 Data Science GPU family가 관측된 리전은 아래와 같습니다. 이 표는 AQUA에서 GPU 재고가 보장된다는 뜻이 아니라 Data Science/AQUA 경로를 검토할 수 있는 shape 가시성 단서입니다.
 
 | 리전 | Data Science GPU family |
 |---|---|
@@ -232,13 +232,11 @@ Fine-tuning은 서비스별로 의미가 다릅니다. OCI Generative AI의 관�
 | IaaS GPU | 고객이 직접 fine-tuning stack을 운영할 수 있습니다. | 프레임워크, 드라이버, 데이터 보안, 장애 대응 책임이 고객에게 있습니다. |
 | Imported model | 모델별 import 호환성과 배포/운영 조건을 확인합니다. | 관리형 기본 모델과 혼동하지 않습니다. |
 
-catalog JSON에서 `FINE_TUNE` capability가 관측된 모델 예시는 `cohere.command`, `cohere.command-light`, `cohere.command-r-16k`, `meta.llama-3-70b-instruct`, `meta.llama-3.1-70b-instruct`, `meta.llama-3.3-70b-instruct`입니다. 이 관측은 수집 시점의 API 응답 기준이며, 신규 설계에서는 반드시 Oracle 모델 상세 문서와 대상 리전의 DAC/fine-tuning 조건을 다시 확인해야 합니다.
+OCI CLI를 통한 리소스 조회 결과에서 `FINE_TUNE` capability가 관측된 모델 예시는 `cohere.command`, `cohere.command-light`, `cohere.command-r-16k`, `meta.llama-3-70b-instruct`, `meta.llama-3.1-70b-instruct`, `meta.llama-3.3-70b-instruct`입니다. 이 관측은 수집 시점의 API 응답 기준이며, 신규 설계에서는 반드시 Oracle 모델 상세 문서와 대상 리전의 DAC/fine-tuning 조건을 다시 확인해야 합니다.
 
 ## 11. 리전 및 가용성 확인
 
 ### 11-1. OCI 조회 성공/실패 상태
-
-2026-05-24 고객용 probe summary 기준입니다. 이 문서는 Codex 샌드박스에서 OCI CLI를 재실행하지 않았고, 사전 수집 결과를 우선 근거로 사용했습니다.
 
 | 조회 항목 | 결과 | 고객 관점의 의미 |
 |---|---|---|
@@ -249,73 +247,21 @@ catalog JSON에서 `FINE_TUNE` capability가 관측된 모델 예시는 `cohere.
 
 ### 11-2. GenAI 모델이 관측된 리전
 
-AI catalog 공개 JSON 기준입니다. `모델 수`는 리전별 모델 entry 수이며, 같은 모델이 여러 리전에 있으면 각 리전에서 따로 셉니다.
+OCI CLI를 통한 리소스 조회 결과 기준입니다. `모델 수`는 리전별 모델 entry 수이며, 같은 모델이 여러 리전에 있으면 각 리전에서 따로 셉니다.
 
 | 리전 | 모델 수 | 주요 관측 모델군 | Data Science GPU | IaaS GPU |
 |---|---:|---|---|---|
-| `us-chicago-1` | 59 | Cohere, Google, Meta, OpenAI, xAI, utility | A10, A100, H100 | A10 |
-| `us-ashburn-1` | 42 | Cohere, Google, Meta, OpenAI, xAI, utility | A10, A100, H100, L40S | A10, A100, P100, V100 |
-| `ap-osaka-1` | 35 | Cohere, Google, Meta, OpenAI, utility | A10, L40S | A10, A100, V100 |
-| `eu-frankfurt-1` | 32 | Cohere, Google, Meta, OpenAI, utility | A10, A100, H100 | A10, A100, P100 |
-| `sa-saopaulo-1` | 32 | Cohere, Meta, OpenAI, utility | A10, A100, L40S | A10 |
-| `uk-london-1` | 32 | Cohere, Meta, OpenAI, utility | A10 | A10, V100 |
-| `us-phoenix-1` | 32 | Cohere, Google, Meta, OpenAI, xAI, utility | A10, A100 | A10, A100 |
-| `me-dubai-1` | 19 | Cohere, Meta, OpenAI, utility | A10 | A10 |
-| `ap-hyderabad-1` | 17 | Cohere, Google, Meta, OpenAI, utility | 없음 | 없음 |
-| `me-riyadh-1` | 16 | Cohere, Meta, OpenAI, utility | A10 | 없음 |
+| `us-chicago-1` | 59 | Cohere, Google, Meta, OpenAI, xAI, 보조/안전 모델 | A10, A100, H100 | A10 |
+| `us-ashburn-1` | 42 | Cohere, Google, Meta, OpenAI, xAI, 보조/안전 모델 | A10, A100, H100, L40S | A10, A100, P100, V100 |
+| `ap-osaka-1` | 35 | Cohere, Google, Meta, OpenAI, 보조/안전 모델 | A10, L40S | A10, A100, V100 |
+| `eu-frankfurt-1` | 32 | Cohere, Google, Meta, OpenAI, 보조/안전 모델 | A10, A100, H100 | A10, A100, P100 |
+| `sa-saopaulo-1` | 32 | Cohere, Meta, OpenAI, 보조/안전 모델 | A10, A100, L40S | A10 |
+| `uk-london-1` | 32 | Cohere, Meta, OpenAI, 보조/안전 모델 | A10 | A10, V100 |
+| `us-phoenix-1` | 32 | Cohere, Google, Meta, OpenAI, xAI, 보조/안전 모델 | A10, A100 | A10, A100 |
+| `me-dubai-1` | 19 | Cohere, Meta, OpenAI, 보조/안전 모델 | A10 | A10 |
+| `ap-hyderabad-1` | 17 | Cohere, Google, Meta, OpenAI, 보조/안전 모델 | 없음 | 없음 |
+| `me-riyadh-1` | 16 | Cohere, Meta, OpenAI, 보조/안전 모델 | A10 | 없음 |
 | `me-abudhabi-1` | 5 | Cohere, Meta | 없음 | 없음 |
-
-### 11-3. 전체 catalog matrix 요약
-
-표가 길어지는 것을 피하기 위해 모델 수와 GPU family만 요약했습니다. 자세한 필터링은 [docs/catalog.html](../docs/catalog.html)을 사용합니다.
-
-| Region | GenAI models | Data Science GPU | IaaS GPU | Query status |
-|---|---:|---|---|---|
-| `af-johannesburg-1` | 0 | A10 | A10 | failed, success |
-| `ap-batam-1` | 0 | 없음 | 없음 | failed, success |
-| `ap-chuncheon-1` | 0 | 없음 | 없음 | failed, success |
-| `ap-hyderabad-1` | 17 | 없음 | 없음 | success |
-| `ap-kulai-2` | 0 | 없음 | 없음 | failed, success |
-| `ap-melbourne-1` | 0 | A10 | A10, A100 | failed, success |
-| `ap-mumbai-1` | 0 | A10 | A10, A100 | success, timeout |
-| `ap-osaka-1` | 35 | A10, L40S | A10, A100, V100 | success |
-| `ap-seoul-1` | 0 | 없음 | A10, A100, V100 | failed, success |
-| `ap-singapore-1` | 0 | A10 | A10, A100 | failed, success |
-| `ap-singapore-2` | 0 | 없음 | 없음 | success |
-| `ap-sydney-1` | 0 | A10 | A10 | success, timeout |
-| `ap-tokyo-1` | 0 | A10 | A10, A100, V100 | failed, success |
-| `ca-montreal-1` | 0 | A10, A100 | 없음 | success, timeout |
-| `ca-toronto-1` | 0 | A10 | 없음 | success, timeout |
-| `eu-amsterdam-1` | 0 | 없음 | 없음 | success |
-| `eu-frankfurt-1` | 32 | A10, A100, H100 | A10, A100, P100 | success |
-| `eu-madrid-1` | 0 | A10 | A10 | failed, success |
-| `eu-madrid-3` | 0 | 없음 | 없음 | failed, success |
-| `eu-marseille-1` | 0 | 없음 | 없음 | failed, success |
-| `eu-milan-1` | 0 | A10 | A10, A100 | failed, success |
-| `eu-paris-1` | 0 | A10 | A10 | success, timeout |
-| `eu-stockholm-1` | 0 | 없음 | 없음 | failed, success |
-| `eu-turin-1` | 0 | 없음 | 없음 | failed, success |
-| `eu-zurich-1` | 0 | 없음 | 없음 | failed, success |
-| `il-jerusalem-1` | 0 | A10 | A10, A100 | failed, success |
-| `me-abudhabi-1` | 5 | 없음 | 없음 | success |
-| `me-dubai-1` | 19 | A10 | A10 | success |
-| `me-jeddah-1` | 0 | A10 | A10 | failed, success |
-| `me-riyadh-1` | 16 | A10 | 없음 | success |
-| `mx-monterrey-1` | 0 | A10 | A10 | failed, success |
-| `mx-queretaro-1` | 0 | A10 | A10 | failed, success |
-| `sa-bogota-1` | 0 | A10 | A10 | failed, success |
-| `sa-santiago-1` | 0 | A10 | A10 | success, timeout |
-| `sa-saopaulo-1` | 32 | A10, A100, L40S | A10 | success |
-| `sa-valparaiso-1` | 0 | 없음 | 없음 | failed, success |
-| `sa-vinhedo-1` | 0 | A10 | A10 | failed, success |
-| `uk-cardiff-1` | 0 | 없음 | 없음 | failed, success |
-| `uk-london-1` | 32 | A10 | A10, V100 | success |
-| `us-ashburn-1` | 42 | A10, A100, H100, L40S | A10, A100, P100, V100 | success |
-| `us-chicago-1` | 59 | A10, A100, H100 | A10 | success |
-| `us-phoenix-1` | 32 | A10, A100 | A10, A100 | success |
-| `us-sanjose-1` | 0 | A10, H200 | A10, A100, V100 | success, timeout |
-
-`failed, success`는 전체 행이 실패했다는 뜻이 아닙니다. catalog 수집 항목 중 일부는 실패했지만 다른 항목은 성공했으며, 공개 matrix는 항목별 최선 결과를 취합했습니다. `timeout`은 제한 시간 안에 응답을 받지 못했다는 뜻이며 미지원 판정이 아닙니다.
 
 ## 12. 모델 강점과 빠른 추천
 
@@ -337,8 +283,7 @@ AI catalog 공개 JSON 기준입니다. `모델 수`는 리전별 모델 entry �
 | 기준 | 적용 방식 |
 |---|---|
 | Oracle 공식 문서 우선 | 모델 리전, DAC unit, 모델 기능, private endpoint, Data Science shape, Compute shape 해석은 Oracle 공식 문서를 1순위로 사용했습니다. |
-| 사전 수집 OCI 결과 우선 | Codex 안에서 OCI CLI를 재실행하지 않고 2026-05-24 probe JSON, 고객용 summary, probe summary를 우선 근거로 사용했습니다. |
-| catalog JSON 우선 | 리전별 GenAI 모델, Data Science/AQUA shape, IaaS GPU shape 가시성은 2026-05-24 공개 catalog JSON과 고객용 matrix를 우선 근거로 사용했습니다. |
+| OCI CLI 조회 결과 우선 | 리전별 GenAI 모델, Data Science/AQUA shape, IaaS GPU shape 가시성은 2026-05-24 OCI CLI를 통한 리소스 조회 결과를 우선 근거로 사용했습니다. |
 | 내부 정보 제외 | 계정 식별자, 보조 연결 확인 값, 원본 출력 경로, 원본 오류 전문을 제외했습니다. |
 | capacity 비단정 | `CLI에서 보임`, `공식 문서상 지원`, `capacity 확인 필요`를 분리했습니다. |
 | private endpoint 비단정 | private endpoint를 미지원 리전의 모델/GPU 생성 수단으로 쓰지 않았습니다. |
@@ -374,4 +319,4 @@ AI catalog 공개 JSON 기준입니다. `모델 수`는 리전별 모델 entry �
 
 - 리전별 스냅샷 UI: [docs/catalog.html](../docs/catalog.html)
 - catalog 해석 기준: [docs/catalog-notes.md](../docs/catalog-notes.md)
-- private endpoint 별첨: [docs/appendix/private-endpoint-architecture.md](../docs/appendix/private-endpoint-architecture.md)
+- Private endpoint 가이드: [docs/appendix/private-endpoint-architecture.md](../docs/appendix/private-endpoint-architecture.md)

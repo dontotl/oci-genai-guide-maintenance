@@ -7,13 +7,13 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - OCI probe summary 경로: `<OCI_PROBE_SUMMARY>`
 - OCI probe JSON 경로: `<OCI_PROBE_JSON>`
 - 고객용 probe summary 경로: `<OCI_PROBE_CUSTOMER_SUMMARY>`
-- AI catalog 공개 JSON 경로: `<AI_CATALOG_JSON>`
+- OCI CLI 리소스 조회 결과 JSON 경로: `<AI_CATALOG_JSON>`
 - AI catalog 고객용 matrix 경로: `<AI_CATALOG_CUSTOMER_MATRIX>`
 - probe JSON과 고객용 summary가 있으면 이를 우선 근거로 사용
-- AI catalog JSON과 고객용 matrix가 있으면 리전별 GenAI 모델, Data Science/AQUA shape, IaaS GPU shape 가시성의 우선 근거로 사용
+- OCI CLI 리소스 조회 결과 JSON과 고객용 matrix가 있으면 리전별 GenAI 모델, Data Science/AQUA shape, IaaS GPU shape 가시성의 우선 근거로 사용
 - probe JSON이 없으면 probe summary와 원본 파일의 성공 결과를 사용
 - probe JSON, 고객용 summary, probe summary가 없거나 특정 항목이 실패한 경우에만 실패 이유를 적고 문서 기준 해석표로 대체
-- Codex 샌드박스의 네트워크 timeout을 실제 OCI CLI 조회 실패로 단정하지 말 것
+- 네트워크 timeout을 실제 OCI CLI 조회 실패로 단정하지 말 것
 - 결과 파일명은 `OCI_GenAI_Regional_Model_Guide_v3_<DATE>.md`
 - 결과 파일 경로는 `<OUTPUT_FILE>`입니다
 - 가로 폭이 너무 길지 않게 표를 여러 개로 나눌 것
@@ -21,9 +21,13 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - 반드시 한국어로 작성할 것
 - 보고서 본문 말투는 `~다`, `~했다`, `~썼다` 체가 아니라 `~습니다`, `~했습니다`, `~썼습니다` 체로 작성할 것
 - OCI를 잘 모르는 고객도 이해할 수 있도록 앞부분에 읽는 법과 주요 용어 설명을 넣을 것
-- 앞부분에 Mermaid로 `서비스 선택 흐름`과 `워크로드별 추천 아키텍처`를 넣을 것. `서비스 선택 흐름`은 긴 이지선다가 아니라 `On-demand`, `Dedicated AI Cluster`, `AQUA / Data Science`, `IaaS GPU`의 4대 선택 범주로 단순화할 것. `워크로드별 추천 아키텍처`는 워크로드에서 대표 모델/기능 조합을 거쳐 4대 선택 범주로 연결할 것. Mermaid가 보이지 않는 환경을 위해 바로 아래에 짧은 요약 표도 유지할 것
+- 앞부분에 Mermaid로 `서비스 선택 흐름`과 `워크로드별 추천 아키텍처`를 넣을 것. `서비스 선택 흐름`은 긴 이지선다가 아니라 `On-demand`, `Dedicated AI Cluster`, `AQUA / Data Science`, `IaaS GPU`의 4대 선택 범주로 단순화할 것. `워크로드별 추천 아키텍처`는 워크로드에서 대표 모델/기능 조합을 거쳐 4대 선택 범주로 연결할 것. Mermaid 바로 아래에 짧은 요약 표도 유지하되, `Mermaid가 보이지 않는 환경에서는 아래 표를 보시면 됩니다` 같은 안내 문장은 쓰지 말 것
 - 내부 운영 로그, 로컬 파일 경로, 보조 연결 확인 값처럼 고객 의사결정에 직접 필요 없는 내용은 본문에서 제외할 것
-- `docs/catalog.html`의 리전별 스냅샷 UI와 `docs/appendix/private-endpoint-architecture.md`의 private endpoint 별첨을 안내할 것
+- 상단 안내 문구는 `github 페이지 웹사이트 :`, `Private endpoint 가이드 :` 표현을 사용하고 줄바꿈을 적용할 것
+- 기준 데이터 문구는 `기준 데이터 : <DATE>, 출처는 OCI Docs, OCI CLI 조회`로 쓸 것
+- 문서 성격 문구는 `문서 성격 : OCI Gen AI 구성 가이드를 위한 문서입니다.`로 쓸 것
+- 리전별 스냅샷 안내는 `https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html` 공개 URL을 안내할 것
+- `docs/appendix/private-endpoint-architecture.md`는 상단의 `Private endpoint 가이드 :` 링크로만 안내하고, 본문에서 `Private endpoint 설계는 docs/appendix/...를 함께 보시면 됩니다` 문구를 반복하지 말 것
 - private endpoint는 미지원 리전에 모델이나 GPU capacity를 생성하는 기능이 아니라, 지원 리전에 있는 GenAI endpoint를 private network로 접근하는 패턴이라고 명확히 적을 것
 
 반드시 포함할 항목:
@@ -59,6 +63,10 @@ OCI 리전별 Generative AI / DAC / AQUA / IaaS GPU 가이드를 한국어 md로
 - 관리형 기본 모델과 imported model을 혼동하지 말 것
 - `지원`, `shape 가시성`, `DAC hosting`, `fine-tuning`, `AQUA 가능`, `실제 capacity`가 서로 다른 의미임을 친절하게 설명할 것
 - `shape가 보임`을 `즉시 생성 가능`으로, `DAC hosting 가능`을 `fine-tuning 가능`으로, `AQUA 지원`을 `리전별 GPU 재고 보장`으로 단정하지 말 것
+- 고객용 본문에서는 `catalog JSON`, `AI catalog 공개 JSON`, `공개 catalog JSON`, `catalog에서 관측`, `utility` 표현을 쓰지 말 것
+- 고객용 본문에서는 `OCI CLI를 통한 리소스 조회 결과`, `OCI CLI 조회 결과에서 관측`, `OCI CLI 조회 결과의 API 응답 기준`, `보조/안전 모델` 표현을 사용할 것
+- 고객용 본문에는 `Codex 샌드박스`, `고객용 probe summary 기준`, `사전 수집 결과를 우선 근거` 같은 내부 작성 과정 표현을 쓰지 말 것
+- 11번 `리전 및 가용성 확인`에는 전체 리전 matrix를 별도 11-3 섹션으로 넣지 말 것. 대표 요약과 GenAI 모델 관측 리전 표만 유지할 것
 
 추가로 해줄 것:
 
