@@ -1,11 +1,5 @@
 # OCI Generative AI / DAC / AQUA / IaaS GPU 리전 및 모델 가이드 v3
 
-> github 페이지 웹사이트 :
-> https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html
->
-> Private endpoint 가이드 :
-> [appendix/private-endpoint-architecture.md](appendix/private-endpoint-architecture.md)
-
 작성일 : 2026-05-31  
 github 페이지 웹사이트 :  
 https://dontotl.github.io/oci-genai-guide-maintenance/catalog.html  

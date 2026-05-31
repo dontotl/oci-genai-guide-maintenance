@@ -1,6 +1,6 @@
 # OCI GenAI Regional Guide Index
 
-최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-24.md`
+최신 가이드: `OCI_GenAI_Regional_Model_Guide_v3_2026-05-31.md`
 
 ## Entry Points
 
@@ -15,6 +15,7 @@
 
 ## Guides
 
+- [OCI_GenAI_Regional_Model_Guide_v3_2026-05-31.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-31.md)
 - [OCI_GenAI_Regional_Model_Guide_v3_2026-05-24.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-24.md)
 - [OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-21.md)
 - [OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md](guides/OCI_GenAI_Regional_Model_Guide_v3_2026-05-19.md)
